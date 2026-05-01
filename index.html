@@ -124,9 +124,10 @@
           let sCounter = 0;
           setInterval(() => {
             if (!mainSlider) return;
+            const slideWidth = mainSlider.firstElementChild.clientWidth;
             sCounter++;
             if (sCounter >= 6) { sCounter = 0; }
-            mainSlider.style.transform = `translateX(-${sCounter * 100}%)`;
+            mainSlider.style.transform = `translateX(-${sCounter * slideWidth}px)`;
           }, 4000); 
         </script>
 
@@ -677,16 +678,18 @@
       if (window.VANTA) {
         VANTA.FOG({
           el: "#home",
-          mou      ls: true,
-          touch        true,
-          gyroControls: fal            min        0.0,
-          minWidth: 200.0,
-          gh    olor050        midtoneColor: 0x22180c,
-          lowlightColor: 0x161209,
-          baseColor: 0x291c0c,
-          blurFactor: 0.59,
-          speed: 5.0,
-          zoom: 3.0
+          mouseControls: true,
+          touchControls: true,
+          gyroControls: false,
+          minHeight: 200.00,
+          minWidth: 200.00,
+          highlightColor: 0x050505,
+          midtoneColor: 0x8b000d,
+          lowlightColor: 0x020202,
+          baseColor: 0x1f1f2e,
+          blurFactor: 0.60,
+          speed: 1.50,
+          zoom: 1.00
         });
       }
     });
