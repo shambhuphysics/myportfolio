@@ -2004,4 +2004,79 @@ footer span a:hover {
   .stk-row { gap: 6px; }
   .stk-badge { font-size: 11.5px; padding: 4px 10px 4px 8px; }
 }
+
+/* ================================================================
+   ANIMATION SYSTEM
+   ================================================================ */
+
+/* Scroll progress bar */
+#scroll-progress {
+  position: fixed; top: 0; left: 0;
+  width: 0%; height: 3px;
+  background: linear-gradient(90deg, crimson 0%, #ff6b6b 100%);
+  z-index: 100000;
+  border-radius: 0 2px 2px 0;
+  pointer-events: none;
+  transition: width 0.08s linear;
+}
+
+/* Navbar entrance */
+@keyframes navDrop {
+  from { transform: translateY(-110%); opacity: 0; }
+  to   { transform: translateY(0);     opacity: 1; }
+}
+.navbar { animation: navDrop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* Sidebar avatar float */
+@keyframes avatarFloat {
+  0%, 100% { transform: translateY(0); box-shadow: 0 4px 14px rgba(0,0,0,0.25); }
+  50%       { transform: translateY(-8px); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
+}
+.sidebar-avatar { animation: avatarFloat 3.8s ease-in-out infinite; }
+
+/* Scroll-reveal: base invisible state (JS adds attribute, CSS hides, observer reveals) */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.65s ease, transform 0.65s cubic-bezier(0.22, 1, 0.36, 1);
+}
+[data-reveal][data-dir="left"]  { transform: translateX(-32px); }
+[data-reveal][data-dir="scale"] { transform: scale(0.91) translateY(14px); }
+[data-reveal].revealed          { opacity: 1 !important; transform: none !important; }
+
+/* Lift effects on hover (upgrade over flat transitions) */
+.tl-item    { transition: border-color 0.25s ease, box-shadow 0.25s ease, transform 0.25s ease !important; }
+.tl-item:hover { border-color: crimson !important; box-shadow: 0 4px 18px rgba(220,20,60,0.12) !important; transform: translateX(5px) !important; }
+
+.pub-card   { transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.25s ease !important; }
+.pub-card:hover { transform: translateY(-6px) !important; box-shadow: 0 12px 32px rgba(220,20,60,0.2) !important; }
+
+.card { transition: transform 0.35s ease, box-shadow 0.35s ease !important; }
+.card:hover { transform: translateY(-6px) !important; box-shadow: 0 16px 40px rgba(0,0,0,0.22) !important; }
+
+/* Sidebar nav indent on hover */
+.sidebar-nav a { transition: color 0.2s ease, padding-left 0.2s ease !important; }
+.sidebar-nav a:hover { padding-left: 7px !important; }
+
+/* Badge shimmer on hover */
+@keyframes shimmer {
+  from { background-position: -200% center; }
+  to   { background-position:  200% center; }
+}
+.stk-badge {
+  transition: border-color 0.2s, color 0.2s, background 0.2s !important;
+}
+.stk-badge:hover {
+  background: linear-gradient(90deg, #1c1c2e 0%, #2d1028 40%, #1c1c2e 80%) center / 200% auto !important;
+  animation: shimmer 1.6s linear infinite !important;
+  border-color: crimson !important;
+  color: #fff !important;
+}
+
+/* Scroll-up button pulse */
+@keyframes upPulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(220,20,60,0.4); }
+  70%       { box-shadow: 0 0 0 10px rgba(220,20,60,0); }
+}
+.scroll-up-btn.show { animation: upPulse 1.8s ease-out infinite; }
 }
