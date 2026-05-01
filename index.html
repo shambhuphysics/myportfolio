@@ -45,76 +45,90 @@
   <section class="home" id="home">
     <div class="max-width">
       <div class="home-content">
-
-        <span class="typing" style="display:none;"></span>
-        <div class="news-ticker">
-          <span class="pulse-icon">🔥</span> <strong>Latest News:</strong> Our Research Accepted in RSC Materials
-          Horizons Journal 2024
+        <div class="text-1">Hello, I'm</div>
+        <div class="text-2">Shambhu Bhandari Sharma</div>
+        <div class="text-3">I'm a <span class="typing"></span></div>
+        <div class="text-4">
+          <h2>UNIVERSITY COLLEGE LONDON</h2>
+          <br />
+          <span class="full-text">PhD Researcher in Theoretical &amp; Computational Condensed Matter Physics.
+            Specialising in first-principles quantum mechanics and machine learning to understand materials under
+            extreme planetary core conditions.</span>
+          <span class="mobile-text">PhD Researcher · UCL · Condensed Matter Physics</span>
+          <br /><br />
         </div>
 
-        <h1 class="main-title">Shambhu Bhandari Sharma</h1>
-        <h2 class="sub-title">PhD Researcher · Condensed Matter Physics · Data Scientist</h2>
+        <!-- User Requested Slider -->
+        <style>
+          .slider-wrapper {
+            overflow: hidden;
+            width: 100%;
+            max-width: 800px;
+            margin: 20px auto 0 auto;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.5);
+          }
 
-        <p class="bio-text">
-          I am a PhD researcher in Theoretical and Computational Condensed Matter Physics at UCL. My work utilizes
-          first-principle calculations and machine learning to explore structural, electronic, optomechanical, and
-          quantum transport properties of materials under extreme conditions.
-        </p>
+          #slider {
+            display: flex;
+            transition: transform 1s ease-in-out;
+            width: 100%;
+          }
 
-        <!-- Dynamic Slider Showcase -->
-        <div class="slider-container">
+          .slide {
+            min-width: 100%;
+            box-sizing: border-box;
+          }
+
+          .slide img {
+            height: 350px;
+            width: 100%;
+            object-fit: contain;
+            background: #000;
+            display: block;
+            margin: 0 auto;
+          }
+
+          @media (max-width: 768px) {
+            .slide img {
+              height: 250px;
+            }
+          }
+        </style>
+
+        <div class="slider-wrapper">
           <div id="slider">
             <div class="slide"><img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEhcRacCRY2lkKy80ort_JXjSfgzmuluqbXLwjOirca8NGKY_5iuVzDHMLRb8sp32UyWRs5EeM3Bg6PPOV3y3qK5Z27ATe4RnYV4QNj44aePXNcN_X2QNvcJeXYCHfQXuFikoj6huiTadDzZdft8IcgLM9eAexM3B35lM2qIHwJyuR-Y_ChrQighFCAemYM"
-                alt="Slide 1: Workflow" /></div>
+                alt="Workflow" /></div>
             <div class="slide"><img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEgQicjmDeozItTrRRD21XwH__A8oJJsU3uLlGhnKp7jj7evrX5tzDjTOlL_kUTqUBloj8VhVFD8qBZCOUO2BVdW2afU1f34nPzYQv8DiCzxgbZ0DLCudAo83HG_kdKlWwiY1ec3utI6wCUqhlf-VTosXlDVlmEgmHoEy0hyEEYNIxrlgoo8N8uZhXAEMEA"
-                alt="Slide 2: Earthcore" /></div>
+                alt="Earthcore" /></div>
             <div class="slide"><img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEho_x6D99fwoUrGAanX3ujjA6DgQzKob-d8w0GjlVfAGEhJoQXBiS9pTaUcgYAMW-U5_hklkeJeeEZB5aZlKzYT8pdimiM1RJ0Ql62Ym8snI5LD49PUuVvzuhdc1mUPtQVwDBnyEVQO-cxY_F0rFT6-R2bTh_5dLbprmjf58W4u-h7L2mfHf_Y9d0MUET4"
-                alt="Slide 3: Instrument" /></div>
+                alt="Instrument" /></div>
             <div class="slide"><img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEiPBCcVUvOTggJbU0NqH5yIFRcn_Koh9Q8e4fbM4X1KXwSMR17etopLdPm2axYGGnrmOWl2F1efxhNT-B9K6mnvIX3e-O4HLO1GQ5Gp2tzuREQBKWKQSuYvGI4Ye50PpaOZz43axqolfov0hZ8PU6GFPY2t_FqpAhuP4tVBAUAXlcJlhYNxZJ-SLxOLmnU"
-                alt="Slide 4: Phase diagram" /></div>
+                alt="Phase diagram" /></div>
             <div class="slide"><img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEhIE4jQAABldj8r71iKXYILJOtRhvVu_NKL5EMAdabkXoKFKdnc_uS7O3K8qUaxhXO4ixUYBrwNigC1cCCP0IhiarR1VeBpac9FttzcRy7kjgEE29mQAQeaUqu6v9SWtSwol6NGQhMQmUqsDAap0aa6Why1S8ymg4A6vUHZRMwmkyHnCMSYja2BAuURZOA"
-                alt="Slide 5: 2D material" /></div>
+                alt="2D material" /></div>
             <div class="slide"><img
                 src="https://blogger.googleusercontent.com/img/a/AVvXsEjLj8XiUgpn4z2OwL8PnP_EC1MdihfL--4j49dxzLC3pBjbvLvpgRAelmDjsDWDFmFUEYFySXhbNQ_B7vWbUT21z-woADMfCJ5RVYlMlixrlHwPL47QvXCrE_6qhQv-iQd1XB_ymckQgEZVg6PU-TDuI-NrJIUWspXkboG4PNn3y7FmwoYUexj8SeVSfhE"
-                alt="Slide 6: Electrides" /></div>
+                alt="Electrides" /></div>
           </div>
         </div>
+
         <script>
-          const mainSlim          getElementById('slider');
+          const mainSlider = document.getElementById('slider');
           let sCounter = 0;
-          function slideAnim() {
+          setInterval(() => {
             if (!mainSlider) return;
             sCounter++;
             if (sCounter >= 6) { sCounter = 0; }
-            mainSlider.style.transform = 'translateX(' + (-sCounter * 100) + '%)';
-          }
-          setInterval(slideAnim, 4000); 
+            mainSlider.style.transform = `translateX(-${sCounter * 100}%)`;
+          }, 4000); 
         </script>
-
-        <div class="involvement-showcase">
-          <h3><i class="fas fa-rocket"></i> Current Involvements & Research Links</h3>
-          <div class="tags-grid">
-            <a href="https://colab.research.google.com/drive/1sR-BBbhtPB3xgM1_LmuKuID4yqY_iUUc" target="_blank"
-              class="tag"><i class="fas fa-globe-europe"></i> Mg Project</a>
-            <a href="https://colab.research.google.com/drive/1zQ6TfPEM_DKMr56aI4_32XmIsl54LWGk" target="_blank"
-              class="tag"><i class="fas fa-atom"></i> DFT Models</a>
-            <a href="https://github.com/zerothi/ts-tbt-sisl-tutorial/blob/main/tutorial.ipynb" target="_blank"
-              class="tag"><i class="fas fa-laptop-code"></i> Siesta Tutorial</a>
-            <a href="https://proxy.nanohub.org/weber/2405630/YBkl60max6arRWeZ/21/notebooks/workflow.ipynb?"
-              target="_blank" class="tag"><i class="fas fa-calculator"></i> Melting Point Calculator</a>
-            <a href="https://colab.research.google.com/drive/1Iyv1rnW6R4cDCx6tCdaqHD1SKIUn-feq" target="_blank"
-              class="tag"><i class="fas fa-network-wired"></i> DeepMD</a>
-            <a href="https://colab.research.google.com/drive/1S8AdSglTDSLhTzGP-pRU9K17S1WlCU26#scrollTo=eekjZd9AUVNZ"
-              target="_blank" class="tag"><i class="fas fa-code"></i> Fortran Programming</a>
-            <a href="https://colab.research.google.com/drive/1YfnZu3-mil8StRK39-WOE7fK9Fu7VLWx" target="_blank"
-              class="tag"><i class="fas fa-video"></i> Research Talks</a>
-          </div>
-        </div>
 
       </div>
     </div>
@@ -662,7 +676,7 @@
     window.addEventListener("load", function () {
       if (window.VANTA) {
         VANTA.FOG({
-          el: "#vanta-bg-container",
+          el: "#home",
           mou      ls: true,
           touch        true,
           gyroControls: fal            min        0.0,
