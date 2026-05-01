@@ -1715,13 +1715,16 @@ footer span a:hover {
     height: 300px;
   }
 }
+
 /* ====== BLOG LAYOUT: Two-Column Sidebar + Main ====== */
 .blog-home {
   height: auto !important;
   min-height: 100vh;
-  background: #f4f4f4 !important;
+  background: transparent !important;
   padding-top: 70px;
+  position: relative;
 }
+
 .blog-layout {
   display: flex;
   min-height: calc(100vh - 70px);
@@ -1733,111 +1736,140 @@ footer span a:hover {
 .blog-sidebar {
   width: 240px;
   min-width: 220px;
-  background: #f4f4f4;
-  border-right: 1px solid #ddd;
+  background: rgba(0, 0, 0, 0.45);
+  border-right: 1px solid rgba(255, 255, 255, 0.12);
   padding: 24px 16px;
   display: flex;
   flex-direction: column;
   gap: 0;
+  backdrop-filter: blur(8px);
 }
+
 .sidebar-ucl img {
   width: 100%;
   max-width: 180px;
-  background: #000;
-  padding: 8px;
   border-radius: 4px;
 }
+
 .sidebar-divider {
   border: none;
-  border-top: 1px solid #ccc;
+  border-top: 1px solid rgba(255, 255, 255, 0.15);
   margin: 14px 0;
 }
+
 .sidebar-profile {
   text-align: center;
   padding: 8px 0;
 }
+
 .sidebar-avatar {
   width: 90px;
   height: 90px;
   border-radius: 50%;
   object-fit: cover;
-  border: 3px solid #ccc;
+  border: 3px solid rgba(255, 255, 255, 0.4);
   margin-bottom: 8px;
 }
+
 .sidebar-name {
-  font-size: 1.1rem;
+  font-size: 1.05rem;
   font-weight: 700;
-  color: #333;
-  font-family: Georgia, serif;
+  color: #fff;
+  font-family: "Ubuntu", sans-serif;
 }
+
 .sidebar-role {
-  font-size: 0.85rem;
-  color: #666;
+  font-size: 0.82rem;
+  color: rgba(255, 255, 255, 0.7);
   margin: 4px 0 8px;
+  font-family: "Ubuntu", sans-serif;
 }
+
 .sidebar-link-visit {
   display: inline-block;
-  color: #a0522d;
-  font-size: 0.8rem;
+  color: #ff6b6b;
+  font-size: 0.78rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-decoration: none;
+  font-family: "Ubuntu", sans-serif;
 }
-.sidebar-link-visit:hover { text-decoration: underline; }
+
+.sidebar-link-visit:hover {
+  text-decoration: underline;
+}
+
 .sidebar-nav {
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 4px 0;
 }
+
 .sidebar-nav a {
-  color: #8b4513;
-  font-size: 0.9rem;
+  color: rgba(255, 255, 255, 0.85);
+  font-size: 0.88rem;
   text-decoration: none;
-  font-family: Georgia, serif;
+  font-family: "Ubuntu", sans-serif;
   line-height: 1.5;
+  transition: color 0.2s;
 }
-.sidebar-nav a:hover { color: #c0392b; text-decoration: underline; }
+
+.sidebar-nav a:hover {
+  color: #ff6b6b;
+}
+
 .sidebar-social {
   display: flex;
   gap: 12px;
   padding: 8px 0;
 }
-.sidebar-social a { color: #555; font-size: 1.2rem; }
-.sidebar-social a:hover { color: #3f51b5; }
+
+.sidebar-social a {
+  color: rgba(255, 255, 255, 0.7);
+  font-size: 1.2rem;
+  transition: color 0.2s;
+}
+
+.sidebar-social a:hover {
+  color: #ff6b6b;
+}
 
 /* --- Main --- */
 .blog-main {
   flex: 1;
-  background: #fff;
+  background: rgba(0, 0, 0, 0.35);
   padding: 32px 40px;
-  box-shadow: inset 5px 0 15px -5px rgba(63,81,181,0.08),
-              inset -5px 0 15px -5px rgba(63,81,181,0.08);
+  backdrop-filter: blur(6px);
 }
+
 .blog-main-title {
-  font-family: Georgia, serif;
+  font-family: "Ubuntu", sans-serif;
   font-size: 2.2rem;
   font-weight: 900;
-  color: #3f51b5;
+  color: #fff;
   text-transform: uppercase;
   margin: 0 0 20px;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
 }
+
 .blog-bio {
-  font-family: Georgia, serif;
-  font-size: 1rem;
-  color: #333;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 0.98rem;
+  color: rgba(255, 255, 255, 0.88);
   line-height: 1.8;
   margin-bottom: 24px;
 }
+
 .blog-section-title {
-  font-family: Georgia, serif;
-  font-size: 1.15rem;
-  color: #8b0000;
+  font-family: "Ubuntu", sans-serif;
+  font-size: 1.1rem;
+  color: #ff6b6b;
   text-align: center;
   margin-bottom: 16px;
   font-weight: 700;
 }
+
 .blog-slider-wrapper {
   overflow: hidden;
   width: 100%;
@@ -1846,14 +1878,17 @@ footer span a:hover {
   border: 1px solid #ddd;
   border-radius: 4px;
 }
+
 .blog-slider-wrapper #slider {
   display: flex;
   transition: transform 1s ease-in-out;
 }
+
 .blog-slider-wrapper .slide {
   min-width: 100%;
   box-sizing: border-box;
 }
+
 .blog-slider-wrapper .slide img {
   width: 100%;
   height: 400px;
@@ -1861,6 +1896,7 @@ footer span a:hover {
   background: #fff;
   display: block;
 }
+
 .blog-news-title {
   font-family: Georgia, serif;
   font-size: 0.85rem;
@@ -1871,14 +1907,29 @@ footer span a:hover {
   padding-top: 16px;
   margin-bottom: 8px;
 }
+
 .blog-news p {
   font-family: Georgia, serif;
   font-size: 0.95rem;
   color: #333;
 }
+
 @media (max-width: 768px) {
-  .blog-layout { flex-direction: column; }
-  .blog-sidebar { width: 100%; border-right: none; border-bottom: 1px solid #ddd; }
-  .blog-main { padding: 20px 16px; }
-  .blog-main-title { font-size: 1.5rem; }
+  .blog-layout {
+    flex-direction: column;
+  }
+
+  .blog-sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid #ddd;
+  }
+
+  .blog-main {
+    padding: 20px 16px;
+  }
+
+  .blog-main-title {
+    font-size: 1.5rem;
+  }
 }
