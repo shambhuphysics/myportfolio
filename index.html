@@ -19,6 +19,8 @@
 </head>
 
 <body>
+  <div id="vanta-bg-container" style="position: fixed; top: 0; left: 0; width: 100vw; height: 100vh; z-index: -1;">
+  </div>
   <div class="scroll-up-btn">
     <i class="fas fa-angle-up"></i>
   </div>
@@ -58,11 +60,6 @@
           first-principle calculations and machine learning to explore structural, electronic, optomechanical, and
           quantum transport properties of materials under extreme conditions.
         </p>
-
-        <div class="action-buttons">
-          <a download href="cv/Shambhu_CV.pdf" class="btn"><i class="fas fa-file-download"></i> Download CV</a>
-          <a href="#publications" class="btn btn-outline"><i class="fas fa-book"></i> View Publications</a>
-        </div>
 
         <!-- Dynamic Slider Showcase -->
         <div class="slider-container">
@@ -665,7 +662,7 @@
     window.addEventListener("load", function () {
       if (window.VANTA) {
         VANTA.FOG({
-          el: "#home",
+          el: "#vanta-bg-container",
           mou      ls: true,
           touch        true,
           gyroControls: fal            min        0.0,
