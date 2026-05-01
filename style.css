@@ -1192,3 +1192,96 @@ footer span a:hover {
 .contact .title::after {
   content: "get in touch";
 }
+
+/* --- Blogger Sections --- */
+.blogger-section {
+    padding: 100px 0;
+    background: #111;
+    color: #fff;
+}
+.blogger-section.gallery, .blogger-section.machine_learning, .blogger-section.physics {
+    background: #fff;
+    color: #111;
+}
+.blogger-section .title {
+    position: relative;
+    text-align: center;
+    font-size: 40px;
+    font-weight: 500;
+    margin-bottom: 60px;
+    padding-bottom: 20px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.blogger-section .title::before {
+    content: '';
+    position: absolute;
+    bottom: 0px;
+    left: 50%;
+    width: 180px;
+    height: 3px;
+    background: #111;
+    transform: translateX(-50%);
+}
+.blogger-section.projects .title::before, .blogger-section.awards .title::before, .blogger-section.wellbeing .title::before, .blogger-section.quantum .title::before {
+    background: #fff;
+}
+.blogger-section .title::after {
+    position: absolute;
+    bottom: -12px;
+    left: 50%;
+    font-size: 20px;
+    color: crimson;
+    padding: 0 5px;
+    background: #111;
+    transform: translateX(-50%);
+    content: 'explore';
+}
+.blogger-section.gallery .title::after, .blogger-section.machine_learning .title::after, .blogger-section.physics .title::after {
+    background: #fff;
+}
+.blogger-section .blogger-content {
+    font-family: 'Poppins', sans-serif;
+    line-height: 1.6;
+    font-size: 16px;
+    max-width: 1000px;
+    margin: 0 auto;
+}
+.blogger-section .blogger-content h1, 
+.blogger-section .blogger-content h2, 
+.blogger-section .blogger-content h3 {
+    margin-top: 30px;
+    margin-bottom: 15px;
+    font-family: 'Ubuntu', sans-serif;
+}
+.blogger-section .blogger-content p {
+    margin-bottom: 15px;
+}
+.blogger-section .blogger-content img {
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin: 20px 0;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+}
+.blogger-section .blogger-content iframe {
+    max-width: 100%;
+    margin: 20px 0;
+    border-radius: 8px;
+}
+.blogger-section a {
+    color: crimson;
+    text-decoration: underline;
+}
+.blogger-section a:hover {
+    color: #fff;
+}
+.blogger-section.gallery a:hover, .blogger-section.machine_learning a:hover, .blogger-section.physics a:hover {
+    color: #111;
+}
+.blogger-section ul, .blogger-section ol {
+    margin-left: 20px;
+    margin-bottom: 20px;
+}
+.blogger-section li {
+    margin-bottom: 10px;
+}
