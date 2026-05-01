@@ -1177,6 +1177,52 @@ footer span a:hover {
   content: "what i know";
 }
 
+/* ===== CUSTOM: Skills tag grid ===== */
+.skill-tags-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 18px;
+  margin-top: 10px;
+}
+.skill-group {
+  background: #1a1a2e;
+  border: 1px solid #2a2a44;
+  border-radius: 10px;
+  padding: 14px 16px;
+  transition: border-color 0.2s;
+}
+.skill-group:hover { border-color: crimson; }
+.skill-group-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #aaa;
+  text-transform: uppercase;
+  letter-spacing: 0.6px;
+  margin-bottom: 11px;
+}
+.skill-tags { display: flex; flex-wrap: wrap; gap: 6px; }
+.s-tag {
+  padding: 3px 10px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 500;
+  border: 1px solid;
+  white-space: nowrap;
+  transition: opacity 0.2s;
+  cursor: default;
+}
+.s-tag:hover { opacity: 0.8; }
+.s-blue   { background:#0d1b2e; color:#7ab5e8; border-color:#1a3a5a; }
+.s-red    { background:#1e0d0d; color:#e08080; border-color:#4a1818; }
+.s-teal   { background:#0a1e1e; color:#60d5cf; border-color:#1a4040; }
+.s-green  { background:#0d1e0e; color:#6acc7a; border-color:#1a4020; }
+.s-purple { background:#160e2a; color:#b09ae8; border-color:#38285a; }
+.s-orange { background:#1e1208; color:#e8a060; border-color:#4a2a10; }
+.s-gray   { background:#1a1a1a; color:#aaa;    border-color:#333;    }
+@media (max-width: 600px) {
+  .skill-tags-grid { grid-template-columns: 1fr; }
+}
+
 /* ===== CUSTOM: Publications section ===== */
 .publications {
   background: #0f0f1a;
