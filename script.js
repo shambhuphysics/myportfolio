@@ -39,15 +39,4 @@ $(document).ready(function () {
     loop: true,
   });
 
-  var typed2 = new Typed(".typing-2", {
-    strings: [
-      "Computational Physicist",
-      "Data Scientist",
-      "PhD Scholar @ UCL",
-      "Materials Researcher",
-    ],
-    typeSpeed: 10,
-    backSpeed: 60,
-    loop: true,
-  });
 });

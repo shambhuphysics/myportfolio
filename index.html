@@ -137,106 +137,88 @@
   <section class="about" id="about">
     <div class="max-width">
       <h2 class="title">About me</h2>
-      <div class="about-content">
-        <div class="column left">
-          <img alt="Shambhu Bhandari Sharma" class="hover-effect" src="images/profile.jpg" />
-        </div>
-        <div class="column right">
-          <div class="text">
-            I'm Shambhu and I'm a <span class="typing-2"></span>
-          </div>
-          <p id="about-text"></p>
-          <div class="about-stats">
-            <div class="stat-box">
-              <span class="stat-num">11</span>
-              <span class="stat-label">Publications</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-num">4</span>
-              <span class="stat-label">Reviewer Roles</span>
-            </div>
-            <div class="stat-box">
-              <span class="stat-num">3+</span>
-              <span class="stat-label">Years @ UCL</span>
+
+      <!-- Intro -->
+      <div class="about-intro">
+        <img alt="Shambhu Bhandari Sharma" class="about-photo" src="images/profile.jpg" />
+        <p class="about-bio">PhD researcher in Theoretical and Computational Condensed Matter Physics at University College London. My work employs first-principles DFT, ab initio molecular dynamics, and machine learning to study structural, electronic, and thermomechanical properties of materials under extreme conditions — with a focus on high-pressure phase diagrams of binary alloys, low-dimensional materials, and electrides.</p>
+      </div>
+
+      <!-- Experience -->
+      <div class="tl-section">
+        <h3 class="tl-heading">Experiences</h3>
+        <div class="tl-list">
+
+          <div class="tl-item">
+            <div class="tl-badge" style="background:#500778;">UCL</div>
+            <div class="tl-body">
+              <div class="tl-role">PhD Scholar</div>
+              <div class="tl-org">University College London &middot; Full-time</div>
+              <div class="tl-date">Dec 2022 &ndash; Present &middot; 3 yrs 6 mos</div>
+              <p class="tl-desc">First-principles DFT and ab initio molecular dynamics for high-pressure phase diagrams of binary alloys. Machine learning interatomic potentials. Scientific computing in Python and Fortran.</p>
             </div>
           </div>
+
+          <div class="tl-item">
+            <div class="tl-badge" style="background:#005baa;">KU</div>
+            <div class="tl-body">
+              <div class="tl-role">Research Associate</div>
+              <div class="tl-org">Khalifa University &middot; Full-time &middot; UAE</div>
+              <div class="tl-date">Jan 2022 &ndash; Dec 2022 &middot; 1 yr</div>
+              <p class="tl-desc">Computational and theoretical studies on 2D materials and surfaces for photocatalysis and nanomechanical applications. Prepared research proposals and fostered international collaborations.</p>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-badge" style="background:#2a6e3a;">SGC</div>
+            <div class="tl-body">
+              <div class="tl-role">Lecturer in Physics</div>
+              <div class="tl-org">Shusma Godawari College &middot; Part-time</div>
+              <div class="tl-date">Feb 2019 &ndash; Nov 2021 &middot; 2 yrs 10 mos</div>
+              <p class="tl-desc">Taught elementary-level physics courses. Co-supervised projects and graduate thesis works. Mentored students through their research endeavors.</p>
+            </div>
+          </div>
+
         </div>
       </div>
+
+      <!-- Education -->
+      <div class="tl-section">
+        <h3 class="tl-heading">Education</h3>
+        <div class="tl-list">
+
+          <div class="tl-item">
+            <div class="tl-badge" style="background:#500778;">UCL</div>
+            <div class="tl-body">
+              <div class="tl-role">Doctor of Philosophy (PhD), Condensed Matter Physics</div>
+              <div class="tl-org">University College London, London, UK</div>
+              <div class="tl-date">2022 &ndash; Present</div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-badge" style="background:#1a4a8a;">TU</div>
+            <div class="tl-body">
+              <div class="tl-role">Master of Science in Physics</div>
+              <div class="tl-org">Tribhuvan University, Kathmandu, Nepal</div>
+              <div class="tl-date">2020</div>
+            </div>
+          </div>
+
+          <div class="tl-item">
+            <div class="tl-badge" style="background:#2a5a2a;">TU</div>
+            <div class="tl-body">
+              <div class="tl-role">Bachelor of Science</div>
+              <div class="tl-org">Mahendra Morang Aadarsha Multiple Campus, Tribhuvan University</div>
+              <div class="tl-date">2014</div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
   </section>
-  <style>
-    .hover-effect {
-      transition: transform 0.4s ease-in-out, box-shadow 0.4s ease-in-out;
-      border-radius: 10px;
-    }
-
-    .hover-effect:hover {
-      transform: scale(1.05) rotate(2deg);
-      box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.25);
-    }
-  </style>
-  <script>
-    document.addEventListener("DOMContentLoaded", function () {
-      let text = "I am a PhD researcher in Theoretical and Computational Condensed Matter Physics at University College London (UCL). My research employs first-principles quantum mechanical calculations and machine learning to investigate structural, electronic, optomechanical, quantum transport, and melting properties of materials. I specialise in studying materials under extreme conditions, such as those found in planetary core environments. My work focuses on developing ab initio computational models to construct high-pressure phase diagrams of binary alloys. Prior to my PhD, I worked as a Research Associate at Khalifa University of Science and Technology, where I performed theoretical and computational studies on 2D materials and heterostructures. I have 11 peer-reviewed publications in journals including ACS Applied Electronic Materials, Applied Surface Science, Carbon Trends, ACS Omega, Nanomaterials, and Materials Horizons. I also serve as a peer reviewer for Elsevier, Nature, Royal Society of Chemistry, and AIP Advances.";
-
-      let textElement = document.getElementById("about-text");
-      textElement.innerHTML = "";
-
-      let words = text.split(" ");
-      let groupSize = 25;
-      let baseDelay = 180;
-      let transitionDuration = "0.8s";
-      words.forEach((word, index) => {
-        let wordSpan = document.createElement("span");
-        wordSpan.textContent = word;
-        wordSpan.style.position = "relative";
-        wordSpan.style.display = "inline-block";
-        wordSpan.style.opacity = "0";
-
-        let randomX = Math.random() * 150 * (Math.random() < 0.5 ? -1 : 1);
-        let randomY = Math.random() * 100 * (Math.random() < 0.5 ? -1 : 1);
-        wordSpan.style.transform = `translate(${randomX}px, ${randomY}px)`;
-
-        textElement.appendChild(wordSpan);
-
-        if (index < words.length - 1) {
-          let spaceSpan = document.createElement("span");
-          spaceSpan.innerHTML = "&nbsp;";
-          textElement.appendChild(spaceSpan);
-        }
-      });
-
-      function isInViewport(element) {
-        const rect = element.getBoundingClientRect();
-        return (
-          rect.top <= (window.innerHeight || document.documentElement.clientHeight) * 0.8 &&
-          rect.bottom >= 0
-        );
-      }
-
-      let animationStarted = false;
-
-      function startAnimation() {
-        if (animationStarted) return;
-        const aboutSection = document.getElementById("about");
-        if (isInViewport(aboutSection)) {
-          animationStarted = true;
-          const wordSpans = textElement.querySelectorAll("span");
-          const wordsOnly = Array.from(wordSpans).filter(span => span.textContent.trim() !== "");
-          wordsOnly.forEacordSpan, index) => {
-      setTimeout(() => {
-        wordSpan.style.transition = `all ${transitionDuration} cubic-bezier(0.25, 0.1, 0.25, 1.0)`;
-        wordSpan.style.opacity = "1";
-        wordSpan.style.transform = "translate(0, 0)";
-      }, Math.floor(index / groupSize) * baseDelay);
-    });
-        }
-      }
-
-    window.addEventListener("scroll", startAnimation);
-    startAnimation();
-    });
-  </script>
   <!-- ========== SKILLS ========== -->
   <section class="skills" id="skills">
     <div class="max-width">
