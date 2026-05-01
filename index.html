@@ -70,6 +70,41 @@
           <a href="#publications" class="btn btn-outline"><i class="fas fa-book"></i> View Publications</a>
         </div>
 
+        <!-- Dynamic Slider Showcase -->
+        <div class="slider-container">
+          <div id="slider">
+            <div class="slide"><img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEhcRacCRY2lkKy80ort_JXjSfgzmuluqbXLwjOirca8NGKY_5iuVzDHMLRb8sp32UyWRs5EeM3Bg6PPOV3y3qK5Z27ATe4RnYV4QNj44aePXNcN_X2QNvcJeXYCHfQXuFikoj6huiTadDzZdft8IcgLM9eAexM3B35lM2qIHwJyuR-Y_ChrQighFCAemYM"
+                alt="Slide 1: Workflow" /></div>
+            <div class="slide"><img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEgQicjmDeozItTrRRD21XwH__A8oJJsU3uLlGhnKp7jj7evrX5tzDjTOlL_kUTqUBloj8VhVFD8qBZCOUO2BVdW2afU1f34nPzYQv8DiCzxgbZ0DLCudAo83HG_kdKlWwiY1ec3utI6wCUqhlf-VTosXlDVlmEgmHoEy0hyEEYNIxrlgoo8N8uZhXAEMEA"
+                alt="Slide 2: Earthcore" /></div>
+            <div class="slide"><img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEho_x6D99fwoUrGAanX3ujjA6DgQzKob-d8w0GjlVfAGEhJoQXBiS9pTaUcgYAMW-U5_hklkeJeeEZB5aZlKzYT8pdimiM1RJ0Ql62Ym8snI5LD49PUuVvzuhdc1mUPtQVwDBnyEVQO-cxY_F0rFT6-R2bTh_5dLbprmjf58W4u-h7L2mfHf_Y9d0MUET4"
+                alt="Slide 3: Instrument" /></div>
+            <div class="slide"><img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEiPBCcVUvOTggJbU0NqH5yIFRcn_Koh9Q8e4fbM4X1KXwSMR17etopLdPm2axYGGnrmOWl2F1efxhNT-B9K6mnvIX3e-O4HLO1GQ5Gp2tzuREQBKWKQSuYvGI4Ye50PpaOZz43axqolfov0hZ8PU6GFPY2t_FqpAhuP4tVBAUAXlcJlhYNxZJ-SLxOLmnU"
+                alt="Slide 4: Phase diagram" /></div>
+            <div class="slide"><img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEhIE4jQAABldj8r71iKXYILJOtRhvVu_NKL5EMAdabkXoKFKdnc_uS7O3K8qUaxhXO4ixUYBrwNigC1cCCP0IhiarR1VeBpac9FttzcRy7kjgEE29mQAQeaUqu6v9SWtSwol6NGQhMQmUqsDAap0aa6Why1S8ymg4A6vUHZRMwmkyHnCMSYja2BAuURZOA"
+                alt="Slide 5: 2D material" /></div>
+            <div class="slide"><img
+                src="https://blogger.googleusercontent.com/img/a/AVvXsEjLj8XiUgpn4z2OwL8PnP_EC1MdihfL--4j49dxzLC3pBjbvLvpgRAelmDjsDWDFmFUEYFySXhbNQ_B7vWbUT21z-woADMfCJ5RVYlMlixrlHwPL47QvXCrE_6qhQv-iQd1XB_ymckQgEZVg6PU-TDuI-NrJIUWspXkboG4PNn3y7FmwoYUexj8SeVSfhE"
+                alt="Slide 6: Electrides" /></div>
+          </div>
+        </div>
+        <script>
+            const mainSlim          getElementById('slider');
+            let sCounter = 0;
+                  function slideAnim() {
+                if (!mainSlider) return;
+                sCounter++;
+                if (sCounter >= 6) { sCounter = 0; }
+                mainSlider.style.transform = 'translateX(' + (-sCounter * 100) + '%)';
+            }
+            setInterval(slideAnim, 4000); 
+        </script>
+
         <div class="involvement-showcase">
           <h3><i class="fas fa-rocket"></i> Current Involvements & Research Links</h3>
           <div class="tags-grid">
@@ -183,7 +218,7 @@
           animationStarted = true;
           const wordSpans = textElement.querySelectorAll("span");
           const wordsOnly = Array.from(wordSpans).filter(span => span.textContent.trim() !== "");
-          wordsOnly.forEach((wordSpan, index) => {
+          wordsOnly.forEacordSpan, index) => {
             setTimeout(() => {
               wordSpan.style.transition = `all ${transitionDuration} cubic-bezier(0.25, 0.1, 0.25, 1.0)`;
               wordSpan.style.opacity = "1";
@@ -635,15 +670,12 @@
   <script>
     window.addEventListener("load", function () {
       if (window.VANTA) {
-        VANTA.FOG({
-          el: "#home",
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200.0,
+        VANTA.FOG({         el: "#home",
+          mou      ls: true,
+          touch        true,
+          gyroControls: fal            min        0.0,
           minWidth: 200.0,
-          highlightColor: 0x050505,
-          midtoneColor: 0x22180c,
+          gh    olor050        midtoneColor: 0x22180c,
           lowlightColor: 0x161209,
           baseColor: 0x291c0c,
           blurFactor: 0.59,
