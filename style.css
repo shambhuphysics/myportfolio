@@ -1127,31 +1127,11 @@ footer span a:hover {
   content: "who i am";
 }
 
-/* Intro row */
-.about-intro {
-  display: flex;
-  align-items: flex-start;
-  gap: 28px;
-  margin-bottom: 44px;
-}
-.about-photo {
-  width: 100px;
-  height: 100px;
-  object-fit: cover;
-  border-radius: 50%;
-  flex-shrink: 0;
-  border: 3px solid crimson;
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-.about-photo:hover {
-  transform: scale(1.06);
-  box-shadow: 0 6px 18px rgba(220,20,60,0.35);
-}
 .about-bio {
   color: #444;
   font-size: 14.5px;
   line-height: 1.8;
-  padding-top: 8px;
+  margin-bottom: 36px;
 }
 
 /* Timeline sections */
@@ -1829,12 +1809,6 @@ footer span a:hover {
   backdrop-filter: blur(8px);
 }
 
-.sidebar-ucl img {
-  width: 100%;
-  max-width: 180px;
-  border-radius: 4px;
-}
-
 .sidebar-divider {
   border: none;
   border-top: 1px solid rgba(255, 255, 255, 0.15);
@@ -1867,20 +1841,6 @@ footer span a:hover {
   color: rgba(255, 255, 255, 0.7);
   margin: 4px 0 8px;
   font-family: "Ubuntu", sans-serif;
-}
-
-.sidebar-link-visit {
-  display: inline-block;
-  color: #ff6b6b;
-  font-size: 0.78rem;
-  font-weight: 700;
-  letter-spacing: 0.5px;
-  text-decoration: none;
-  font-family: "Ubuntu", sans-serif;
-}
-
-.sidebar-link-visit:hover {
-  text-decoration: underline;
 }
 
 .sidebar-nav {
