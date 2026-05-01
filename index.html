@@ -33,13 +33,6 @@
         <li><a class="menu-btn" href="#skills">Skills</a></li>
         <li><a class="menu-btn" href="#publications">Publications</a></li>
         <li><a class="menu-btn" href="#contact">Contact</a></li>
-        <li><a class_="menu-btn" href="#projects">Research Projects</a></li>
-        <li><a class_="menu-btn" href="#awards">Awards</a></li>
-        <li><a class_="menu-btn" href="#gallery">Gallery</a></li>
-        <li><a class_="menu-btn" href="#wellbeing">Wellbeing</a></li>
-        <li><a class_="menu-btn" href="#machine_learning">Machine Learning</a></li>
-        <li><a class_="menu-btn" href="#quantum">Quantum Alg</a></li>
-        <li><a class_="menu-btn" href="#physics">Physics &amp; Chem</a></li>
       </ul>
       <div class="menu-btn">
         <i class="fas fa-bars"></i>
@@ -51,6 +44,7 @@
     <div class="max-width">
       <div class="home-content">
 
+        <span class="typing" style="display:none;"></span>
         <div class="news-ticker">
           <span class="pulse-icon">🔥</span> <strong>Latest News:</strong> Our Research Accepted in RSC Materials
           Horizons Journal 2024
@@ -94,15 +88,15 @@
           </div>
         </div>
         <script>
-            const mainSlim          getElementById('slider');
-            let sCounter = 0;
-                  function slideAnim() {
-                if (!mainSlider) return;
-                sCounter++;
-                if (sCounter >= 6) { sCounter = 0; }
-                mainSlider.style.transform = 'translateX(' + (-sCounter * 100) + '%)';
-            }
-            setInterval(slideAnim, 4000); 
+          const mainSlim          getElementById('slider');
+          let sCounter = 0;
+          function slideAnim() {
+            if (!mainSlider) return;
+            sCounter++;
+            if (sCounter >= 6) { sCounter = 0; }
+            mainSlider.style.transform = 'translateX(' + (-sCounter * 100) + '%)';
+          }
+          setInterval(slideAnim, 4000); 
         </script>
 
         <div class="involvement-showcase">
@@ -219,17 +213,17 @@
           const wordSpans = textElement.querySelectorAll("span");
           const wordsOnly = Array.from(wordSpans).filter(span => span.textContent.trim() !== "");
           wordsOnly.forEacordSpan, index) => {
-            setTimeout(() => {
-              wordSpan.style.transition = `all ${transitionDuration} cubic-bezier(0.25, 0.1, 0.25, 1.0)`;
-              wordSpan.style.opacity = "1";
-              wordSpan.style.transform = "translate(0, 0)";
-            }, Math.floor(index / groupSize) * baseDelay);
-          });
+      setTimeout(() => {
+        wordSpan.style.transition = `all ${transitionDuration} cubic-bezier(0.25, 0.1, 0.25, 1.0)`;
+        wordSpan.style.opacity = "1";
+        wordSpan.style.transform = "translate(0, 0)";
+      }, Math.floor(index / groupSize) * baseDelay);
+    });
         }
       }
 
-      window.addEventListener("scroll", startAnimation);
-      startAnimation();
+    window.addEventListener("scroll", startAnimation);
+    startAnimation();
     });
   </script>
   <!-- ========== SKILLS ========== -->
@@ -564,7 +558,7 @@
       <h2 class="title">Machine Learning</h2>
       <div class="card-grid">
         <div class="card">
-          <div class="card-img" style="background-image: url('images/profile-1.jpeg');"></div>
+          <div class="card-img" style="background-image: url('images/profile.jpg');"></div>
           <div class="card-content">
             <h3>Machine Learning</h3>
             <p>Introduction to Data Science &amp;amp; Machine Learning in Materials Science Please Render any notebook
@@ -580,7 +574,7 @@
       <h2 class="title">Quantum Computing</h2>
       <div class="card-grid">
         <div class="card">
-          <div class="card-img" style="background-image: url('images/profile-1.jpeg');"></div>
+          <div class="card-img" style="background-image: url('images/profile.jpg');"></div>
           <div class="card-content">
             <h3>Quantum Algorithm</h3>
             <p>&amp;nbsp; 1. Practical Quantum Computing with IBM Qiskit for Beginners &amp;nbsp; &amp;nbsp; &amp;nbsp;
@@ -670,7 +664,8 @@
   <script>
     window.addEventListener("load", function () {
       if (window.VANTA) {
-        VANTA.FOG({         el: "#home",
+        VANTA.FOG({
+          el: "#home",
           mou      ls: true,
           touch        true,
           gyroControls: fal            min        0.0,
