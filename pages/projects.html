@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Research Projects | Shambhu Bhandari Sharma</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #111; color: #fff; line-height: 1.7; font-family: 'Poppins', sans-serif; }
+        .header { padding: 30px 10%; background: #000; border-bottom: 2px solid crimson; display: flex; justify-content: space-between; align-items: center; }
+        .header a { color: #fff; font-size: 18px; font-weight: 500; transition: color 0.3s; text-decoration: none; }
+        .header a:hover { color: crimson; }
+        .logo a span { color: crimson; }
+        .content-container { max-width: 1000px; margin: 50px auto; padding: 0 20px 50px; background: #1e1e2d; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+        .post-header { padding: 40px; background: linear-gradient(135deg, #111, #1a1a2e); border-bottom: 3px solid crimson; margin: 0 -20px 40px; }
+        .post-header h1 { font-family: 'Ubuntu', sans-serif; font-size: 36px; text-align: center; color: #fff; margin: 0; }
+        .post-header p { text-align: center; color: #aaa; margin: 10px 0 0; font-size: 14px; }
+
+        /* Project cards */
+        .projects-list { margin: 0 20px; display: flex; flex-direction: column; gap: 28px; }
+        .project-card { background: #16162a; border: 1px solid #2a2a3d; border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
+        .project-card:hover { border-color: crimson; }
+        .project-header { padding: 16px 20px 12px; border-bottom: 1px solid #2a2a3d; display: flex; align-items: flex-start; gap: 14px; }
+        .project-num { font-size: 22px; font-weight: 700; color: crimson; font-family: 'Ubuntu', sans-serif; flex-shrink: 0; line-height: 1.3; }
+        .project-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; font-weight: 600; color: #fff; }
+        .project-body { padding: 16px 20px; }
+        .project-body p { color: #bbb; font-size: 13.5px; margin: 0 0 12px; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+        .tag { padding: 3px 10px; border-radius: 20px; font-size: 11.5px; background: #1e1e3a; border: 1px solid #3a3a5a; color: #aac; }
+        .refs { display: flex; flex-wrap: wrap; gap: 7px; }
+        .badge { padding: 3px 10px; border-radius: 20px; font-size: 11.5px; text-decoration: none; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+        .badge-ref { background: #1a1a3a; color: #9a9add; border: 1px solid #3a3a5a; }
+        .badge-ref:hover { background: #2a2a5a; color: #fff; }
+        .badge-nb  { background: #1a2a3a; color: #7ab8d9; border: 1px solid #2a4a5a; }
+        .badge-nb:hover  { background: #1e3550; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo"><a href="index.html">Portfo<span>lio.</span></a></div>
+        <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+    <div class="content-container">
+        <div class="post-header">
+            <h1>🔬 Research Projects</h1>
+            <p>First-principles DFT, molecular dynamics, and machine learning applied to materials science.</p>
+        </div>
+
+        <div class="projects-list">
+
+            <!-- PROJECT 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-num">01</div>
+                    <div class="project-title">Ab-initio Phase Diagram of Binary Alloys at High Pressure</div>
+                </div>
+                <div class="project-body">
+                    <p>Melting curve calculations up to extreme pressures are essential for predicting materials that sustain nuclear fusion reactors, aerospace, and military applications, and for understanding planetary core structure. We introduce controlled impurities at varying concentrations into pristine metals to predict stable alloys and study their structural, electronic, magnetic, and thermo-mechanical properties under high pressure using DFT and molecular dynamics. Electronic structure and statistical mechanics techniques, together with <strong style="color:#ddd">Machine Learning</strong>, are used to predict accurate phase diagrams and compare results with bulk metals.</p>
+                    <div class="tag-list">
+                        <span class="tag">DFT</span>
+                        <span class="tag">Molecular Dynamics</span>
+                        <span class="tag">Phase Diagram</span>
+                        <span class="tag">High Pressure</span>
+                        <span class="tag">Binary Alloys</span>
+                        <span class="tag">Machine Learning</span>
+                    </div>
+                    <div class="refs">
+                        <a class="badge badge-ref" href="https://www.homepages.ucl.ac.uk/~ucfbdxa/pubblicazioni/prb2002_2.pdf" target="_blank">📄 Ref: Alfè PRB 2002</a>
+                        <a class="badge badge-ref" href="https://www.sciencedirect.com/science/article/pii/S0927025622001628" target="_blank">📄 Ref: Comp. Mat. Sci.</a>
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1Gm1zMgY0YSLAodpHUrIDEfU8fRP4uoPu#scrollTo=UfaSei1J8FJt" target="_blank">📓 Notebook</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 2 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-num">02</div>
+                    <div class="project-title">Premelting Effects in Mechanical Properties of Materials</div>
+                </div>
+                <div class="project-body">
+                    <p>As temperatures approach the melting point, elastic tensors exhibit a strong temperature dependence — a phenomenon known as premelting softening. We investigate how impurities affect this behaviour and compute thermo-mechanical properties using ab-initio molecular dynamics. The melting behaviour of materials is significantly altered by inclusion of foreign atoms, with implications for high-temperature structural materials.</p>
+                    <div class="tag-list">
+                        <span class="tag">AIMD</span>
+                        <span class="tag">Elastic Tensors</span>
+                        <span class="tag">Premelting</span>
+                        <span class="tag">Impurity Effects</span>
+                        <span class="tag">Thermo-mechanics</span>
+                    </div>
+                    <div class="refs">
+                        <a class="badge badge-ref" href="https://www.science.org/doi/10.1126/science.1243651" target="_blank">📄 Ref: Science</a>
+                        <a class="badge badge-ref" href="https://www.homepages.ucl.ac.uk/~ucfbdxa/pubblicazioni/jcp2002_2.pdf" target="_blank">📄 Ref: Alfè JCP 2002</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 3 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-num">03</div>
+                    <div class="project-title">Low-dimensional (0D · 1D · 2D) Material Properties</div>
+                </div>
+                <div class="project-body">
+                    <p>We predict and characterise novel low-dimensional materials using DFT combined with non-equilibrium Green's function (NEGF) methods and ab-initio MD. Focus areas include quantum transport, nanomechanics, optoelectronics, and magnetism under varied conditions of doping, strain, electric field, and chemical passivation.</p>
+                    <div class="tag-list">
+                        <span class="tag">DFT + NEGF</span>
+                        <span class="tag">Quantum Transport</span>
+                        <span class="tag">2D Materials</span>
+                        <span class="tag">Nanomechanics</span>
+                        <span class="tag">Optoelectronics</span>
+                        <span class="tag">Magnetism</span>
+                        <span class="tag">Structural Prediction</span>
+                        <span class="tag">AIMD</span>
+                    </div>
+                    <div class="refs">
+                        <a class="badge badge-ref" href="https://www.cambridge.org/core/services/aop-cambridge-core/content/view/2F37AF55111B302FC4F03D9CE0E81A34/9781139164313pre_pi-iv_CBO.pdf/frontmatter.pdf" target="_blank">📄 Ref: Cambridge Text</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- PROJECT 4 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-num">04</div>
+                    <div class="project-title">Novel Electrides — DFT &amp; AIMD Exploration</div>
+                </div>
+                <div class="project-body">
+                    <p>Electrides are ionic compounds where trapped electrons serve as anions. We use DFT and ab-initio MD to explore novel electrides from 0D to 3D dimensionality, studying their bulk and facet-dependent surface properties, doping effects, and slab/cleaving models to uncover functional behaviour.</p>
+                    <div class="tag-list">
+                        <span class="tag">Electrides</span>
+                        <span class="tag">DFT</span>
+                        <span class="tag">AIMD</span>
+                        <span class="tag">Surface Properties</span>
+                        <span class="tag">Slab Models</span>
+                        <span class="tag">Doping</span>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /projects-list -->
+
+        <!-- LINK TO PUBLICATIONS -->
+        <div style="margin: 36px 20px 0; padding: 16px 20px; background: #13132a; border-radius: 8px; border: 1px solid #2a2a4a; text-align: center;">
+            <p style="color:#aaa; font-size:13.5px; margin:0 0 10px">See the full list of peer-reviewed publications arising from this work:</p>
+            <a href="index.html#publications" style="display:inline-block; padding:8px 22px; background:crimson; color:#fff; border-radius:6px; text-decoration:none; font-size:13.5px; font-weight:600; transition:opacity 0.2s;">📰 View All 11 Publications</a>
+        </div>
+
+    </div>
+</body>
+</html>

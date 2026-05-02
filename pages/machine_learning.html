@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning | Shambhu Bhandari Sharma</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #111; color: #fff; line-height: 1.6; font-family: 'Poppins', sans-serif; }
+        .header { padding: 30px 10%; background: #000; border-bottom: 2px solid crimson; display: flex; justify-content: space-between; align-items: center; }
+        .header a { color: #fff; font-size: 18px; font-weight: 500; transition: color 0.3s; text-decoration: none; }
+        .header a:hover { color: crimson; }
+        .logo a span { color: crimson; }
+        .content-container { max-width: 1000px; margin: 50px auto; padding: 0 20px 50px; background: #1e1e2d; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+        .post-header { padding: 40px; background: linear-gradient(135deg, #111, #1a1a2e); border-bottom: 3px solid crimson; margin: 0 -20px 40px; }
+        .post-header h1 { font-family: 'Ubuntu', sans-serif; font-size: 36px; text-align: center; color: #fff; margin: 0; }
+        .post-header p { text-align: center; color: #aaa; margin: 10px 0 0; font-size: 14px; }
+
+        .category { margin: 0 20px 40px; }
+        .category h2 { font-family: 'Ubuntu', sans-serif; color: crimson; font-size: 20px; margin-bottom: 16px; padding-bottom: 6px; border-bottom: 1px solid #333; }
+        .category h3 { font-family: 'Ubuntu', sans-serif; color: #ddd; font-size: 15px; margin: 20px 0 10px; padding-left: 10px; border-left: 3px solid crimson; }
+
+        .link-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 1fr)); gap: 10px; }
+        .link-item a { display: block; padding: 8px 12px; background: #16162a; border: 1px solid #2a2a3d; border-radius: 6px; color: #ccc; text-decoration: none; font-size: 13.5px; transition: border-color 0.2s, color 0.2s; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .link-item a:hover { border-color: crimson; color: #fff; }
+
+        .course-list { display: flex; flex-direction: column; gap: 8px; }
+        .course-row { display: flex; align-items: center; gap: 10px; flex-wrap: wrap; padding: 9px 12px; background: #16162a; border: 1px solid #2a2a3d; border-radius: 8px; transition: border-color 0.2s; }
+        .course-row:hover { border-color: #444; }
+        .course-name { flex: 1; min-width: 200px; }
+        .course-name a { color: #e0e0e0; text-decoration: none; font-size: 13.5px; font-weight: 500; transition: color 0.2s; }
+        .course-name a:hover { color: crimson; }
+        .course-name span { color: #e0e0e0; font-size: 13.5px; font-weight: 500; }
+        .badges { display: flex; gap: 6px; flex-wrap: wrap; }
+        .badge { padding: 3px 9px; border-radius: 20px; font-size: 11.5px; text-decoration: none; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+        .badge-nb  { background: #1a2a3a; color: #7ab8d9; border: 1px solid #2a4a5a; }
+        .badge-nb:hover  { background: #1e3550; color: #fff; }
+        .badge-dl  { background: #1a1a3a; color: #9a9add; border: 1px solid #3a3a5a; }
+        .badge-dl:hover  { background: #2a2a5a; color: #fff; }
+        .badge-yt  { background: #2a1a1a; color: #dd7a7a; border: 1px solid #5a2a2a; }
+        .badge-yt:hover  { background: #4a1a1a; color: #fff; }
+        .badge-gh  { background: #1a2a1a; color: #7add7a; border: 1px solid #2a5a2a; }
+        .badge-gh:hover  { background: #1a4a1a; color: #fff; }
+        .badge-sl  { background: #2a2a1a; color: #d9c77a; border: 1px solid #5a4a1a; }
+        .badge-sl:hover  { background: #4a3a1a; color: #fff; }
+
+        .spec-block { margin: 12px 0 4px; background: #13132a; border-radius: 8px; overflow: hidden; }
+        .spec-title { padding: 8px 14px; background: #1c1c3a; font-size: 13px; font-weight: 600; color: #aaa; border-bottom: 1px solid #2a2a4a; }
+        .spec-title a { color: #bbb; text-decoration: none; }
+        .spec-title a:hover { color: crimson; }
+        .spec-body { padding: 8px 14px; display: flex; flex-direction: column; gap: 6px; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo"><a href="index.html">Portfo<span>lio.</span></a></div>
+        <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+    <div class="content-container">
+        <div class="post-header">
+            <h1>Machine Learning</h1>
+            <p>Render any notebook live at <a href="https://nbviewer.org/" target="_blank" style="color:crimson">NBViewer</a></p>
+        </div>
+
+        <!-- MY PROJECTS -->
+        <div class="category">
+            <h2>My Projects</h2>
+            <div class="link-grid">
+                <div class="link-item"><a href="https://colab.research.google.com/drive/1kFDdOCNtfmWfpSb9kcUOMV9k87D-PCqu#scrollTo=8TguHRozEyEN&uniqifier=1" target="_blank">🧪 ML for DFT — Project Notebook</a></div>
+            </div>
+        </div>
+
+        <!-- LEARNING RESOURCES -->
+        <div class="category">
+            <h2>Learning Resources</h2>
+
+            <h3>2.1 NanoHub Modules</h3>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><a href="https://nanohub.org/groups/mlmodules" target="_blank">NanoHub ML Modules</a></div>
+                    <div class="badges">
+                        <a class="badge badge-nb" href="https://nanohub.org/groups/ml/handsontraining" target="_blank">Must Watch ⭐</a>
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1BgNk-5MlX04FVojTJaYXyUG6TZQ3AS6U#scrollTo=tbRVcqdtEm4O" target="_blank">Notebook 1</a>
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1z17_zcuj-D-SnC7oaoNis-aSNCrKSnH3" target="_blank">Notebook 2</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.2 Deep Learning by Experts (fast.ai)</h3>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><a href="https://course.fast.ai/" target="_blank">fast.ai Practical Deep Learning</a></div>
+                    <div class="badges">
+                        <a class="badge badge-gh" href="https://github.com/fastai/fastbook" target="_blank">My Notebook</a>
+                        <a class="badge badge-dl" href="https://course.fast.ai/Lessons/lesson1.html" target="_blank">Full Book</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.3 Physics-Informed ML / Neural Networks</h3>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.youtube.com/watch?v=vJotIG5COF0" target="_blank">Physics-Informed ML-NN (YouTube)</a></div>
+                    <div class="badges">
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1Fck-hIIeq62XQsbvK0g7SIxoEWb-5UGW#scrollTo=nqj53oviWMFd" target="_blank">ML for Physicist</a>
+                        <a class="badge badge-yt" href="https://www.fau.tv/clip/id/52675#" target="_blank">FAU Lectures</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.4 Mathematics for Machine Learning</h3>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><span>Calculus for Machine Learning</span></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1kRZ5jFyRQ70O7TBBFMcWgZrhxVbhZ7EK" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><span>Probability &amp; Statistics for ML</span></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/12qhAodWGzQi5wU6I_70-0bu-XWsBI3a3#scrollTo=QPa7naXkbFSE" target="_blank">Notebook</a></div>
+                </div>
+            </div>
+
+            <h3>2.5 Mastering ML Theory</h3>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/specializations/machine-learning-introduction?" target="_blank">ML Introduction (Coursera)</a></div>
+                    <div class="badges">
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1hgxMb37kiP88QHi2oKqMiPfCOLTwbCG3" target="_blank">ML Concepts</a>
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/11Av71E4zEK-EROPmX5ql5wM0J3qcugA9" target="_blank">Advanced ML</a>
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1FKXO3foCTUmDEkLP_Yk7b5PjdlH8lQpU#scrollTo=0fwKghUVCKqs" target="_blank">Unsupervised</a>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.6 Deep Learning Specialization (Coursera)</h3>
+            <div class="spec-block">
+                <div class="spec-title">I. <a href="https://www.coursera.org/learn/neural-networks-deep-learning/programming/thQd4/logistic-regression-with-a-neural-network-mindset" target="_blank">Neural Networks &amp; Deep Learning</a></div>
+                <div class="spec-body">
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Main notebook + downloads</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1YYjdexWlSXJGnpN6ZiTUDPHv9KP3DEKg" target="_blank">My Notebook</a>
+                            <a class="badge badge-dl" href="https://drive.google.com/drive/folders/1jU1FDoK4_-q009nFDIKzzbReMs4we9Oh" target="_blank">QN Downloads</a>
+                        </div>
+                    </div>
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Practice notebooks</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/15bK5Z_l8_vd1zxM5YuV2KcXkD9HzeyJO#scrollTo=mbRoZRhOBvUj" target="_blank">📊 Logistic Reg.</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1hB2uC8fbtHCkgNX1PHVuj2eXyktoiIDn" target="_blank">📈 Planar Classif.</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1VyfRPB0eZz-uTf0ASZJXpNBHMHe9XzM-" target="_blank">🔧 Deep NN</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1zlIFhyf6UGVEKO9L1BSR-UNbGFyAulXC" target="_blank">📊 Applications</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="spec-block">
+                <div class="spec-title">II. <a href="https://www.coursera.org/learn/deep-neural-network/home/week/1" target="_blank">Enhancing Deep Learning</a></div>
+                <div class="spec-body">
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Main notebook + assignments</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/13fsTWzLiup27Ikx158wxSI94O4IVPkxO" target="_blank">My Notebook</a>
+                            <a class="badge badge-dl" href="https://www.coursera.org/learn/deep-neural-network/home/assignments" target="_blank">All Labs</a>
+                            <a class="badge badge-dl" href="https://drive.google.com/drive/folders/1r5QaZMhLHP6gXKN2n90fxu5E2huNwGK_" target="_blank">Downloads</a>
+                        </div>
+                    </div>
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Practice notebooks</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1P5s99nGpUSK08iH9ld0LvgCK8dAvbBf3" target="_blank">⚙️ Initialization</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1SU__eCvfPBYzCoIy6DCMBQJUaT4PF7c8" target="_blank">🔒 Regularization</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1eKIeVXPBrqQLAtObGrpar6kEDokvvc6o" target="_blank">✅ Gradient Check</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1R3G-yAaq5EXtdmNclTdvS2ySrxsR9jn9" target="_blank">🔍 Optimization</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1PdeVACoP9ChFQshKAX8ZgW85WLCYKRwl" target="_blank">🐍 TensorFlow</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="spec-block">
+                <div class="spec-title">III. <a href="https://www.coursera.org/learn/machine-learning-projects/lecture/FRvQe/orthogonalization" target="_blank">Structuring ML Projects</a></div>
+                <div class="spec-body">
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Notebook + assignments</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1K3gYJ3VUzcU4Eebl6GqSC5VFaOMEe6Ad#scrollTo=JNdG8oYujQtU" target="_blank">My Notebook</a>
+                            <a class="badge badge-dl" href="https://www.coursera.org/learn/machine-learning-projects/home/assignments" target="_blank">All Labs</a>
+                            <a class="badge badge-dl" href="https://drive.google.com/drive/folders/1_Lshs7yxgOavK8w2hbwTOaX_rBNG0h0n" target="_blank">Downloads</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="spec-block">
+                <div class="spec-title">IV. <a href="https://www.coursera.org/learn/convolutional-neural-networks/lecture/Ob1nR/computer-vision" target="_blank">Convolutional Neural Networks</a></div>
+                <div class="spec-body">
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Notebook + assignments</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/19VChDw2btD4LKuGxZYs7_Mh1y889KZ2g#scrollTo=yfttiTcyrAGb" target="_blank">My Notebook</a>
+                            <a class="badge badge-dl" href="https://www.coursera.org/learn/convolutional-neural-networks/home/assignments" target="_blank">Practicals</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="spec-block">
+                <div class="spec-title">V. <a href="https://www.coursera.org/learn/nlp-sequence-models/home/module/1" target="_blank">Sequence Models</a></div>
+                <div class="spec-body">
+                    <div class="course-row">
+                        <div class="course-name"><span style="color:#bbb;font-size:13px">Notebooks</span></div>
+                        <div class="badges">
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/18p_hVo6iGvpZkGaHP970yaDR0NzQBYE9" target="_blank">My Notebook</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1VlD2ue4iFSccDCOWKgY9WA5Ui9YIp71p#scrollTo=noVNl_GXUbNS" target="_blank">Week 1 ipy</a>
+                            <a class="badge badge-nb" href="https://colab.research.google.com/drive/1hB2uC8fbtHCkgNX1PHVuj2eXyktoiIDn" target="_blank">Week 3 ipy</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <h3>2.7 Proficiency in Coding</h3>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><span>Python for Machine Learning</span></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/16JxQKycbXlerlAS2DfV2Iu7Maxf7G5lv#scrollTo=MoJLeEklFH0O" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><span>AI for Scientific Research</span></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1_OCZHDLpPj3peSUC_apxDCxXYpRHirTc" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-basics/lecture/ZwahQ/how-to-use-the-interactive-textbook" target="_blank">Python Specialization a: Basics</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/16X08-T1YA71ARY1hN0mEgbXiAcg5WMOn" target="_blank">Note</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-functions-files-dictionaries/home/module/4" target="_blank">Python Specialization b: Functions</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/12BffhTTDG6Lzf2HbPyPW7-1PvDZmBGLK#scrollTo=-TDZVVvgyc3V" target="_blank">Note</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/programs/ku-khalifa-university-cnsom/learn/data-collection-processing-python?authProvider=adsg" target="_blank">Python Specialization c: Data Collection</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1iOR1Amx88WKTJH655JcKSDO8DfC8bDB9" target="_blank">Note</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-classes-inheritance/home/module/2" target="_blank">Python Classes &amp; Inheritance</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/19_tNnrv6WPWLnPjzRFhYSjiT8uzkjYWp" target="_blank">Note</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PYTHON/BASH/SQL DATA ENGINEERING -->
+        <div class="category">
+            <h2>Python, Bash &amp; SQL — Data Engineering</h2>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/programs/ku-khalifa-university-cnsom/specializations/python-bash-sql-data-engineering-duke?authProvider=adsg" target="_blank">Python, Bash &amp; SQL Specialization (Duke)</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-and-pandas-for-data-engineering-duke/lecture/UAndt/introduction-to-visual-studio-code" target="_blank">Sp1 — Python &amp; Pandas for Data Engineering</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1j7v_GrW9h7DA2Q1tWuVn4PNlhhhImkqP#scrollTo=n41biyspC2Mq" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/linux-and-bash-for-data-engineering-duke/lecture/0HZIq/meet-your-course-instructor-noah-gift" target="_blank">Sp2 — Linux &amp; Bash for Data Science</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1aHJ5UCnDTR8Ev16KT3WFdskhL9deNIU0" target="_blank">Notebook</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DEEPLEARNING.AI DATA ENGINEERING -->
+        <div class="category">
+            <h2>DeepLearning.AI — Data Engineering Certificate</h2>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><span style="color:#aaa;font-size:13px">Reference notes</span></div>
+                    <div class="badges"><a class="badge badge-gh" href="https://github.com/dinhanhthi/mooc-de/tree/main?tab=readme-ov-file" target="_blank">Git Notes (community)</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/intro-to-data-engineering?specialization=data-engineering" target="_blank">1 — Introduction to Data Engineering</a></div>
+                    <div class="badges">
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1mSBX4k65wCZ-ORchQvNN5h9NBkU1C597" target="_blank">Notebook</a>
+                        <a class="badge badge-sl" href="https://community.deeplearning.ai/t/data-engineering-course-1-lecture-notes/697773" target="_blank">Slides</a>
+                    </div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/programs/ku-khalifa-university-cnsom/learn/source-systems-data-ingestion-and-pipelines?authProvider=adsg" target="_blank">2 — Source Systems, Ingestion &amp; Pipelines</a></div>
+                    <div class="badges">
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1mbcDgFTPXZ9lKR4F2Nh4_6KjoiUpWYVn#scrollTo=b3PkxhYwAvUf" target="_blank">Notebook</a>
+                        <a class="badge badge-sl" href="https://community.deeplearning.ai/t/data-engineering-course-2-lecture-notes/697815" target="_blank">Slides</a>
+                    </div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/data-storage-and-queries/lecture/rdsyB/welcome-to-course-3" target="_blank">3 — Data Storage &amp; Queries</a></div>
+                    <div class="badges">
+                        <a class="badge badge-nb" href="https://colab.research.google.com/drive/1P8-D9mGZP7QPmy-C7Zt8CKloFfAZvyY4#scrollTo=YAG6DmJo5onU" target="_blank">Notebook</a>
+                        <a class="badge badge-sl" href="https://community.deeplearning.ai/t/data-engineering-course-3-lecture-notes/698352" target="_blank">Slides</a>
+                    </div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/data-modeling-transformation-serving/home/week/1" target="_blank">4 — Data Modeling, Transformation &amp; Serving</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1dMDOZMIHg5n2PhBmTMdNFVQf20Wqa4Yj" target="_blank">Notebook</a></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- IBM DATA SCIENCE CERTIFICATE -->
+        <div class="category">
+            <h2>IBM Data Science Professional Certificate</h2>
+            <div class="course-list">
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/what-is-datascience/home/week/1" target="_blank">1 — What is Data Science?</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1MuEvqm46yQ1FfYqvsAUbgeFHXn6CCaof#scrollTo=GQjueTTWniAS" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/open-source-tools-for-data-science" target="_blank">2 — Tools for Data Science</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1tipt9ORDh41dWHoEWWLclaKbwofnLnCH#scrollTo=BO5i6mzD_iT9" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/data-science-methodology/home/module/1" target="_blank">3 — Data Science Methodology</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1dI9oCg0RM3DDOYZU60rTANEqr_D1aPdK#scrollTo=f1KebJR2JQUt" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-for-applied-data-science-ai/home/module/2" target="_blank">4 — Python for Data Science</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/10sljs9umf475LrLd20bua1lX_9ogl0mi" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-project-for-data-science/home/assignments" target="_blank">5 — Python Project for Data Science</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/11bzuilEaHKLPv1pvj8Nj92Ypcu1wjVG1#scrollTo=aQfzcowLo7TD" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/sql-data-science/home/module/2" target="_blank">6 — Databases &amp; SQL for Data Science</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1MIl6Uhz84ad0cXCEIRAwRBpqZGQYN8Tw" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/data-analysis-with-python/home/welcome" target="_blank">7 — Data Analysis with Python</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1Boz9uC6qgxwow5Xl_2-y3QlhOIrRuVn2#scrollTo=M9wtd3irxxCH" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/python-for-data-visualization/home/welcome" target="_blank">8 — Data Visualization with Python</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1OJZK773fPRxjGiPZi68Wki2q0J8Tyw0s#scrollTo=9DGazraFwRvo" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/programs/ku-khalifa-university-cnsom/learn/machine-learning-with-python?authProvider=adsg&source=search" target="_blank">9 — Machine Learning with Python</a></div>
+                    <div class="badges"><a class="badge badge-nb" href="https://colab.research.google.com/drive/1ZKnhPW88_RXOwEofS-J5mBJTQ4Q0qZ9E" target="_blank">Notebook</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/applied-data-science-capstone/home/welcome" target="_blank">10 — Applied Data Science Capstone</a></div>
+                </div>
+                <div class="course-row">
+                    <div class="course-name"><a href="https://www.coursera.org/learn/generative-ai-elevate-your-data-science-career/lecture/SAR2d/course-introduction" target="_blank">11 — Generative AI for Data Science</a></div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>
