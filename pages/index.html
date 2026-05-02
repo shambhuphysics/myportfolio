@@ -921,13 +921,19 @@
       for(var i=LIMIT;i<cards.length;i++){cards[i].style.display='none';cards[i].setAttribute('data-extra','1');}
       var wrap=document.createElement('div');
       wrap.style.cssText='text-align:center;margin-top:28px;';
-      wrap.innerHTML='<button id="pub-show-btn" style="background:transparent;border:1px solid crimson;color:crimson;padding:10px 30px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:background .2s,color .2s;" onmouseover="this.style.background='crimson';this.style.color='#fff'" onmouseout="this.style.background='transparent';this.style.color='crimson'"><i class="fas fa-chevron-down" style="margin-right:7px;"></i>Show all '+cards.length+' publications</button>';
+      var btn=document.createElement('button');
+      btn.id='pub-show-btn';
+      btn.style.cssText='background:transparent;border:1px solid crimson;color:crimson;padding:10px 30px;border-radius:24px;font-size:13px;font-weight:600;cursor:pointer;letter-spacing:.5px;transition:background .2s,color .2s;';
+      btn.innerHTML='<i class="fas fa-chevron-down" style="margin-right:7px;"></i>Show all '+cards.length+' publications';
+      btn.onmouseover=function(){this.style.background='crimson';this.style.color='#fff';};
+      btn.onmouseout=function(){this.style.background='transparent';this.style.color='crimson';};
+      wrap.appendChild(btn);
       grid.parentNode.insertBefore(wrap,grid.nextSibling);
       var expanded=false;
-      document.getElementById('pub-show-btn').addEventListener('click',function(){
+      btn.addEventListener('click',function(){
         expanded=!expanded;
         grid.querySelectorAll('[data-extra]').forEach(function(c){c.style.display=expanded?'':'none';});
-        this.innerHTML=expanded
+        btn.innerHTML=expanded
           ?'<i class="fas fa-chevron-up" style="margin-right:7px;"></i>Show less'
           :'<i class="fas fa-chevron-down" style="margin-right:7px;"></i>Show all '+cards.length+' publications';
         if(!expanded)grid.scrollIntoView({behavior:'smooth',block:'start'});
