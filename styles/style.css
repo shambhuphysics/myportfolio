@@ -1315,6 +1315,8 @@ footer span a:hover {
 .tl-org   { font-size: 13px; color: #666; margin-bottom: 2px; }
 .tl-date  { font-size: 12px; color: #999; margin-bottom: 6px; }
 .tl-desc  { font-size: 13.5px; color: #555; line-height: 1.65; margin: 0; }
+.tl-tags  { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
+.tl-tag   { background:rgba(220,20,60,0.07); border:1px solid rgba(220,20,60,0.25); color:#c0392b; font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px; display:inline-flex; align-items:center; gap:4px; }
 
 @media (max-width: 600px) {
   .about-intro { flex-direction: column; align-items: center; text-align: center; }
