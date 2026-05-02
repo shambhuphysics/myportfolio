@@ -1,17 +1,17 @@
 # ── CV (large PDF, distributed separately) ──────────────────────────
 cv/
 
-# ── Blogger export data (source already extracted) ──────────────────
+# ── Blogger export / raw source data ────────────────────────────────
 Blogger/
 useful_website.html
-
-# ── Intermediate extraction outputs ─────────────────────────────────
 extracted/
 
-# ── One-off migration/build scripts ─────────────────────────────────
+# ── One-off scripts ──────────────────────────────────────────────────
 *.py
 
 # ── OS and editor junk ──────────────────────────────────────────────
 .DS_Store
 *~
 *.swp
+
+# NOTE: docs/ is intentionally tracked — GitHub Pages serves from it.
