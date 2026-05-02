@@ -66,11 +66,26 @@
         </li>
         <li><a href="#contact">Contact</a></li>
       </ul>
+      <button class="search-trigger" id="searchTrigger" aria-label="Search site">
+        <i class="fas fa-search"></i>
+      </button>
       <div class="menu-btn">
         <i class="fas fa-bars"></i>
       </div>
     </div>
   </nav>
+
+  <!-- ========== SEARCH OVERLAY ========== -->
+  <div class="search-overlay" id="searchOverlay" role="dialog" aria-modal="true" aria-label="Site search">
+    <div class="search-modal">
+      <div class="search-input-row">
+        <i class="fas fa-search"></i>
+        <input type="text" id="searchInput" placeholder="Search sections, publications, skills…" autocomplete="off" spellcheck="false" />
+        <button id="searchClose" aria-label="Close search"><i class="fas fa-times"></i></button>
+      </div>
+      <div class="search-results" id="searchResults"></div>
+    </div>
+  </div>
   <!-- ========== HOME ========== -->
   <section class="home blog-home" id="home">
     <div class="home-hero">
