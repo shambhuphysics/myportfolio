@@ -83,6 +83,90 @@ Add **Teaching** as top-level item after Research:
 | `pages/index.html` | Teaching added to navbar after Research |
 | `pages/useful_sites.html` | AI4EO section added |
 
+## Publications — Live Citations + Journal Quartiles
+
+### Problem
+Current pub cards have static text, no citation counts, no journal quality indicator.
+
+### Data source
+- **Snapshot** (2026-05-02): 18 papers, 189 total citations, h-index 10 (Google Scholar)
+- **Live counts**: Semantic Scholar public API (free, no key) — `api.semanticscholar.org/graph/v1/paper/search?query=TITLE&fields=citationCount`
+- **Journal quartiles**: hardcoded from Scimago SJR (static, updated manually)
+
+### Implementation
+
+#### 1. Rebuild pub cards with new fields
+Each `.pub-card` gets:
+- **Citation badge** `<span class="pub-cites">` — shows count, refreshed by JS
+- **Quartile badge** `<span class="pub-q q1">Q1</span>` — colour-coded (Q1=green, Q2=blue, Q3=grey)
+- **Year chip** already present (keep)
+- Scholar link on citation badge (opens paper on Scholar)
+
+#### 2. Full publication list (18 papers from Scholar snapshot)
+
+| # | Title (short) | Journal | Q | Cites | Year |
+|---|---|---|---|---|---|
+| 1 | Structural deformation…CrS2,CrSe2,CrSSe | Physica E | Q2 | 29 | 2023 |
+| 2 | Penta-SiCN: A highly auxetic monolayer | ACS Appl. Electron. Mater. | Q1 | 23 | 2022 |
+| 3 | Strain dependent…penta-BCN | Carbon Trends | Q2 | 21 | 2022 |
+| 4 | Large Negative Poisson's Ratio…penta-B2C | ACS Omega | Q2 | 20 | 2022 |
+| 5 | Structural, electronic, magnetic…Cr2X3 | Eur. Phys. J. B | Q2 | 19 | 2021 |
+| 6 | First-principles DFT…MoSSe | Comput. Mater. Sci. | Q1 | 18 | 2023 |
+| 7 | Enhanced optoelectronic…fluorinated | Appl. Surf. Sci. | Q1 | 13 | 2022 |
+| 8 | Strain induced…2D silicene | J. Nepal Phys. Soc. | — | 11 | 2021 |
+| 9 | New 2D p-SiPN: Wide Bandgap | Nanomaterials | Q2 | 10 | 2022 |
+| 10 | Enhanced mechanical…optical | Appl. Surf. Sci. | Q1 | 10 | 2022 |
+| 11 | Signature of low dimensional quasi-F center | Materials Horizons | Q1 | 8 | 2024 |
+| 12 | Optoelectronic…fluorinated hexagonal | Chem. Phys. Lett. | Q2 | 3 | 2021 |
+| 13 | Strain driven negative Poisson's ratio | Carbon Trends | Q2 | 3 | 2021 |
+| 14 | New 2D penta-SiPN | J. Phys.: Conf. Ser. | Q3 | 1 | 2024 |
+| 15 | Dielectric barrier discharge plasma | Chem. Eng. J. | Q1 | — | 2026 |
+| 16 | Ab initio phase diagrams binary alloys | J. Chem. Phys. | Q1 | — | 2025 |
+| 17 | Highly Tunable Negative Poisson's Ratio | Asia Pac. Phys. Conf. | — | — | 2022 |
+| 18 | Study of strain-induced…(preprint) | ChemRxiv | — | — | 2021 |
+
+#### 3. Live citation refresh (JS)
+On page load, for the top 6 visible cards:
+```js
+fetch(`https://api.semanticscholar.org/graph/v1/paper/search?query=TITLE&fields=citationCount`)
+  .then(r=>r.json()).then(d=>{ /* update .pub-cites span */ })
+```
+Fallback: show snapshot count if API fails or times out (>3s).
+
+#### 4. CSS additions
+```css
+.pub-cites { background:rgba(220,20,60,0.12); color:crimson; border:1px solid rgba(220,20,60,0.3); padding:2px 8px; border-radius:12px; font-size:11px; font-weight:700; }
+.pub-q     { padding:2px 8px; border-radius:12px; font-size:10px; font-weight:800; margin-right:4px; }
+.pub-q.q1  { background:#e8f5e9; color:#2e7d32; }
+.pub-q.q2  { background:#e3f2fd; color:#1565c0; }
+.pub-q.q3  { background:#f5f5f5; color:#757575; }
+```
+
+### Files
+| `pages/index.html` | Rebuild all pub-card HTML (18 papers) + add live-fetch JS snippet |
+| `styles/style.css` | Add `.pub-cites`, `.pub-q` badge styles |
+
+## Remove Blogger Post Preview Sections from Landing Page
+
+### Problem
+After the Publications section, `index.html` contains 7 legacy "blogger-section" blocks
+(Research, Awards & Certs, Gallery, Wellbeing, Machine Learning, Quantum Computing,
+Physics & Chemistry) — each a card with raw `&amp;nbsp;`-polluted text and a "Read Full Post"
+button. These are redundant: the navbar already links to each sub-page directly.
+
+### Fix
+Delete all 7 `<section class="blogger-section …">` blocks from `index.html`.
+These are lines ~522–630 (from `id="projects"` blogger block through `id="physics"` blogger block).
+No CSS or JS changes needed — `.blogger-section` and `.card-grid` rules can stay (they'll be
+inert) or be pruned from `style.css` in a separate cleanup pass.
+
+### Result
+Page flow after removal:
+`Home → About → Skills → Publications → Contact → Journey Map → Footer`
+
+### File
+| `pages/index.html` | Delete 7 blogger-section blocks |
+
 ## Real time website visitor counter
 
 - Use a real time website visitor counter
