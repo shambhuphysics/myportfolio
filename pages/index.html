@@ -658,6 +658,64 @@
       </div>
     </div>
   </section>
+  <!-- ── Journey Map ──────────────────────────────────── -->
+  <section style="background:#0d0d1a;padding:60px 0 0;">
+    <div class="max-width" style="padding:0 5% 32px;">
+      <div class="title" style="color:#fff;">my <span>journey</span>
+        <div class="title-lines"></div>
+      </div>
+      <p style="color:#888;font-size:13px;text-align:center;margin-top:-10px;margin-bottom:20px;">Academic &amp; research locations across the globe</p>
+    </div>
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+    <div id="journey-map" style="width:100%;height:480px;"></div>
+    <script>
+    (function(){
+      var map = L.map('journey-map',{zoomControl:true,scrollWheelZoom:false}).setView([30,20],2);
+      L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',{
+        attribution:'&copy; <a href="https://carto.com/">CARTO</a>',
+        subdomains:'abcd', maxZoom:19
+      }).addTo(map);
+
+      var icon = L.divIcon({
+        className:'',
+        html:'<div style="width:13px;height:13px;background:crimson;border-radius:50%;border:2px solid #fff;box-shadow:0 0 8px rgba(220,20,60,0.8);"></div>',
+        iconSize:[13,13], iconAnchor:[6,6], popupAnchor:[0,-8]
+      });
+      var iconCurrent = L.divIcon({
+        className:'',
+        html:'<div style="width:17px;height:17px;background:crimson;border-radius:50%;border:3px solid #fff;box-shadow:0 0 14px rgba(220,20,60,1);animation:pulse 1.5s infinite;"></div>',
+        iconSize:[17,17], iconAnchor:[8,8], popupAnchor:[0,-10]
+      });
+
+      var locs = [
+        {ll:[51.5246,-0.1340], label:'<b>UCL London</b><br>PhD Researcher · 2022–Present', cur:true},
+        {ll:[24.4240,54.4286], label:'<b>Khalifa University, Abu Dhabi</b><br>Research Associate · 2022'},
+        {ll:[51.5074,-0.1278], label:'<b>Imperial College London</b><br>TYC Conference · 2024'},
+        {ll:[51.7520,-1.2577], label:'<b>University of Oxford</b><br>AWE Physics Conference · 2023'},
+        {ll:[27.7172,85.3240], label:'<b>Kathmandu, Nepal</b><br>TU / KU Research · 2020–2022'},
+        {ll:[31.1471,75.3412], label:'<b>Himachal Pradesh, India</b><br>Master\'s Research &amp; SIESTA Workshop · 2018–2019'}
+      ];
+
+      locs.forEach(function(p){
+        L.marker(p.ll, {icon: p.cur ? iconCurrent : icon})
+          .addTo(map).bindPopup(p.label,{className:'map-popup'});
+      });
+
+      // draw travel path
+      var path = locs.map(function(p){return p.ll;});
+      L.polyline(path,{color:'crimson',weight:1.5,opacity:0.35,dashArray:'6,8'}).addTo(map);
+    })();
+    </script>
+    <style>
+      .leaflet-container{background:#0d0d1a;}
+      .map-popup .leaflet-popup-content-wrapper{background:#1a1a2e;color:#ddd;border:1px solid rgba(220,20,60,0.4);border-radius:8px;font-size:12px;font-family:'Ubuntu',sans-serif;}
+      .map-popup .leaflet-popup-tip{background:#1a1a2e;}
+      .map-popup .leaflet-popup-close-button{color:#aaa;}
+      @keyframes pulse{0%,100%{box-shadow:0 0 8px rgba(220,20,60,0.8);}50%{box-shadow:0 0 20px rgba(220,20,60,1);}}
+    </style>
+  </section>
+
   <footer class="footer">
     <p>Shambhu Bhandari Sharma © 2025 | All rights reserved</p>
   </footer>
