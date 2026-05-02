@@ -1,2 +1,17 @@
-Blogger/
+# ── CV (large PDF, distributed separately) ──────────────────────────
 cv/
+
+# ── Blogger export data (source already extracted) ──────────────────
+Blogger/
+useful_website.html
+
+# ── Intermediate extraction outputs ─────────────────────────────────
+extracted/
+
+# ── One-off migration/build scripts ─────────────────────────────────
+*.py
+
+# ── OS and editor junk ──────────────────────────────────────────────
+.DS_Store
+*~
+*.swp
