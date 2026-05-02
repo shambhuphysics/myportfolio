@@ -939,25 +939,23 @@
         if(!expanded)grid.scrollIntoView({behavior:'smooth',block:'start'});
       });
     })();
-    window.addEventListener("load", function () {
-      if (window.VANTA) {
-        VANTA.NET({
-          el: "#home",
-          mouseControls: true,
-          touchControls: true,
-          gyroControls: false,
-          minHeight: 200,
-          minWidth: 200,
-          color: 0xdc143c,
-          backgroundColor: 0x0d0d1a,
-          points: 9,
-          maxDistance: 22,
-          spacing: 18,
-          scale: 1.0,
-          scaleMobile: 1.0
-        });
-      }
-    });
+    if (window.VANTA) {
+      VANTA.NET({
+        el: "#home",
+        mouseControls: true,
+        touchControls: true,
+        gyroControls: false,
+        minHeight: 200,
+        minWidth: 200,
+        color: 0xdc143c,
+        backgroundColor: 0x0d0d1a,
+        points: 9,
+        maxDistance: 22,
+        spacing: 18,
+        scale: 1.0,
+        scaleMobile: 1.0
+      });
+    }
 
     $(window).scroll(function () {
       if (this.scrollY > 20) {
