@@ -843,7 +843,7 @@
   <script>
     // Live citation refresh — cached 15 days in localStorage
     (function(){
-      var CACHE_KEY='pub_cites_v1', TTL=15*24*60*60*1000;
+      var CACHE_KEY='pub_cites_v2', TTL=15*24*60*60*1000;
       var cards=document.querySelectorAll('.pub-cites[data-title]');
       var cached=null;
       try{ cached=JSON.parse(localStorage.getItem(CACHE_KEY)); }catch(e){}
@@ -856,7 +856,7 @@
             total+=c;
           }
         });
-        if(total>0){var t=document.getElementById('total-cites');if(t)t.textContent=total;}
+        if(total>=50){var t=document.getElementById('total-cites');if(t)t.textContent=total;}
       }
       if(cached&&cached.ts&&(Date.now()-cached.ts)<TTL){
         applyData(cached.data); return;
