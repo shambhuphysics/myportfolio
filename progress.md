@@ -39,6 +39,18 @@
 - [x] Lightbox with full-screen image, prev/next arrows, keyboard nav (← → Esc), counter
 - [x] Responsive layout for mobile
 
+## Phase 8 — Enhancements (post-launch)
+- [x] Add 5 Coursera specialization certificates to awards.html (with images)
+- [x] Replace Vanta FOG with Vanta NET (atomic network) hero background — pinned v0.5.24
+- [x] Add interactive journey map (Leaflet.js, CartoDB dark tiles, 6 location pins + travel path)
+- [x] Add visitor country detection (ipapi.co) + visit counter badge + localStorage history
+- [x] Add university logos (UCL, KU, TU) to experience/education timeline cards
+- [x] Add skill tag chips (.tl-tag) to all experience cards (PhD, KU, SGC)
+- [x] Add Data Science self-learning entry to Education section
+- [x] Create teaching.html: UCL (3 modules: GEOL0069/0046/0012) + NEB Nepal
+- [x] Add Teaching to main navbar (after Research)
+- [x] Migrate AI4EO resources to useful_sites.html
+
 ## Phase 7 — Deploy & QA
 - [x] Deploy: navbar + sidebar removal (commit 59a1390)
 - [x] Deploy: Chrome CSS cache-bust fix + prd.md/progress.md (commit 2761116)

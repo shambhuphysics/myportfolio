@@ -65,28 +65,23 @@
 Add **Teaching** as top-level item after Research:
 `About | Research | Teaching | Library | Resources | Contact`
 
-### New page: `pages/teaching.html` — 4 sections (awards.html dark style)
+### New page: `pages/teaching.html` — 2 sections (awards.html dark style) ✅
 
-#### 1. UCL Demonstrator (2022–Present)
-- GEOL0046 Deep Earth & Planetary Modelling (Term 2)
-- GEOL0012 Global Geophysics (Term 1)
-Logo: UCL vector logo · Tags: Python · DFT · Geophysics · LaTeX
+#### 1. UCL (2022–Present) — 3 module cards with links
+- GEOL0069 AI for Earth Observations — Tags: Python, Deep Learning, Remote Sensing, Geospatial, Raster, AWS, Azure
+- GEOL0046 Deep Earth & Planetary Modelling — Tags: VASP, FORTRAN, Python, Shell, HPC, Phase Transitions, High-Pressure Physics
+- GEOL0012 Global Geophysics — Tags: Solid State Physics, Thermodynamics, Statistical Mechanics
 
-#### 2. National Examination Board — Undergraduate (2019–2021)
-- Taught Fundamental Physics
-Tags: Physics · Teaching · Mentoring
+#### 2. National Examination Board — Nepal (2019–2021) — merged card
+- Taught Mathematics and Physics (undergraduate + intermediate levels)
+- Tags: Mathematics, Physics, Teaching, Mentoring
 
-#### 3. National Examination Board — Intermediate (2019–2021)
-- Taught Mathematics and Physics
-Tags: Mathematics · Physics · Teaching
+#### AI4EO resources migrated → `useful_sites.html` (new section at bottom) ✅
 
-#### 4. AI for Earth Observation (AI4EO) — Resources
-Links: Satellite-image Deep Learning notebooks, Geospatial Python, Copernicus/Wekeo, Earth Data Analysis, Sentinel analysis
-Tags: Python · Deep Learning · Geospatial · Remote Sensing
-
-### Files
-| `pages/teaching.html` | create |
-| `pages/index.html` | add Teaching nav item after Research |
+### Files changed ✅
+| `pages/teaching.html` | created |
+| `pages/index.html` | Teaching added to navbar after Research |
+| `pages/useful_sites.html` | AI4EO section added |
 
 ## Real time website visitor counter
 
