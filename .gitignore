@@ -13,3 +13,5 @@ extracted/
 .DS_Store
 *~
 *.swp
+*.md
+Makefile
