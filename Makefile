@@ -1,31 +1,26 @@
 # ────────────────────────────────────────────────────────────────────
 #  Makefile — Shambhu's Research Portfolio
 #
-#  Source layout:
-#    pages/      HTML source files
-#    styles/     style.css + script.js
-#    images/     all images (stays at root)
-#    cv/         PDF (gitignored, copied into build if present)
+#  Layout:
+#    pages/      HTML source (index.html + sub-pages)
+#    styles/     style.css, script.js
+#    images/     photos and section thumbnails
+#    cv/         Shambhu_CV.pdf  (gitignored)
+#    docs/       documentation notes (not the site output)
+#    index.html  root redirect → pages/index.html
 #
-#  Build output:
-#    docs/       flat site ready for GitHub Pages
-#                (GitHub Pages → Settings → Pages → /docs folder)
-#
-#  Live URL: https://shambhubhandari.github.io
+#  GitHub Pages: serves root of main branch
+#  Live URL    : https://shambhubhandari.github.io
 # ────────────────────────────────────────────────────────────────────
 
-REMOTE    := origin
-BRANCH    := main
-PORT      := 8000
-LIVE      := https://shambhubhandari.github.io
-
-SRC_PAGES := pages
-SRC_STYLES := styles
-OUT       := docs
+REMOTE := origin
+BRANCH := main
+PORT   := 8000
+LIVE   := https://shambhubhandari.github.io
 
 .DEFAULT_GOAL := help
 
-.PHONY: help build serve open deploy status log clean
+.PHONY: help serve open deploy status log clean
 
 # ── Help ─────────────────────────────────────────────────────────────
 help:
@@ -36,29 +31,18 @@ help:
 		| awk 'BEGIN {FS = ":.*?## "}; {printf "  \033[36m%-10s\033[0m %s\n", $$1, $$2}'
 	@echo ""
 
-# ── Build ─────────────────────────────────────────────────────────────
-build: ## Assemble pages/ + styles/ + images/ → docs/
-	@rm -rf $(OUT)
-	@mkdir -p $(OUT)
-	@cp $(SRC_PAGES)/*.html  $(OUT)/
-	@cp $(SRC_STYLES)/style.css  $(OUT)/style.css
-	@cp $(SRC_STYLES)/script.js  $(OUT)/script.js
-	@cp -r images  $(OUT)/images
-	@[ -d cv ] && cp -r cv $(OUT)/cv || true
-	@echo "✓  Built → $(OUT)/  ($$(ls $(OUT)/*.html | wc -l | tr -d ' ') pages)"
-
 # ── Local dev ─────────────────────────────────────────────────────────
-serve: build ## Build then serve docs/ at http://localhost:$(PORT)
-	@echo "→  http://localhost:$(PORT)  (Ctrl-C to stop)"
-	cd $(OUT) && python3 -m http.server $(PORT)
+serve: ## Serve the site locally at http://localhost:$(PORT)/pages/
+	@echo "→  http://localhost:$(PORT)/pages/"
+	python3 -m http.server $(PORT)
 
 open: ## Open the live GitHub Pages site in the browser
 	xdg-open $(LIVE) 2>/dev/null || open $(LIVE) 2>/dev/null || \
 		echo "Open: $(LIVE)"
 
 # ── Deployment ────────────────────────────────────────────────────────
-deploy: build ## Build, commit docs/ + source changes, push to GitHub Pages
-	git add $(OUT)/ $(SRC_PAGES)/ $(SRC_STYLES)/
+deploy: ## Stage all site files, commit with timestamp, and push
+	git add index.html pages/ styles/ images/
 	git diff --cached --quiet \
 		&& echo "Nothing to commit — already up to date." \
 		|| git commit -m "Deploy: $$(date '+%Y-%m-%d %H:%M')"
@@ -67,7 +51,7 @@ deploy: build ## Build, commit docs/ + source changes, push to GitHub Pages
 	@echo "✓  Live at $(LIVE)"
 
 # ── Git helpers ───────────────────────────────────────────────────────
-status: ## Working-tree status + last 5 commits
+status: ## Working-tree status and last 5 commits
 	@git status -s
 	@echo ""
 	@git log --oneline -5
@@ -76,9 +60,8 @@ log: ## Graph of last 10 commits
 	git log --oneline --graph --decorate -10
 
 # ── Housekeeping ──────────────────────────────────────────────────────
-clean: ## Delete docs/ (rebuild with 'make build') and temp files
-	@rm -rf $(OUT)
+clean: ## Remove OS/editor temp files (.DS_Store, *~, *.swp, *.pyc)
 	@find . -not -path './.git/*' \( \
 		-name ".DS_Store" -o -name "*~" -o -name "*.swp" -o -name "*.pyc" \
 	\) -delete
-	@echo "Clean — run 'make build' to reassemble."
+	@echo "Clean."

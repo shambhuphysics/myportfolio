@@ -13,5 +13,3 @@ extracted/
 .DS_Store
 *~
 *.swp
-
-# NOTE: docs/ is intentionally tracked — GitHub Pages serves from it.
