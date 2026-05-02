@@ -99,9 +99,18 @@
         <h2 class="blog-section-title">Ab-initio Phase Diagram Calculations for Al-Mg Alloy</h2>
 
         <!-- Intro video -->
-        <div style="position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;">
-          <iframe src="https://www.youtube-nocookie.com/embed/yQ6VOOd73MA?autoplay=1&mute=1&controls=0&loop=1&playlist=yQ6VOOd73MA&modestbranding=1&rel=0&playsinline=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+        <div id="vid-wrap" style="position:relative;width:100%;aspect-ratio:16/9;border-radius:10px;overflow:hidden;background:#000;">
+          <iframe id="vid-frame" src="https://www.youtube-nocookie.com/embed/yQ6VOOd73MA?autoplay=1&mute=1&controls=0&loop=1&playlist=yQ6VOOd73MA&modestbranding=1&rel=0&playsinline=1" frameborder="0" allow="autoplay;encrypted-media" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+          <button id="vid-unmute" title="Unmute" style="position:absolute;bottom:12px;right:12px;background:rgba(0,0,0,0.6);border:1px solid rgba(255,255,255,0.3);color:#fff;border-radius:8px;padding:6px 12px;font-size:13px;cursor:pointer;display:flex;align-items:center;gap:6px;backdrop-filter:blur(4px);transition:background .2s;">
+            <i class="fas fa-volume-mute"></i> Unmute
+          </button>
         </div>
+        <script>
+          document.getElementById('vid-unmute').addEventListener('click', function () {
+            document.getElementById('vid-frame').src = 'https://www.youtube-nocookie.com/embed/yQ6VOOd73MA?autoplay=1&mute=0&controls=1&modestbranding=1&rel=0&playsinline=1';
+            this.style.display = 'none';
+          });
+        </script>
 
         <div class="blog-news">
           <h3 class="blog-news-title">LATEST NEWS</h3>
