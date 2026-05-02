@@ -27,6 +27,30 @@ $(document).ready(function () {
     $(".menu-btn i").toggleClass("active");
   });
 
+  // mobile: tap dropdown parent to accordion-open
+  $('.navbar .menu li.has-dropdown > a').on('click', function(e) {
+    if ($(window).width() <= 947) {
+      e.preventDefault();
+      $(this).parent().toggleClass('open')
+             .siblings('.has-dropdown').removeClass('open');
+    }
+  });
+
+  // close dropdowns when clicking outside the navbar
+  $(document).on('click', function(e) {
+    if (!$(e.target).closest('.navbar').length) {
+      $('.has-dropdown').removeClass('open');
+    }
+  });
+
+  // close mobile menu when a non-dropdown link is tapped
+  $('.navbar .menu li:not(.has-dropdown) > a').on('click', function() {
+    if ($(window).width() <= 947) {
+      $('.navbar .menu').removeClass('active');
+      $('.menu-btn i').removeClass('active');
+    }
+  });
+
   var typed = new Typed(".typing", {
     strings: [
       "PhD Researcher",

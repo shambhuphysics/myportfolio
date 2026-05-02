@@ -145,6 +145,44 @@ section .title::after {
   color: #fff;
 }
 
+/* ── Dropdown navigation ──────────────────────────────── */
+.navbar .menu li.has-dropdown { position: relative; }
+.navbar .menu li.has-dropdown > .dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: #111;
+  min-width: 190px;
+  border-top: 2px solid crimson;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 1000;
+  padding: 4px 0;
+  list-style: none;
+}
+.navbar .menu li.has-dropdown:hover > .dropdown { display: block; }
+.navbar .menu li.has-dropdown > .dropdown > li { display: block; }
+.navbar .menu li.has-dropdown > .dropdown > li > a {
+  display: block;
+  padding: 9px 18px;
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.navbar .menu li.has-dropdown > .dropdown > li > a:hover {
+  color: #fff;
+  background: rgba(220, 20, 60, 0.15);
+}
+.navbar.sticky .menu li.has-dropdown > .dropdown {
+  background: crimson;
+  border-top-color: rgba(255,255,255,0.3);
+}
+.navbar.sticky .menu li.has-dropdown > .dropdown > li > a { color: rgba(255,255,255,0.85); }
+.navbar.sticky .menu li.has-dropdown > .dropdown > li > a:hover { background: rgba(0,0,0,0.15); color: #fff; }
+
 .menu-btn {
   color: #fff;
   font-size: 23px;
@@ -728,6 +766,24 @@ footer span a:hover {
     display: inline-block;
     margin: 20px 0;
     font-size: 25px;
+  }
+
+  .navbar .menu li.has-dropdown > .dropdown {
+    position: static;
+    display: none;
+    background: #1a1a1a;
+    border-top: 1px solid #333;
+    box-shadow: none;
+    min-width: auto;
+    border-radius: 0;
+    padding: 0;
+  }
+  .navbar .menu li.has-dropdown.open > .dropdown { display: block; }
+  .navbar .menu li.has-dropdown > .dropdown > li > a {
+    padding: 10px 30px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    margin: 0;
   }
 
   .home .home-content .text-2 {
@@ -1780,7 +1836,7 @@ footer span a:hover {
   }
 }
 
-/* ====== BLOG LAYOUT: Two-Column Sidebar + Main ====== */
+/* ====== HOME HERO: Full-Width ====== */
 .blog-home {
   height: auto !important;
   min-height: 100vh;
@@ -1789,99 +1845,14 @@ footer span a:hover {
   position: relative;
 }
 
-.blog-layout {
-  display: flex;
-  min-height: calc(100vh - 70px);
+.home-hero {
   max-width: 1200px;
   margin: 0 auto;
-}
-
-/* --- Sidebar --- */
-.blog-sidebar {
-  width: 240px;
-  min-width: 220px;
-  background: rgba(0, 0, 0, 0.45);
-  border-right: 1px solid rgba(255, 255, 255, 0.12);
-  padding: 24px 16px;
-  display: flex;
-  flex-direction: column;
-  gap: 0;
-  backdrop-filter: blur(8px);
-}
-
-.sidebar-divider {
-  border: none;
-  border-top: 1px solid rgba(255, 255, 255, 0.15);
-  margin: 14px 0;
-}
-
-.sidebar-profile {
-  text-align: center;
-  padding: 8px 0;
-}
-
-.sidebar-avatar {
-  width: 90px;
-  height: 90px;
-  border-radius: 50%;
-  object-fit: cover;
-  border: 3px solid rgba(255, 255, 255, 0.4);
-  margin-bottom: 8px;
-}
-
-.sidebar-name {
-  font-size: 1.05rem;
-  font-weight: 700;
-  color: #fff;
-  font-family: "Ubuntu", sans-serif;
-}
-
-.sidebar-role {
-  font-size: 0.82rem;
-  color: rgba(255, 255, 255, 0.7);
-  margin: 4px 0 8px;
-  font-family: "Ubuntu", sans-serif;
-}
-
-.sidebar-nav {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  padding: 4px 0;
-}
-
-.sidebar-nav a {
-  color: rgba(255, 255, 255, 0.85);
-  font-size: 0.88rem;
-  text-decoration: none;
-  font-family: "Ubuntu", sans-serif;
-  line-height: 1.5;
-  transition: color 0.2s;
-}
-
-.sidebar-nav a:hover {
-  color: #ff6b6b;
-}
-
-.sidebar-social {
-  display: flex;
-  gap: 12px;
-  padding: 8px 0;
-}
-
-.sidebar-social a {
-  color: rgba(255, 255, 255, 0.7);
-  font-size: 1.2rem;
-  transition: color 0.2s;
-}
-
-.sidebar-social a:hover {
-  color: #ff6b6b;
+  padding: 60px 40px 50px;
 }
 
 /* --- Main --- */
 .blog-main {
-  flex: 1;
   background: rgba(0, 0, 0, 0.35);
   padding: 32px 40px;
   backdrop-filter: blur(6px);
@@ -1959,22 +1930,16 @@ footer span a:hover {
 }
 
 @media (max-width: 768px) {
-  .blog-layout {
-    flex-direction: column;
-  }
-
-  .blog-sidebar {
-    width: 100%;
-    border-right: none;
-    border-bottom: 1px solid #ddd;
-  }
-
   .blog-main {
     padding: 20px 16px;
   }
 
   .blog-main-title {
     font-size: 1.5rem;
+  }
+
+  .home-hero {
+    padding: 40px 20px 30px;
   }
 }
 
@@ -2027,13 +1992,6 @@ footer span a:hover {
 }
 .navbar { animation: navDrop 0.7s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
-/* Sidebar avatar float */
-@keyframes avatarFloat {
-  0%, 100% { transform: translateY(0); box-shadow: 0 4px 14px rgba(0,0,0,0.25); }
-  50%       { transform: translateY(-8px); box-shadow: 0 14px 28px rgba(0,0,0,0.35); }
-}
-.sidebar-avatar { animation: avatarFloat 3.8s ease-in-out infinite; }
-
 /* Scroll-reveal: base invisible state (JS adds attribute, CSS hides, observer reveals) */
 [data-reveal] {
   opacity: 0;
@@ -2054,9 +2012,6 @@ footer span a:hover {
 .card { transition: transform 0.35s ease, box-shadow 0.35s ease !important; }
 .card:hover { transform: translateY(-6px) !important; box-shadow: 0 16px 40px rgba(0,0,0,0.22) !important; }
 
-/* Sidebar nav indent on hover */
-.sidebar-nav a { transition: color 0.2s ease, padding-left 0.2s ease !important; }
-.sidebar-nav a:hover { padding-left: 7px !important; }
 
 /* Badge shimmer on hover */
 @keyframes shimmer {

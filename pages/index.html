@@ -32,11 +32,39 @@
         <a href="#">Shambhu<span style="color:crimson;">.</span></a>
       </div>
       <ul class="menu">
-        <li><a class="menu-btn" href="#home">Home</a></li>
-        <li><a class="menu-btn" href="#about">About</a></li>
-        <li><a class="menu-btn" href="#skills">Skills</a></li>
-        <li><a class="menu-btn" href="#publications">Publications</a></li>
-        <li><a class="menu-btn" href="#contact">Contact</a></li>
+        <li class="has-dropdown">
+          <a href="#about">About</a>
+          <ul class="dropdown">
+            <li><a href="#experience">Experience</a></li>
+            <li><a href="#education">Education</a></li>
+            <li><a href="#skills">Skills</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Research</a>
+          <ul class="dropdown">
+            <li><a href="projects.html">Projects</a></li>
+            <li><a href="#publications">Publications</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Library</a>
+          <ul class="dropdown">
+            <li><a href="machine_learning.html">Machine Learning</a></li>
+            <li><a href="physics.html">Physics &amp; Chemistry</a></li>
+            <li><a href="quantum.html">Quantum Computing</a></li>
+          </ul>
+        </li>
+        <li class="has-dropdown">
+          <a href="#">Resources</a>
+          <ul class="dropdown">
+            <li><a href="useful_sites.html">Useful Sites</a></li>
+            <li><a href="gallery.html">Gallery</a></li>
+            <li><a href="wellbeing.html">Wellbeing</a></li>
+            <li><a href="awards.html">Awards</a></li>
+          </ul>
+        </li>
+        <li><a href="#contact">Contact</a></li>
       </ul>
       <div class="menu-btn">
         <i class="fas fa-bars"></i>
@@ -45,32 +73,7 @@
   </nav>
   <!-- ========== HOME ========== -->
   <section class="home blog-home" id="home">
-    <div class="blog-layout">
-
-      <!-- LEFT SIDEBAR -->
-      <aside class="blog-sidebar">
-        <div class="sidebar-profile">
-          <img src="../images/profile.jpg" alt="Shambhu" class="sidebar-avatar" />
-          <div class="sidebar-name">Shambhu Bhandari</div>
-          <div class="sidebar-role">PhD Researcher · UCL</div>
-        </div>
-        <hr class="sidebar-divider" />
-        <nav class="sidebar-nav">
-          <a href="projects.html">&#128213; My Presentation slides</a>
-          <a href="wellbeing.html">&#127942; Routine: one step towards</a>
-          <a href="quantum.html">Q&lt;&psi;| Quantum Algorithm</a>
-          <a href="physics.html">&#9883; Physics and Chemistry</a>
-          <a href="useful_sites.html">&#127760; Useful Sites</a>
-          <a href="gallery.html">&#128444; Gallery</a>
-        </nav>
-        <hr class="sidebar-divider" />
-        <div class="sidebar-social">
-          <a href="https://github.com/shambhuphysics" target="_blank"><i class="fab fa-github"></i></a>
-          <a href="https://linkedin.com/in/shambhu-bhandari-sharma-478250176/" target="_blank"><i
-              class="fab fa-linkedin"></i></a>
-          <a href="https://sbs2024.blogspot.com/" target="_blank"><i class="fab fa-blogger"></i></a>
-        </div>
-      </aside>
+    <div class="home-hero">
 
       <!-- MAIN CONTENT -->
       <main class="blog-main">
@@ -132,7 +135,7 @@
       <p class="about-bio">PhD researcher in Theoretical and Computational Condensed Matter Physics at University College London. My work employs first-principles DFT, ab initio molecular dynamics, and machine learning to study structural, electronic, and thermomechanical properties of materials under extreme conditions — with a focus on high-pressure phase diagrams of binary alloys, low-dimensional materials, and electrides.</p>
 
       <!-- Experience -->
-      <div class="tl-section">
+      <div class="tl-section" id="experience">
         <h3 class="tl-heading">Experiences</h3>
         <div class="tl-list">
 
@@ -170,7 +173,7 @@
       </div>
 
       <!-- Education -->
-      <div class="tl-section">
+      <div class="tl-section" id="education">
         <h3 class="tl-heading">Education</h3>
         <div class="tl-list">
 
