@@ -99,39 +99,18 @@
         <h2 class="blog-section-title">Ab-initio Phase Diagram Calculations for Al-Mg Alloy</h2>
 
         <!-- Image Slider -->
-        <div class="blog-slider-wrapper">
-          <div id="slider">
-            <div class="slide"><img
-                src="https://blogger.googleusercontent.com/img/a/AVvXsEhcRacCRY2lkKy80ort_JXjSfgzmuluqbXLwjOirca8NGKY_5iuVzDHMLRb8sp32UyWRs5EeM3Bg6PPOV3y3qK5Z27ATe4RnYV4QNj44aePXNcN_X2QNvcJeXYCHfQXuFikoj6huiTadDzZdft8IcgLM9eAexM3B35lM2qIHwJyuR-Y_ChrQighFCAemYM"
-                alt="Workflow" /></div>
-            <div class="slide"><img
-                src="https://blogger.googleusercontent.com/img/a/AVvXsEgQicjmDeozItTrRRD21XwH__A8oJJsU3uLlGhnKp7jj7evrX5tzDjTOlL_kUTqUBloj8VhVFD8qBZCOUO2BVdW2afU1f34nPzYQv8DiCzxgbZ0DLCudAo83HG_kdKlWwiY1ec3utI6wCUqhlf-VTosXlDVlmEgmHoEy0hyEEYNIxrlgoo8N8uZhXAEMEA"
-                alt="Earthcore" /></div>
-            <div class="slide"><img
-                src="https://blogger.googleusercontent.com/img/a/AVvXsEho_x6D99fwoUrGAanX3ujjA6DgQzKob-d8w0GjlVfAGEhJoQXBiS9pTaUcgYAMW-U5_hklkeJeeEZB5aZlKzYT8pdimiM1RJ0Ql62Ym8snI5LD49PUuVvzuhdc1mUPtQVwDBnyEVQO-cxY_F0rFT6-R2bTh_5dLbprmjf58W4u-h7L2mfHf_Y9d0MUET4"
-                alt="Instrument" /></div>
-            <div class="slide"><img
-                src="https://blogger.googleusercontent.com/img/a/AVvXsEiPBCcVUvOTggJbU0NqH5yIFRcn_Koh9Q8e4fbM4X1KXwSMR17etopLdPm2axYGGnrmOWl2F1efxhNT-B9K6mnvIX3e-O4HLO1GQ5Gp2tzuREQBKWKQSuYvGI4Ye50PpaOZz43axqolfov0hZ8PU6GFPY2t_FqpAhuP4tVBAUAXlcJlhYNxZJ-SLxOLmnU"
-                alt="Phase diagram" /></div>
-            <div class="slide"><img
-                src="https://blogger.googleusercontent.com/img/a/AVvXsEhIE4jQAABldj8r71iKXYILJOtRhvVu_NKL5EMAdabkXoKFKdnc_uS7O3K8qUaxhXO4ixUYBrwNigC1cCCP0IhiarR1VeBpac9FttzcRy7kjgEE29mQAQeaUqu6v9SWtSwol6NGQhMQmUqsDAap0aa6Why1S8ymg4A6vUHZRMwmkyHnCMSYja2BAuURZOA"
-                alt="2D material" /></div>
-            <div class="slide"><img
-                src="https://blogger.googleusercontent.com/img/a/AVvXsEjLj8XiUgpn4z2OwL8PnP_EC1MdihfL--4j49dxzLC3pBjbvLvpgRAelmDjsDWDFmFUEYFySXhbNQ_B7vWbUT21z-woADMfCJ5RVYlMlixrlHwPL47QvXCrE_6qhQv-iQd1XB_ymckQgEZVg6PU-TDuI-NrJIUWspXkboG4PNn3y7FmwoYUexj8SeVSfhE"
-                alt="Electrides" /></div>
+        <div id="yt-facade" style="position:relative;width:100%;aspect-ratio:16/9;cursor:pointer;border-radius:10px;overflow:hidden;background:#000;max-width:720px;margin:0 auto;">
+          <img src="https://i.ytimg.com/vi/yQ6VOOd73MA/hqdefault.jpg" alt="Research intro video" style="width:100%;height:100%;object-fit:cover;display:block;" loading="lazy">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;background:rgba(0,0,0,0.25);">
+            <div style="width:68px;height:48px;background:crimson;border-radius:12px;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 20px rgba(220,20,60,0.5);">
+              <i class="fas fa-play" style="color:#fff;font-size:22px;margin-left:4px;"></i>
+            </div>
           </div>
         </div>
         <script>
-          (function () {
-            var sl = document.getElementById("slider");
-            var n = 0;
-            setInterval(function () {
-              if (!sl || !sl.firstElementChild) return;
-              n++;
-              if (n >= 6) n = 0;
-              sl.style.transform = "translateX(-" + (n * sl.firstElementChild.clientWidth) + "px)";
-            }, 4000);
-          })();
+          document.getElementById('yt-facade').addEventListener('click', function () {
+            this.innerHTML = '<iframe src="https://www.youtube.com/embed/yQ6VOOd73MA?autoplay=1&rel=0&modestbranding=1" frameborder="0" allow="autoplay;encrypted-media;fullscreen" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border-radius:10px;"></iframe>';
+          });
         </script>
 
         <div class="blog-news">
