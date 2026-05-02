@@ -1,39 +1,288 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awards and Certifications | Shambhu Bhandari Sharma</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body { background: #111; color: #fff; line-height: 1.6; font-family: 'Poppins', sans-serif; }
-        .header { padding: 30px 10%; background: #000; border-bottom: 2px solid crimson; display: flex; justify-content: space-between; align-items: center; }
-        .header a { color: #fff; font-size: 18px; font-weight: 500; transition: color 0.3s; text-decoration: none; }
-        .header a:hover { color: crimson; }
-        .logo a span { color: crimson; }
-        .content-container { max-width: 1000px; margin: 50px auto; padding: 0 20px 50px; background: #1e1e2d; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
-        .post-header { padding: 40px; background: linear-gradient(135deg, #111, #1a1a2e); border-bottom: 3px solid crimson; margin: 0 -20px 40px; }
-        .post-header h1 { font-family: 'Ubuntu', sans-serif; font-size: 36px; text-align: center; color: #fff; margin: 0; }
-        .content-container img { max-width: 100%; border-radius: 8px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .content-container a { color: crimson; text-decoration: none; transition: color 0.2s, opacity 0.2s; }
-        .content-container a:hover { color: #fff; opacity: 0.9; }
-        .content-container h2, .content-container h3 { margin-top: 30px; margin-bottom: 15px; color: crimson; font-family: 'Ubuntu', sans-serif; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Awards &amp; Recognition | Shambhu Bhandari Sharma</title>
+  <link rel="icon" href="../images/favicon.png" type="image/png"/>
+  <link href="../styles/style.css?v=20260502" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0d1a; color: #ccc; font-family: 'Ubuntu', sans-serif; min-height: 100vh; }
+
+    /* ── Mini navbar ─────────────────────────────────────── */
+    .sub-nav {
+      position: sticky; top: 0; z-index: 100;
+      background: rgba(13,13,26,0.96); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(220,20,60,0.25);
+      padding: 14px 6%; display: flex; justify-content: space-between; align-items: center;
+    }
+    .sub-nav .sn-logo { color:#fff; font-size:20px; font-weight:700; text-decoration:none; font-family:'Ubuntu',sans-serif; }
+    .sub-nav .sn-logo span { color:crimson; }
+    .sub-nav .sn-back { color:#aaa; text-decoration:none; font-size:13px; display:flex; align-items:center; gap:7px; transition:color .2s; }
+    .sub-nav .sn-back:hover { color:crimson; }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .aw-hero {
+      text-align:center; padding:70px 5% 50px;
+      background:linear-gradient(175deg,#111125 0%,#0d0d1a 100%);
+      border-bottom:1px solid rgba(220,20,60,0.15);
+    }
+    .aw-hero h1 { font-size:2.4rem; font-weight:900; color:#fff; margin-bottom:10px; }
+    .aw-hero p  { color:#888; font-size:.98rem; }
+    .aw-hero .title-bar { width:56px; height:3px; background:crimson; margin:18px auto 0; border-radius:2px; }
+
+    /* ── Section wrapper ─────────────────────────────────── */
+    .aw-section { max-width:1060px; margin:0 auto; padding:56px 5%; }
+    .aw-section + .aw-section { border-top:1px solid rgba(255,255,255,0.06); }
+
+    .aw-section-head {
+      display:flex; align-items:center; gap:14px; margin-bottom:36px;
+    }
+    .aw-icon-badge {
+      width:42px; height:42px; border-radius:10px; flex-shrink:0;
+      background:rgba(220,20,60,0.12); border:1px solid rgba(220,20,60,0.35);
+      display:flex; align-items:center; justify-content:center;
+      color:crimson; font-size:17px;
+    }
+    .aw-section-head h2 { font-size:1.45rem; color:#fff; font-weight:700; }
+
+    /* ── Award card (horizontal) ─────────────────────────── */
+    .award-card {
+      display:flex; gap:0;
+      background:#13132a; border:1px solid rgba(220,20,60,0.2);
+      border-radius:12px; overflow:hidden;
+      transition:border-color .3s, box-shadow .3s;
+    }
+    .award-card:hover { border-color:crimson; box-shadow:0 8px 30px rgba(220,20,60,0.15); }
+    .award-card-img { width:260px; min-width:200px; flex-shrink:0; overflow:hidden; background:#0a0a18; }
+    .award-card-img img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
+    .award-card:hover .award-card-img img { transform:scale(1.04); }
+    .award-card-body { padding:28px 34px; flex:1; }
+
+    .aw-tags { display:flex; flex-wrap:wrap; gap:7px; margin-bottom:16px; }
+    .aw-tag {
+      background:rgba(220,20,60,0.1); border:1px solid rgba(220,20,60,0.35);
+      color:crimson; font-size:10.5px; font-weight:700;
+      padding:3px 11px; border-radius:20px; text-transform:uppercase; letter-spacing:.5px;
+    }
+    .award-card-body h3 { font-size:1.1rem; color:#fff; font-weight:700; margin-bottom:7px; line-height:1.45; }
+    .award-org { font-size:13px; color:#777; margin-bottom:14px; }
+    .award-desc { font-size:13.5px; color:#bbb; line-height:1.72; margin-bottom:22px; }
+    .aw-links { display:flex; gap:10px; flex-wrap:wrap; }
+
+    /* ── Cert grid ───────────────────────────────────────── */
+    .cert-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
+    .cert-card {
+      background:#13132a; border:1px solid rgba(220,20,60,0.18); border-radius:10px; overflow:hidden;
+      display:flex; flex-direction:column;
+      transition:transform .3s, border-color .3s, box-shadow .3s;
+    }
+    .cert-card:hover { transform:translateY(-6px); border-color:crimson; box-shadow:0 10px 32px rgba(220,20,60,0.18); }
+    .cert-thumb { width:100%; aspect-ratio:4/3; overflow:hidden; background:#fff; }
+    .cert-thumb img { width:100%; height:100%; object-fit:cover; display:block; transition:transform .4s; }
+    .cert-card:hover .cert-thumb img { transform:scale(1.04); }
+    .cert-body { padding:18px 20px 22px; flex:1; display:flex; flex-direction:column; }
+    .cert-issuer { font-size:10.5px; color:crimson; font-weight:700; text-transform:uppercase; letter-spacing:.8px; margin-bottom:8px; }
+    .cert-title { font-size:13px; font-weight:600; color:#e0e0e0; line-height:1.5; flex:1; margin-bottom:14px; }
+
+    /* ── Peer review list ────────────────────────────────── */
+    .review-list { display:flex; flex-direction:column; gap:12px; }
+    .review-item {
+      display:flex; align-items:center; gap:18px;
+      background:#13132a; border:1px solid rgba(255,255,255,0.07);
+      border-radius:8px; padding:16px 22px;
+      transition:border-color .25s, transform .25s;
+    }
+    .review-item:hover { border-color:rgba(220,20,60,0.4); transform:translateX(5px); }
+    .review-num { font-size:22px; font-weight:800; color:crimson; min-width:34px; font-family:'Ubuntu',sans-serif; }
+    .review-body { flex:1; }
+    .review-name { font-size:14.5px; font-weight:600; color:#fff; margin-bottom:3px; }
+    .review-since { font-size:12px; color:#777; }
+    .review-badge {
+      background:rgba(220,20,60,0.1); border:1px solid rgba(220,20,60,0.3);
+      color:crimson; font-size:10.5px; font-weight:700;
+      padding:3px 11px; border-radius:20px; white-space:nowrap;
+    }
+
+    /* ── Shared button ───────────────────────────────────── */
+    .pub-btn { font-size:12px; padding:6px 16px; display:inline-flex; align-items:center; gap:6px; }
+
+    /* ── Footer strip ────────────────────────────────────── */
+    .aw-footer { text-align:center; padding:30px; color:#555; font-size:12px; border-top:1px solid rgba(255,255,255,0.05); }
+    .aw-footer a { color:crimson; text-decoration:none; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width:800px) {
+      .award-card { flex-direction:column; }
+      .award-card-img { width:100%; height:220px; }
+      .cert-grid { grid-template-columns:1fr 1fr; }
+    }
+    @media (max-width:520px) {
+      .cert-grid { grid-template-columns:1fr; }
+      .aw-hero h1 { font-size:1.9rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo"><a href="index.html">Portfo<span>lio.</span></a></div>
-        <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+
+  <!-- Mini navbar -->
+  <nav class="sub-nav">
+    <a href="index.html" class="sn-logo">Shambhu<span>.</span></a>
+    <a href="index.html" class="sn-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="aw-hero">
+    <h1>Awards &amp; Recognition</h1>
+    <p>Academic honours, professional certifications, and scholarly service</p>
+    <div class="title-bar"></div>
+  </header>
+
+  <!-- ════════════════════════════════════════════════════
+       SECTION 1 — Awards
+       ════════════════════════════════════════════════════ -->
+  <section class="aw-section">
+    <div class="aw-section-head">
+      <div class="aw-icon-badge"><i class="fas fa-trophy"></i></div>
+      <h2>Awards</h2>
     </div>
-    <div class="content-container">
-        <div class="post-header">
-            <h1>Awards and Certifications</h1>
+
+    <div class="award-card">
+      <div class="award-card-img">
+        <img src="../images/awards/awards_1.jpg" alt="ISAD &amp; EPSRC Award Certificate">
+      </div>
+      <div class="award-card-body">
+        <div class="aw-tags">
+          <span class="aw-tag">PhD Funding</span>
+          <span class="aw-tag">UCL</span>
+          <span class="aw-tag">EPSRC</span>
+          <span class="aw-tag">Competitive</span>
         </div>
-        <div class="actual-content">
-            <h2 style="text-align: center;"><span style="background-color: black; color: red; font-family: Merriweather;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span style="background-color: black; color: white; font-family: Merriweather;">Awards&nbsp;&nbsp;</span><span style="background-color: black; color: red; font-family: Merriweather;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></h2><p style="text-align: center;"><span style="color: #2b00fe;"><b>1</b>.&nbsp;<span style="font-family: Merriweather;"><b><a href="https://www.ucl.ac.uk/aihealth-cdt/information-applicants#:~:text=International%20applicants&amp;text=International%20Scholars%20Award%20for%20Doctoral,study%20for%20Student%20visa%20students.">International Scholars Award for Doctoral Training (ISAD)</a></b></span><b style="font-family: Merriweather;">&nbsp;&amp; <a href="https://drive.google.com/file/d/1gXL4xPSow69PqCtjtW2W7Tb3gvGJrzUn/view">EPSRC Industrial CASE Research Studentship UCL</a></b></span></p><p><b></b></p><div class="separator" style="clear: both; text-align: center;"><b><a href="https://blogger.googleusercontent.com/img/a/AVvXsEhVLYbRJWrL9qxXmebNlyHFKJZjEGxQ13rOBl1jfUElVPGOV7VXhsj7v_SAyMFJk0gDupT1nj1XCIzsYn_98te3hyC-AOGYhoAbi43YzuMwLk9Ym_0Oc9gulDeZRr5B3CZvk9cdPYmMInhjFiA2F-1LeH9XmStA1eNzRjVLm0eFSM4uV4jJd-z5yusihzA" style="margin-left: 1em; margin-right: 1em;"><img data-original-height="730" data-original-width="575" height="320" src="../images/awards/awards_1.jpg" width="252" /></a></b></div><b><div><span><!--more--></span><span><!--more--></span></div><h2 style="text-align: center;"><span style="background-color: black; color: red; font-family: Merriweather;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span><span style="background-color: black; color: white; font-family: Merriweather;">Certifications&nbsp; </span><span style="background-color: black; color: red; font-family: Merriweather;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></h2><br /></b><b style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</b><div><b style="text-align: center;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="color: #2b00fe;"> &nbsp; &nbsp; &nbsp;1</span></b><span style="color: #2b00fe;"><span style="text-align: center;">.&nbsp;</span><a href="https://www.coursera.org/account/accomplishments/certificate/XHSSMAP3DM5D"><span style="font-family: Merriweather;"><b><u>Linear Algebra for Machine Learning and Data&nbsp;</u></b></span><b style="font-family: Merriweather; text-align: center;"><u>Science</u></b></a></span><div><div style="text-align: center;"><span style="color: #0000ee; font-family: Merriweather;"><b><u><br /></u></b></span></div><div style="text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEh20QyXurZL6CyKFxEU5cZ20G673QbjRbeBg4QgLaJemJCybEHtM1GzvAgtDgBf4_e6GGIGR6J4kUJNMYHyTSoFSnnIs_nwUxhE6MiG7ctpYVGPd9SwJmz2e0NeSbnu7uCtTalagYKMjVPHepfFxWD2Z4uqaLXuBwPNJAszOBqCqMs-SaJSkoY1R52hLBw" style="margin-left: 1em; margin-right: 1em;"><img data-original-height="784" data-original-width="1033" height="242" src="../images/awards/awards_2.jpg" width="320" /></a></div><div style="text-align: center;"><br /></div><span style="color: #2b00fe;"><b>&nbsp;2</b>.&nbsp;<a href="https://www.coursera.org/account/accomplishments/certificate/7P5MJPLPHWAB" style="text-align: left;"><span style="font-family: Merriweather;"><b><u>Calculus for Machine Learning and Data&nbsp;</u></b></span><b style="font-family: Merriweather; text-align: center;"><u>Science</u></b></a></span><br /><br /></div><div style="text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEibuXt6kZZbiKUTYhM3m0DWFxD60x9ifkpLE0PyLjgWQLS-nvMKp31oeewYDLhKy-zejXpnBKz47slJ8aBuIipnN7lyuldQ82HXDQbCTLk45pj48nfSPgQUREhjTys4luLMLgC_ONbebQRx5C-M72hAD0WZh3-Va4bF10tKk39mkkkhZzmzcH9LwINNpok" style="margin-left: 1em; margin-right: 1em;"><img data-original-height="832" data-original-width="1084" height="245" src="../images/awards/awards_3.jpg" width="320" /></a></div><div style="text-align: center;"><br /></div><div style="text-align: center;"><span style="color: #2b00fe;"><b>&nbsp;3</b>. <span style="font-family: Merriweather;"><b><a href="https://www.coursera.org/account/accomplishments/certificate/ZNMIXBJVSM08">Supervised Machine Learning: Regression and Classification</a></b></span></span></div><div style="text-align: center;"><br /></div><div style="text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEgXZTBfBx4flX0fhMp9z2s_LaZLjVLi8Z6DYoWZ62qF7FItG0hNECT3KV03Vju3yUR5KkOjtx4lT88i5ZFZstT1tuRUj38xuEjaSM3t0IFo-AKq9-pPTVcV6Gegf0Ywy5AKF7yYo-KCO5VPTj-LOoxmU0-CzARt1t26LhQ2TfxRQCZFYPrEIpzK5scYLQY" style="margin-left: 1em; margin-right: 1em;"><img data-original-height="782" data-original-width="1011" height="248" src="../images/awards/awards_4.jpg" width="320" /></a></div><br /><br /></div><br /></div><p></p><p><br /></p><p><span></span></p><!--more--><span><!--more--></span><h2 style="text-align: center;"><b style="background-color: black;"><span style="color: white;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span style="font-family: Merriweather;">Peer Reviewing&nbsp; </span>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;&nbsp;</span></b></h2></div></div><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><div><div><p style="text-align: justify;"><b>1</b>. <span style="font-family: Merriweather;"><b>Nature Publishing</b> </span>(Aug 1-&nbsp; present) 2023</p></div></div></blockquote></blockquote></blockquote><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><div><p style="text-align: justify;"><b>2</b>. <b><span style="font-family: Merriweather;">Royal Society of Chemistry</span></b> (May 18- present)&nbsp; 2022</p></div></blockquote><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><div><p style="text-align: justify;"><b>3</b>. <b><span style="font-family: Merriweather;">American Institute of Physics</span> </b>(Jun- present) 2022</p></div></blockquote><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><div><p style="text-align: justify;"><b>4</b>. <b><span style="font-family: Merriweather;">Reviewed For&nbsp; Elsevier</span></b> (Jun- present) 2022</p></div></blockquote><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><div><p style="text-align: justify;"><b>5</b>. <b>Modern Physics Letter B&nbsp; </b>(2024 Jan -present)</p></div></blockquote></blockquote><p>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;6. <b>Springer : Applied Physics A</b>&nbsp;(2024 Sep - present)</p><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><blockquote style="border: none; margin: 0px 0px 0px 40px; padding: 0px; text-align: left;"><div><p style="text-align: justify;">and more...</p></div></blockquote></blockquote><div><p><br /></p><p><br /></p></div>
+        <h3>International Scholars Award for Doctoral Training (ISAD) &amp; EPSRC Industrial CASE Research Studentship</h3>
+        <p class="award-org">University College London · 2022 – Present</p>
+        <p class="award-desc">
+          Awarded the prestigious International Scholars Award for Doctoral Training (ISAD), covering full international tuition fees at University College London. Complemented by an EPSRC Industrial CASE Research Studentship — one of the most competitive doctoral funding mechanisms in the UK, supporting research at the interface of computational physics and materials science.
+        </p>
+        <div class="aw-links">
+          <a href="https://www.ucl.ac.uk/aihealth-cdt/information-applicants#:~:text=International%20applicants&text=International%20Scholars%20Award%20for%20Doctoral,study%20for%20Student%20visa%20students." target="_blank" class="pub-btn"><i class="fas fa-external-link-alt"></i> ISAD Info</a>
+          <a href="https://drive.google.com/file/d/1gXL4xPSow69PqCtjtW2W7Tb3gvGJrzUn/view" target="_blank" class="pub-btn"><i class="fas fa-file-pdf"></i> EPSRC Certificate</a>
         </div>
+      </div>
     </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       SECTION 2 — Certifications
+       ════════════════════════════════════════════════════ -->
+  <section class="aw-section">
+    <div class="aw-section-head">
+      <div class="aw-icon-badge"><i class="fas fa-certificate"></i></div>
+      <h2>Certifications</h2>
+    </div>
+
+    <div class="cert-grid">
+      <div class="cert-card">
+        <div class="cert-thumb">
+          <img src="../images/awards/awards_2.jpg" alt="Linear Algebra for ML Certificate">
+        </div>
+        <div class="cert-body">
+          <div class="cert-issuer">Coursera · DeepLearning.AI</div>
+          <p class="cert-title">Linear Algebra for Machine Learning and Data Science</p>
+          <a href="https://www.coursera.org/account/accomplishments/certificate/XHSSMAP3DM5D" target="_blank" class="pub-btn"><i class="fas fa-external-link-alt"></i> Verify Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb">
+          <img src="../images/awards/awards_3.jpg" alt="Calculus for ML Certificate">
+        </div>
+        <div class="cert-body">
+          <div class="cert-issuer">Coursera · DeepLearning.AI</div>
+          <p class="cert-title">Calculus for Machine Learning and Data Science</p>
+          <a href="https://www.coursera.org/account/accomplishments/certificate/7P5MJPLPHWAB" target="_blank" class="pub-btn"><i class="fas fa-external-link-alt"></i> Verify Certificate</a>
+        </div>
+      </div>
+
+      <div class="cert-card">
+        <div class="cert-thumb">
+          <img src="../images/awards/awards_4.jpg" alt="Supervised ML Certificate">
+        </div>
+        <div class="cert-body">
+          <div class="cert-issuer">Coursera · DeepLearning.AI</div>
+          <p class="cert-title">Supervised Machine Learning: Regression and Classification</p>
+          <a href="https://www.coursera.org/account/accomplishments/certificate/ZNMIXBJVSM08" target="_blank" class="pub-btn"><i class="fas fa-external-link-alt"></i> Verify Certificate</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════════════════════════════════════════════════
+       SECTION 3 — Peer Reviewing
+       ════════════════════════════════════════════════════ -->
+  <section class="aw-section">
+    <div class="aw-section-head">
+      <div class="aw-icon-badge"><i class="fas fa-user-check"></i></div>
+      <h2>Peer Reviewing</h2>
+    </div>
+
+    <div class="review-list">
+      <div class="review-item">
+        <div class="review-num">01</div>
+        <div class="review-body">
+          <div class="review-name">Nature Publishing Group</div>
+          <div class="review-since">Since August 2023</div>
+        </div>
+        <span class="review-badge">Active</span>
+      </div>
+      <div class="review-item">
+        <div class="review-num">02</div>
+        <div class="review-body">
+          <div class="review-name">Royal Society of Chemistry (RSC)</div>
+          <div class="review-since">Since May 2022</div>
+        </div>
+        <span class="review-badge">Active</span>
+      </div>
+      <div class="review-item">
+        <div class="review-num">03</div>
+        <div class="review-body">
+          <div class="review-name">American Institute of Physics (AIP)</div>
+          <div class="review-since">Since June 2022</div>
+        </div>
+        <span class="review-badge">Active</span>
+      </div>
+      <div class="review-item">
+        <div class="review-num">04</div>
+        <div class="review-body">
+          <div class="review-name">Elsevier</div>
+          <div class="review-since">Since June 2022</div>
+        </div>
+        <span class="review-badge">Active</span>
+      </div>
+      <div class="review-item">
+        <div class="review-num">05</div>
+        <div class="review-body">
+          <div class="review-name">Modern Physics Letters B</div>
+          <div class="review-since">Since January 2024</div>
+        </div>
+        <span class="review-badge">Active</span>
+      </div>
+      <div class="review-item">
+        <div class="review-num">06</div>
+        <div class="review-body">
+          <div class="review-name">Springer · Applied Physics A</div>
+          <div class="review-since">Since September 2024</div>
+        </div>
+        <span class="review-badge">Active</span>
+      </div>
+    </div>
+  </section>
+
+  <footer class="aw-footer">
+    <a href="index.html">← Back to Portfolio</a> &nbsp;·&nbsp; Shambhu Bhandari Sharma © 2025
+  </footer>
+
 </body>
 </html>

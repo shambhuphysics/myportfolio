@@ -1,39 +1,582 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gallery | Shambhu Bhandari Sharma</title>
-    <link rel="stylesheet" href="../styles/style.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
-    <style>
-        body { background: #111; color: #fff; line-height: 1.6; font-family: 'Poppins', sans-serif; }
-        .header { padding: 30px 10%; background: #000; border-bottom: 2px solid crimson; display: flex; justify-content: space-between; align-items: center; }
-        .header a { color: #fff; font-size: 18px; font-weight: 500; transition: color 0.3s; text-decoration: none; }
-        .header a:hover { color: crimson; }
-        .logo a span { color: crimson; }
-        .content-container { max-width: 1000px; margin: 50px auto; padding: 0 20px 50px; background: #1e1e2d; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
-        .post-header { padding: 40px; background: linear-gradient(135deg, #111, #1a1a2e); border-bottom: 3px solid crimson; margin: 0 -20px 40px; }
-        .post-header h1 { font-family: 'Ubuntu', sans-serif; font-size: 36px; text-align: center; color: #fff; margin: 0; }
-        .content-container img { max-width: 100%; border-radius: 8px; margin: 20px 0; box-shadow: 0 5px 15px rgba(0,0,0,0.3); }
-        .content-container a { color: crimson; text-decoration: none; transition: color 0.2s, opacity 0.2s; }
-        .content-container a:hover { color: #fff; opacity: 0.9; }
-        .content-container h2, .content-container h3 { margin-top: 30px; margin-bottom: 15px; color: crimson; font-family: 'Ubuntu', sans-serif; }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Gallery | Shambhu Bhandari Sharma</title>
+  <link rel="icon" href="../images/favicon.png" type="image/png"/>
+  <link href="../styles/style.css?v=20260502" rel="stylesheet"/>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { background: #0d0d1a; color: #ccc; font-family: 'Ubuntu', sans-serif; min-height: 100vh; }
+
+    /* ── Mini navbar ─────────────────────────────────────── */
+    .sub-nav {
+      position: sticky; top: 0; z-index: 200;
+      background: rgba(13,13,26,0.96); backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(220,20,60,0.25);
+      padding: 14px 6%; display: flex; justify-content: space-between; align-items: center;
+    }
+    .sub-nav .sn-logo { color:#fff; font-size:20px; font-weight:700; text-decoration:none; font-family:'Ubuntu',sans-serif; }
+    .sub-nav .sn-logo span { color:crimson; }
+    .sub-nav .sn-back { color:#aaa; text-decoration:none; font-size:13px; display:flex; align-items:center; gap:7px; transition:color .2s; }
+    .sub-nav .sn-back:hover { color:crimson; }
+
+    /* ── Hero ────────────────────────────────────────────── */
+    .gal-hero {
+      text-align:center; padding:64px 5% 44px;
+      background:linear-gradient(175deg,#111125 0%,#0d0d1a 100%);
+      border-bottom:1px solid rgba(220,20,60,0.12);
+    }
+    .gal-hero h1 { font-size:2.4rem; font-weight:900; color:#fff; margin-bottom:10px; }
+    .gal-hero p  { color:#888; font-size:.97rem; }
+    .gal-hero .title-bar { width:56px; height:3px; background:crimson; margin:18px auto 0; border-radius:2px; }
+
+    /* ── Search ──────────────────────────────────────────── */
+    .search-wrap {
+      max-width:780px; margin:0 auto;
+      padding:32px 5% 0;
+    }
+    .search-row {
+      display:flex; align-items:center; gap:12px;
+      background:#14142a; border:1.5px solid rgba(220,20,60,0.28);
+      border-radius:10px; padding:12px 18px;
+      transition:border-color .2s, box-shadow .2s;
+    }
+    .search-row:focus-within { border-color:crimson; box-shadow:0 0 0 3px rgba(220,20,60,0.12); }
+    .search-row .s-icon { color:#555; font-size:15px; flex-shrink:0; }
+    .search-row input {
+      flex:1; background:none; border:none; outline:none;
+      color:#fff; font-size:14.5px; font-family:'Ubuntu',sans-serif;
+    }
+    .search-row input::placeholder { color:#4a4a6a; }
+    #galClear {
+      background:none; border:none; cursor:pointer;
+      color:#555; font-size:13px; padding:2px; display:none;
+      transition:color .2s;
+    }
+    #galClear.vis { display:block; }
+    #galClear:hover { color:crimson; }
+    .search-hint { font-size:12px; color:#444; margin-top:10px; text-align:center; }
+
+    /* ── Timeline ────────────────────────────────────────── */
+    .gal-timeline {
+      max-width:860px; margin:0 auto;
+      padding:52px 5% 80px 56px;
+      position:relative;
+    }
+    .gal-timeline::before {
+      content:''; position:absolute;
+      left:calc(5% + 20px); top:60px; bottom:80px;
+      width:2px;
+      background:linear-gradient(to bottom, rgba(220,20,60,.9) 0%, rgba(220,20,60,.08) 100%);
+    }
+
+    /* ── Event block ─────────────────────────────────────── */
+    .gal-event {
+      position:relative;
+      margin-bottom:62px;
+      padding-left:28px;
+    }
+    .gal-event::before {
+      content:''; position:absolute;
+      left:-7px; top:5px;
+      width:14px; height:14px;
+      background:crimson; border-radius:50%;
+      border:3px solid #0d0d1a;
+      box-shadow:0 0 0 3px rgba(220,20,60,0.3), 0 0 14px rgba(220,20,60,0.4);
+    }
+    .gal-event:last-child { margin-bottom:0; }
+
+    .gal-date {
+      display:inline-block;
+      background:rgba(220,20,60,0.12); border:1px solid rgba(220,20,60,0.38);
+      color:crimson; font-size:10.5px; font-weight:700;
+      padding:3px 12px; border-radius:20px; letter-spacing:.6px;
+      text-transform:uppercase; margin-bottom:10px;
+    }
+    .gal-event-title { font-size:1.1rem; color:#fff; font-weight:700; margin-bottom:5px; line-height:1.4; }
+    .gal-loc {
+      font-size:12.5px; color:#777; margin-bottom:12px;
+      display:flex; align-items:center; gap:6px;
+    }
+    .gal-loc i { color:crimson; font-size:11px; }
+    .gal-desc { font-size:13.5px; color:#bbb; line-height:1.7; margin-bottom:20px; }
+
+    /* ── Image grid ──────────────────────────────────────── */
+    .gal-imgs {
+      display:grid;
+      grid-template-columns:repeat(auto-fill, minmax(210px, 1fr));
+      gap:12px;
+    }
+    .gal-imgs.single { grid-template-columns:min(440px,100%); }
+    .gal-imgs.pair   { grid-template-columns:repeat(2, 1fr); }
+
+    .gal-img-wrap {
+      position:relative; overflow:hidden;
+      border-radius:8px; cursor:pointer;
+      background:#111;
+      aspect-ratio:4/3;
+      border:1px solid rgba(255,255,255,0.06);
+      transition:border-color .25s;
+    }
+    .gal-img-wrap:hover { border-color:rgba(220,20,60,0.5); }
+    .gal-img-wrap img {
+      width:100%; height:100%; object-fit:cover; display:block;
+      transition:transform .45s ease;
+    }
+    .gal-img-wrap:hover img { transform:scale(1.07); }
+
+    .gal-img-overlay {
+      position:absolute; inset:0;
+      background:rgba(0,0,0,0); display:flex;
+      align-items:center; justify-content:center;
+      opacity:0; transition:opacity .3s, background .3s;
+      color:#fff; font-size:22px;
+    }
+    .gal-img-wrap:hover .gal-img-overlay { opacity:1; background:rgba(0,0,0,0.3); }
+
+    .gal-img-caption {
+      font-size:11.5px; color:#666; margin-top:5px;
+      font-style:italic; text-align:center; line-height:1.4;
+      padding:0 4px;
+    }
+
+    /* ── Year separator ──────────────────────────────────── */
+    .year-sep {
+      position:relative; text-align:left;
+      margin-bottom:48px; padding-left:28px;
+    }
+    .year-sep::before {
+      content:''; position:absolute;
+      left:-7px; top:50%;
+      width:14px; height:14px;
+      background:#0d0d1a; border:2px solid rgba(220,20,60,0.5);
+      border-radius:50%; transform:translateY(-50%);
+    }
+    .year-sep span {
+      font-size:13px; font-weight:700; color:#555;
+      text-transform:uppercase; letter-spacing:1.5px;
+      background:rgba(220,20,60,0.07); padding:4px 14px;
+      border-radius:4px; display:inline-block;
+    }
+
+    /* ── No results ──────────────────────────────────────── */
+    #noResults {
+      display:none; text-align:center; padding:60px 20px;
+      color:#555;
+    }
+    #noResults i { font-size:40px; margin-bottom:16px; display:block; color:rgba(220,20,60,0.3); }
+    #noResults p { font-size:15px; }
+
+    /* ── Lightbox ────────────────────────────────────────── */
+    .lightbox {
+      display:none; position:fixed; inset:0; z-index:9000;
+      background:rgba(0,0,0,0.92); align-items:center; justify-content:center;
+      flex-direction:column; gap:16px;
+      animation:lbFadeIn .2s ease;
+    }
+    @keyframes lbFadeIn { from{opacity:0} to{opacity:1} }
+    .lightbox.active { display:flex; }
+
+    .lb-inner {
+      position:relative; max-width:92vw; max-height:80vh;
+      display:flex; align-items:center; justify-content:center;
+    }
+    #lbImg {
+      max-width:100%; max-height:78vh;
+      border-radius:6px; display:block;
+      box-shadow:0 20px 60px rgba(0,0,0,0.7);
+      object-fit:contain;
+    }
+    #lbCaption {
+      font-size:13px; color:#ccc; text-align:center;
+      max-width:600px; font-style:italic; line-height:1.5;
+    }
+    .lb-close {
+      position:fixed; top:20px; right:24px;
+      background:rgba(255,255,255,0.1); border:none; cursor:pointer;
+      color:#fff; font-size:20px; width:40px; height:40px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      transition:background .2s;
+    }
+    .lb-close:hover { background:crimson; }
+    .lb-nav {
+      position:fixed; top:50%; transform:translateY(-50%);
+      background:rgba(255,255,255,0.08); border:none; cursor:pointer;
+      color:#fff; font-size:20px; width:48px; height:48px;
+      border-radius:50%; display:flex; align-items:center; justify-content:center;
+      transition:background .2s; z-index:1;
+    }
+    .lb-nav:hover { background:rgba(220,20,60,0.7); }
+    #lbPrev { left:16px; }
+    #lbNext { right:16px; }
+    .lb-nav[disabled] { opacity:.25; cursor:default; pointer-events:none; }
+    .lb-counter { font-size:12px; color:#777; }
+
+    /* ── Footer ──────────────────────────────────────────── */
+    .gal-footer { text-align:center; padding:28px; color:#555; font-size:12px; border-top:1px solid rgba(255,255,255,0.05); }
+    .gal-footer a { color:crimson; text-decoration:none; }
+
+    /* ── Responsive ─────────────────────────────────────── */
+    @media (max-width:700px) {
+      .gal-timeline { padding-left:40px; }
+      .gal-timeline::before { left:calc(5% + 14px); }
+      .gal-imgs { grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); }
+      .gal-imgs.pair { grid-template-columns:1fr 1fr; }
+      .gal-hero h1 { font-size:1.9rem; }
+    }
+  </style>
 </head>
 <body>
-    <div class="header">
-        <div class="logo"><a href="index.html">Portfo<span>lio.</span></a></div>
-        <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+
+  <!-- Mini navbar -->
+  <nav class="sub-nav">
+    <a href="index.html" class="sn-logo">Shambhu<span>.</span></a>
+    <a href="index.html" class="sn-back"><i class="fas fa-arrow-left"></i> Back to Home</a>
+  </nav>
+
+  <!-- Hero -->
+  <header class="gal-hero">
+    <h1>Gallery</h1>
+    <p>A visual journey through research, conferences, and milestones</p>
+    <div class="title-bar"></div>
+  </header>
+
+  <!-- Search -->
+  <div class="search-wrap">
+    <div class="search-row">
+      <i class="fas fa-search s-icon"></i>
+      <input type="text" id="galSearch" placeholder="Search by year, event, or location…" autocomplete="off" spellcheck="false">
+      <button id="galClear" title="Clear search"><i class="fas fa-times"></i></button>
     </div>
-    <div class="content-container">
-        <div class="post-header">
-            <h1>Gallery</h1>
+    <p class="search-hint">Showing most recent events first &nbsp;·&nbsp; Scroll down for older moments</p>
+  </div>
+
+  <!-- ════════════════════════════════════════════════════
+       TIMELINE  (most recent → oldest, top → bottom)
+       ════════════════════════════════════════════════════ -->
+  <div class="gal-timeline" id="galTimeline">
+
+    <!-- ── 2024 ───────────────────────────────────────── -->
+    <div class="year-sep"><span>2024</span></div>
+
+    <div class="gal-event" data-tags="2024 may imperial college london tyc phd student conference thomas young center">
+      <span class="gal-date">May 2024</span>
+      <h3 class="gal-event-title">TYC PhD Student Conference</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> Imperial College London</div>
+      <p class="gal-desc">Presented research findings at the Thomas Young Center annual PhD conference, a flagship event for computational condensed matter physicists across London universities.</p>
+      <div class="gal-imgs single">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_1.jpg" data-caption="Thomas Young Center PhD Conference — Imperial College London, May 2024">
+            <img src="../images/gallery/gallery_1.jpg" alt="TYC Conference at Imperial College London" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Thomas Young Center PhD Conference, Imperial College London</p>
         </div>
-        <div class="actual-content">
-            <p style="text-align: center;"><b><br /></b></p><p style="text-align: center;"><span style="font-size: medium;"><u style="background-color: white;"><b>Thomas Young Center (TYC) PhD student conference @Imperial college London /@2024-05-22</b></u></span></p><p style="text-align: center;"><span style="font-size: medium;"><u style="background-color: white;"><b></b></u></span></p><div class="separator" style="clear: both; text-align: center;"><br /></div><span style="font-size: medium;"><u style="background-color: white;"><b><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEh1S88YAVdp3lLzN_dNko7Y6qffwoMxR6u7svbuCjE8p51SQJ95XNWLnvloCB9DmfjoU8deMtPUzXvLuU3KfLi7GKI8MBDFy8nNFiutT7Svul0mG8tBXZQJ0FIxfyC-ZRX7XwVGcX9T4Nf2efcWaBA5nAD4fH5WYR3nCun36bMbklCJ6ghN5ksaK3M23vA" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="2559" data-original-width="2502" height="289" src="../images/gallery/gallery_1.jpg" width="283" /></a></div></b></u></span><p style="text-align: center;"><span style="font-size: medium;"><u style="background-color: white;"><b>Presenting research findings at the Departmental Conference @UCL/2024-04-30</b></u></span></p><p style="text-align: center;"></p><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjUvCSo8zY225xShsgnKvKwZQBNUhc6W4rw2qukmRNxlVCsPEcs8HE4uyBDS3gvbWzGV81iBKiJqV9h5lEVeP3BRqtMY1QuJJCSIIsU14Os1iGUKmmaYLdJNnQOIVegajmrnriBvrzFpyTSHs9NG_sldjDUBcZYvpZllVqml44YaVx56Myp66IcyhwInpw" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="917" data-original-width="1917" height="240" src="../images/gallery/gallery_2.jpg" width="502" /></a></div><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEiZDXkQwx21Mqlo2lS15v8qxPJ2BVjdZBT1zHQaH9uUqwBqhyY3zOwzq2P31g_dmbcDdI0dqMz-jOYp2YhzM-urwy9zYhVWik4RPFq8UAYJWc6zL8j5ENKyR2_BejiDeLrzcL9T9b2Ru-CryEUiWNcqQFI_x56JsXIl7RUDuGq3T0kcs_EjanXl6wU4Zfo" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="1039" data-original-width="1777" height="287" src="../images/gallery/gallery_3.jpg" width="491" /></a></div><br /><br /><p></p><p style="text-align: center;"><br /></p><p style="text-align: center;"><a href="https://www.awe.co.uk/2023/05/inspiring-physicists-of-the-future/#:~:text=A%20Physics%20Student%20Conference%20recently,have%20contributed%20to%20AWE's%20mission."><b><span style="font-family: Merriweather;">1.AWE Physics&nbsp; Conference - University of Oxford&nbsp; April 2023</span></b></a></p><p></p><div class="separator" style="clear: both; text-align: left;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEhx7P5vela5v2neoSesOHr6RBb9u0DJVgDo37DL7mxNixekN7VLk0SUrhgwFcB8skX6NN7GQA5eyShRIlE95hFHfy-Pka_tAkTx07kGPKpjqBBcSfu-uRTltvk6MpbcAWFpt1aSBv_Bq2T1tQhbPASJA5IBW_ZVR9whsg2QLVwGuZcMQhaAN7tE0-QT6Ws/s4032/IMG_0737.HEIC" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="3024" data-original-width="4032" height="480" src="../images/gallery/gallery_4.jpg" width="640" /></a></div></div><br />&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span style="font-family: Merriweather;">Enjoy the conference talk by Professor.</span><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEiTaA7kIZvjtGeT5qvmSEtJOVCGbOu4xemdInch4W_PGpg8jfehx-NKeFFbArXfmk8RBHQMYrutjccv-l62CqX69gplLaGBpOXyFAwuFywjDIgiy46vgn_aWNUrdqhyphenhyphenQFsz8JTp3CN2tpgSB54df_XxziW2jHY5fec0yAALgl5A5WONXgIppI0-6rV2xHs/s4032/IMG_0727.HEIC" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="3024" data-original-width="4032" height="480" src="../images/gallery/gallery_5.jpg" width="640" /></a></div><div><span style="font-family: Merriweather;"><br /></span></div><span style="font-family: Merriweather;">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; Diniel (Oxford University) and I sharing a laugh&nbsp;</span><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/b/R29vZ2xl/AVvXsEivU0iC9kg3GOBwpfKpiPf1FfDbuMwJjcc8qj-Qx5goXm1sDNm96fiikYLrXk2AjoVS6-BhUi3KcPS-3HwsHx8Zp6_wiXd5qL4c5knxl4YiqFtZIQfdofqfQYZu4t-Chz5NB3AqOfGIdboeDaV7DF2rKeiB36jYP3Tx626J7R6N5GZs5BYVA2blcvJaWKY/s4032/IMG_0733.HEIC" style="margin-left: 1em; margin-right: 1em;"><img border="0" data-original-height="4032" data-original-width="3024" height="640" src="../images/gallery/gallery_6.jpg" width="480" /></a>'</div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;"><br /></span></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;">Capturing the moment with a conference snap at the conclusion.</span></div><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjA4R9bVD9umePww35aZnO6bOhoykkUos9WPQa14_Ll9oyZKWDPuBfCfBcWI6B64srMJdidlwQt6ywJqfa0gav3RZLxP7_RSHQBg-72eBj_I-LqsEXzvKr-8dmIOspQYDUsPZJ9FICC_daxDxalE_gCc6HobM8MayCppYKTppLnHTwODd3xxz3AKc2tY6U" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="846" data-original-width="1515" height="358" src="../images/gallery/gallery_7.jpg" width="640" /></a></div><br /><br /></div><div class="separator" style="clear: both; text-align: center;"><a href="https://www.rigb.org/?gclid=Cj0KCQiA4Y-sBhC6ARIsAGXF1g4QT5ro_xmYMhs00tIHhkiCMWH0GjRS2tYYmKZigioj4H47ZEkULhUaAoZKEALw_wcB"><b><span style="font-family: Merriweather;">2. The Royal Institution&nbsp; &nbsp; Feb 2023</span></b></a></div><div class="separator" style="clear: both; text-align: center;"><br /></div><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both;"><span style="font-family: Merriweather;">Faraday's Laboratory</span></div></div><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEiz5-SJLyfqefyXBDC-6JCzthp2T0Bx2dimBktfRJ8vFfF0K24z6N_FLd2utfJuzZHyWJuEdo1LZChVdhtBLKZX-yfL-TQa08urJprorPcsGDWeiwx7Q6XlzBdR1rq6zYyobkuIhLZ4dOGpdxxODvGF57b68jXhELO-AqU0bZ0U3Mg7yu13VU0fu64tAS8" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="893" data-original-width="1191" height="480" src="../images/gallery/gallery_8.jpg" width="640" /></a></div><span style="font-family: Merriweather;"><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;"><br /></span></div>My visit to the Royal Institution (RI)</span></div><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEgStzoxR-1V7StgQ93Z9t4hXK214uCuHVAto7vlGpssRAC1dSQzyLiYi7DoZGjTw2QGhAkOEjXsKBayV-C6rJFPPkfymKdSa9s-eElni8C_zR3DDG7ZIPQqEfrTn3XY-f_i5v0gcOrOw56WFTp1sJmo57JSjsA1YBK8JykzQ-_0fHbtFeg8BDU--DtHUBY" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="893" data-original-width="671" height="640" src="../images/gallery/gallery_9.jpg" width="480" /></a></div><span style="font-family: Merriweather;"><br /></span><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;">X-ray tube and various other discoveries.</span></div><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEiI56RiRc66H3Dvhhuy5-uL7Hl7wt5Tg4OITEzluhJAW6couJZfx846fpjg0RWudIqaG79x0q29sX6E9KOw6Xj9dYPc_4vuh7gGn-5bfDXJC_4cQ3judcwhNUqkhFPxNFIM4gcIIXeLlUgki-CSLOe5Fr4CJ8xT8zaOM2P0_0i7801zlMo6vsYlKMVeqv0" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="893" data-original-width="1191" height="480" src="../images/gallery/gallery_10.jpg" width="640" /></a></div><div class="separator" style="clear: both; text-align: center;"><span style="color: #2b00fe;"><br /></span></div><span style="color: #2b00fe; font-family: Merriweather;"><a href="https://www.rigb.org/?gclid=Cj0KCQiA4Y-sBhC6ARIsAGXF1g4QT5ro_xmYMhs00tIHhkiCMWH0GjRS2tYYmKZigioj4H47ZEkULhUaAoZKEALw_wcB"><b><span>3.&nbsp;</span></b></a>Khalia University (KU) of Science and Technology (UAE) 2022</span></div><div class="separator" style="clear: both; text-align: center;"><span style="color: #2b00fe; font-family: Merriweather;"><br /></span></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;">With my employee ID on the first day of my official duties</span></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;"><br /></span></div><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEgKoPjO264vC6UdGq3_rmqFxlwDILNeDwSE1ZMdldU4-O7PFNlcHgio0hGeoNyd-9MqNGVNnEDz5kX1jwtmttyxgYaH1_ZrCUFsMrriw5cDijqtEp59X8PoSrhfFbLQzCkiKugQs3kJiVx07NEMdSJSF69NRH4Im-1iO8xaq47Nm7KWBpBJAX1x9bME8ew" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="893" data-original-width="671" height="640" src="../images/gallery/gallery_11.jpg" width="480" /></a></div><span style="font-family: Merriweather;"><br />During the research Meeting</span></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;"><br /></span><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEhVm6qYZZihEYSHxb4M9qJi4XZ7E6jElhJ6M26ROLtb7KsK5aBjbiLbdoQNlwaK9q8FrQZYfxXpoSHKNv_5pbdKiVfFqnLmm3ph1njUlTk7NrS03Wi24ZvicTg94BcZEqvnNrlMlH88otQgnghKc0ECMTGtdclAYUu77vCsBoMz0QN1nzdtLO_23Opu5UU" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="893" data-original-width="1191" height="480" src="../images/gallery/gallery_12.jpg" width="640" /></a></div><div class="separator" style="clear: both; text-align: center;"><br /></div><br /><span style="font-family: Merriweather;">Engaging in a coffee break and insightful discussion with Friends at KU.</span></div><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEgbkuCxdvehvoH3XVAdeuOhwuz-7hhLFiU1kP3rPDLu1ND9ftUGom1Mqml6VRsxs5M6cqo-6QIR-NuNS0ycbFhlMFLC_1bY8RGfZbraQOIV7aZ1wtnABCtzRKO4g5O5-bKAudQaloHCrvd5vTTRkKVTpPx91gOvIb6fkoY2gWJOr9BsJb64CJUKgCpsQLQ" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="494" data-original-width="1330" height="238" src="../images/gallery/gallery_13.jpg" width="640" /></a></div><br /><br /></div><span style="font-family: Merriweather;">Savoring Arabic cuisine with professors on my final day at KU</span><br /><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEgrihbF4Q8XXdxROtoYVTv5dO89uzD415Es8QHnP8N9qi4INIVoFYETfqC9XLRSbF2SZ_yFCvhx8tJ0hn4kV4kMhRsLo7zMPU7dZaTfoAHF6N7_j2ACcvcA1-0OxNJbLlaTm7A2Yqj9mwu7kqIlVggVQKLrTERRiD-mSJ5K1F9T6f7Spa4u6YtVwYOncXQ" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="893" data-original-width="1251" height="456" src="../images/gallery/gallery_14.jpg" width="640" /></a></div><br /><br /><b><span style="font-family: Merriweather;">4. Tribhuvan University and Kathmandu University Research Dairies (2020-2022)</span></b></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;"><br /></span></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;">My <a href="https://scholar.google.com/citations?user=-XsvgtwAAAAJ&amp;hl=en">Master's Thesis Supervisor</a> (left) and Friends at Kathmandu University</span></div><div class="separator" style="clear: both; text-align: center;"><a href="https://www.rigb.org/?gclid=Cj0KCQiA4Y-sBhC6ARIsAGXF1g4QT5ro_xmYMhs00tIHhkiCMWH0GjRS2tYYmKZigioj4H47ZEkULhUaAoZKEALw_wcB"><span style="color: black;"><span style="font-family: Merriweather;"><br /></span></span></a><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEil0LRgLu1bAdS5lpFw-zRyBHvtOLxdHkww0Isr0eooo-4BVv2z2oIC5jQN5KZEx6eFHBl8IVcr3chA4JOZttCq5DJvl47LcSeLb6p2TOJx3JIac0WnB55ZJolP9g64kptiG0_CT7YlSHDk3m9FNQXjewgKKCgjdvX_XpSVDlki5257xvFs3JYMLEvYUVA" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="652" data-original-width="714" height="584" src="../images/gallery/gallery_15.jpg" width="640" /></a></div><div class="separator" style="clear: both; text-align: center;"><br /></div><div class="separator" style="clear: both; text-align: center;"><br /></div><span style="font-family: Merriweather;">Professor <a href="https://scholar.google.com/citations?user=-XsvgtwAAAAJ&amp;hl=en">Rajendra Adhikari</a> providing guidance on the recently installed High-Performance Computing (HPC) system at KU</span><br /><div class="separator" style="clear: both; text-align: center;"><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEhwCa5l83FY1pWbOl1IdSFyc3s4WQyVfIykQIhd6oz_b-89ZnFq_58LB7H5u9b20tUmYUFnp6hHY-PiYqltOxtQFYdD4ERdc7w6fKt6XY6byqGjjfLzC7D-LH-pfCY3azE3Yft6H3WNn8Lwcr4ws45HF6eRwcYRL2Q_HS95l6bbCfkmjpRaXnV0zi-4P9U" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="809" data-original-width="726" height="640" src="../images/gallery/gallery_16.jpg" width="573" /></a></div><br />5.<span style="font-family: Merriweather;"> Master's Research Project and Beginning of the Research 2018-2019</span></div><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEijMOqb7y9nNLNP_mt_XNWsMgRqckvXqtnY41oV4iC7Y0iZwaP9TuvpXJdOpIJSiGlQJgfecPwt8Q3GvpuYfTyFzhgvZvTRjs3AQnBcXkeYFG-0k0LbjTqP_pu_-JzwvbBQCeLvsKmlQVGfk9nR50hb5YGCYJ-Xz8c2mNfqz85Ty_B4uzMdf7Hyd8ic2yU" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="720" data-original-width="720" height="510" src="../images/gallery/gallery_17.jpg" width="510" /></a></div><br /><div class="separator" style="clear: both; text-align: center;"><br /></div><div class="separator" style="clear: both; text-align: center;"><span style="font-family: Merriweather;">During&nbsp; the SIESTA workshop in India</span></div><br /><div class="separator" style="clear: both; text-align: center;"><a href="https://blogger.googleusercontent.com/img/a/AVvXsEjaVOgzl4fLs4VLT3CMFgIr-wmvD_oOocfdR0oDoYSZLMaLal-0hCS9ry8owEWIiJhp84-A_Hy1nHeSAE-858j_Kyey4z25xRCT8xXJ1-6FxKt2nabZVhCjybqqd-U21oPw1-zVQTSSB752We9Sg5RDuxzeODB8XGEjx6vBuKYJGEQr8QVCUixUP2J-l2M" style="margin-left: 1em; margin-right: 1em;"><img alt="" data-original-height="960" data-original-width="1280" height="370" src="../images/gallery/gallery_18.jpg" width="493" /></a></div></div><br /><br />
-        </div>
+      </div>
     </div>
+
+    <div class="gal-event" data-tags="2024 april ucl departmental conference london research presentation">
+      <span class="gal-date">April 2024</span>
+      <h3 class="gal-event-title">UCL Departmental Conference</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> University College London</div>
+      <p class="gal-desc">Presented latest results on ab-initio phase diagram calculations for Al-Mg binary alloys at UCL's annual departmental research conference.</p>
+      <div class="gal-imgs pair">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_2.jpg" data-caption="Presenting research findings at the UCL Departmental Conference, April 2024">
+            <img src="../images/gallery/gallery_2.jpg" alt="UCL Conference presentation" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Presenting research at the UCL conference</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_3.jpg" data-caption="UCL Departmental Conference, April 2024">
+            <img src="../images/gallery/gallery_3.jpg" alt="UCL Departmental Conference" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">UCL Departmental Conference, April 2024</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2023 ───────────────────────────────────────── -->
+    <div class="year-sep"><span>2023</span></div>
+
+    <div class="gal-event" data-tags="2023 april awe physics conference oxford university student inspiring physicists">
+      <span class="gal-date">April 2023</span>
+      <h3 class="gal-event-title">AWE Physics Student Conference</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> University of Oxford</div>
+      <p class="gal-desc">Attended the AWE Physics Student Conference — "Inspiring Physicists of the Future" — at Oxford. Engaged with leading researchers and fellow physicists from across the UK.</p>
+      <div class="gal-imgs">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_4.jpg" data-caption="AWE Physics Student Conference, University of Oxford — April 2023">
+            <img src="../images/gallery/gallery_4.jpg" alt="AWE Physics Conference Oxford" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">AWE Conference, Oxford</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_5.jpg" data-caption="Enjoying a keynote talk by a Professor at the AWE Conference, Oxford">
+            <img src="../images/gallery/gallery_5.jpg" alt="Conference keynote talk" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Keynote talk by Professor</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_6.jpg" data-caption="Sharing a laugh with Diniel (Oxford University) during the conference">
+            <img src="../images/gallery/gallery_6.jpg" alt="With Diniel at Oxford" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">With Diniel (Oxford Univ.)</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_7.jpg" data-caption="Group photo at the conclusion of the AWE Physics Conference, Oxford">
+            <img src="../images/gallery/gallery_7.jpg" alt="AWE Conference group photo" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Conference group photo</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="gal-event" data-tags="2023 february royal institution london faraday laboratory xray history science">
+      <span class="gal-date">February 2023</span>
+      <h3 class="gal-event-title">The Royal Institution</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> London</div>
+      <p class="gal-desc">Visited the historic Royal Institution — home of Faraday's original laboratory and countless scientific discoveries. A pilgrimage for any physicist.</p>
+      <div class="gal-imgs">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_8.jpg" data-caption="Faraday's Laboratory at the Royal Institution, London — February 2023">
+            <img src="../images/gallery/gallery_8.jpg" alt="Faraday's Laboratory" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Faraday's Laboratory</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_9.jpg" data-caption="My visit to the Royal Institution (RI), London">
+            <img src="../images/gallery/gallery_9.jpg" alt="Royal Institution visit" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Royal Institution visit</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_10.jpg" data-caption="X-ray tube and historic scientific apparatus at the Royal Institution">
+            <img src="../images/gallery/gallery_10.jpg" alt="X-ray tube at RI" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">X-ray tube &amp; discoveries at RI</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2022 ───────────────────────────────────────── -->
+    <div class="year-sep"><span>2022</span></div>
+
+    <div class="gal-event" data-tags="2022 khalifa university uae abu dhabi research associate 2d materials photocatalysis">
+      <span class="gal-date">2022</span>
+      <h3 class="gal-event-title">Khalifa University of Science and Technology</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> Abu Dhabi, UAE</div>
+      <p class="gal-desc">Joined Khalifa University as Research Associate, working on computational studies of 2D materials and surfaces. A transformative year of collaborations, research meetings, and cultural exchange.</p>
+      <div class="gal-imgs">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_11.jpg" data-caption="First day with employee ID at Khalifa University, Abu Dhabi — 2022">
+            <img src="../images/gallery/gallery_11.jpg" alt="First day at Khalifa University" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">First day with employee ID at KU</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_12.jpg" data-caption="During a research meeting at Khalifa University">
+            <img src="../images/gallery/gallery_12.jpg" alt="Research meeting at KU" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Research meeting at KU</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_13.jpg" data-caption="Coffee break and discussion with colleagues at Khalifa University">
+            <img src="../images/gallery/gallery_13.jpg" alt="Coffee break at KU" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Coffee break with colleagues at KU</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_14.jpg" data-caption="Savoring Arabic cuisine with professors on my final day at Khalifa University">
+            <img src="../images/gallery/gallery_14.jpg" alt="Final day at KU" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Final day — Arabic cuisine with professors</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2020–2022 ───────────────────────────────────── -->
+    <div class="year-sep"><span>2020 – 2022</span></div>
+
+    <div class="gal-event" data-tags="2020 2021 2022 tribhuvan kathmandu university nepal research hpc high performance computing rajendra adhikari thesis supervisor">
+      <span class="gal-date">2020 – 2022</span>
+      <h3 class="gal-event-title">TU / Kathmandu University Research</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> Nepal</div>
+      <p class="gal-desc">Post-graduate research at Tribhuvan University and Kathmandu University. Worked with Prof. Rajendra Adhikari on theoretical and computational physics problems, and witnessed the installation of KU's first High-Performance Computing system.</p>
+      <div class="gal-imgs pair">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_15.jpg" data-caption="Master's Thesis Supervisor (left) and colleagues at Kathmandu University">
+            <img src="../images/gallery/gallery_15.jpg" alt="Master's thesis supervisor and friends at KU Nepal" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Thesis supervisor &amp; friends at KU, Nepal</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_16.jpg" data-caption="Prof. Rajendra Adhikari providing guidance on the newly installed HPC system at Kathmandu University">
+            <img src="../images/gallery/gallery_16.jpg" alt="Prof Rajendra Adhikari HPC KU" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Prof. Rajendra Adhikari on the new HPC system at KU</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- ── 2018–2019 ───────────────────────────────────── -->
+    <div class="year-sep"><span>2018 – 2019</span></div>
+
+    <div class="gal-event" data-tags="2018 2019 siesta india workshop masters research computational physics dft beginning">
+      <span class="gal-date">2018 – 2019</span>
+      <h3 class="gal-event-title">Master's Research &amp; SIESTA Workshop</h3>
+      <div class="gal-loc"><i class="fas fa-map-marker-alt"></i> India</div>
+      <p class="gal-desc">Attended the SIESTA (Spanish Initiative for Electronic Simulations with Thousands of Atoms) DFT workshop in India — the pivotal starting point of a career in first-principles computational physics.</p>
+      <div class="gal-imgs pair">
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_17.jpg" data-caption="SIESTA DFT workshop — the beginning of computational physics research, India 2018–2019">
+            <img src="../images/gallery/gallery_17.jpg" alt="SIESTA workshop India" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">SIESTA workshop, India</p>
+        </div>
+        <div>
+          <div class="gal-img-wrap" data-src="../images/gallery/gallery_18.jpg" data-caption="Group photo during the SIESTA DFT workshop, India">
+            <img src="../images/gallery/gallery_18.jpg" alt="SIESTA workshop group" loading="lazy">
+            <div class="gal-img-overlay"><i class="fas fa-expand-alt"></i></div>
+          </div>
+          <p class="gal-img-caption">Workshop group photo, India</p>
+        </div>
+      </div>
+    </div>
+
+  </div><!-- end .gal-timeline -->
+
+  <!-- No results -->
+  <div id="noResults">
+    <i class="fas fa-search"></i>
+    <p>No events match your search. Try a different keyword.</p>
+  </div>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox" role="dialog" aria-modal="true" aria-label="Image lightbox">
+    <button class="lb-close" id="lbClose" aria-label="Close"><i class="fas fa-times"></i></button>
+    <button class="lb-nav" id="lbPrev" aria-label="Previous image"><i class="fas fa-chevron-left"></i></button>
+    <div class="lb-inner">
+      <img id="lbImg" src="" alt="">
+    </div>
+    <button class="lb-nav" id="lbNext" aria-label="Next image"><i class="fas fa-chevron-right"></i></button>
+    <p id="lbCaption"></p>
+    <p class="lb-counter" id="lbCounter"></p>
+  </div>
+
+  <footer class="gal-footer">
+    <a href="index.html">← Back to Portfolio</a> &nbsp;·&nbsp; Shambhu Bhandari Sharma © 2025
+  </footer>
+
+  <script>
+  (function () {
+    /* ── Search ──────────────────────────────────────── */
+    var events   = Array.from(document.querySelectorAll('.gal-event'));
+    var seps     = Array.from(document.querySelectorAll('.year-sep'));
+    var input    = document.getElementById('galSearch');
+    var clearBtn = document.getElementById('galClear');
+    var noRes    = document.getElementById('noResults');
+
+    function filterGallery() {
+      var q = input.value.trim().toLowerCase();
+      clearBtn.classList.toggle('vis', q.length > 0);
+      var visible = 0;
+      events.forEach(function (ev) {
+        var tags  = (ev.dataset.tags || '').toLowerCase();
+        var title = (ev.querySelector('.gal-event-title') || {}).textContent || '';
+        var show  = !q || tags.includes(q) || title.toLowerCase().includes(q);
+        ev.style.display = show ? '' : 'none';
+        if (show) visible++;
+      });
+      // Hide year separators if all events after them are hidden
+      seps.forEach(function (sep) {
+        var next = sep.nextElementSibling;
+        var anyVisible = false;
+        while (next && !next.classList.contains('year-sep')) {
+          if (next.classList.contains('gal-event') && next.style.display !== 'none') anyVisible = true;
+          next = next.nextElementSibling;
+        }
+        sep.style.display = anyVisible ? '' : 'none';
+      });
+      noRes.style.display = (visible === 0 && q) ? 'block' : 'none';
+    }
+
+    input.addEventListener('input', filterGallery);
+    clearBtn.addEventListener('click', function () { input.value = ''; filterGallery(); input.focus(); });
+
+    /* ── Lightbox ────────────────────────────────────── */
+    var lightbox  = document.getElementById('lightbox');
+    var lbImg     = document.getElementById('lbImg');
+    var lbCaption = document.getElementById('lbCaption');
+    var lbCounter = document.getElementById('lbCounter');
+    var lbPrev    = document.getElementById('lbPrev');
+    var lbNext    = document.getElementById('lbNext');
+
+    var currentImages = [];
+    var currentIdx    = 0;
+
+    // Attach click handlers per event (navigate within event only)
+    document.querySelectorAll('.gal-event').forEach(function (ev) {
+      var wraps = Array.from(ev.querySelectorAll('.gal-img-wrap'));
+      wraps.forEach(function (wrap, i) {
+        wrap.addEventListener('click', function () {
+          currentImages = wraps;
+          currentIdx    = i;
+          showLbSlide(i);
+          lightbox.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        });
+      });
+    });
+
+    function showLbSlide(idx) {
+      var wrap = currentImages[idx];
+      lbImg.src         = wrap.dataset.src;
+      lbImg.alt         = wrap.dataset.caption;
+      lbCaption.textContent = wrap.dataset.caption;
+      lbCounter.textContent = (idx + 1) + ' / ' + currentImages.length;
+      lbPrev.disabled = idx === 0;
+      lbNext.disabled = idx === currentImages.length - 1;
+    }
+
+    function closeLb() {
+      lightbox.classList.remove('active');
+      document.body.style.overflow = '';
+      lbImg.src = '';
+    }
+
+    lbPrev.addEventListener('click', function () { if (currentIdx > 0) showLbSlide(--currentIdx); });
+    lbNext.addEventListener('click', function () { if (currentIdx < currentImages.length - 1) showLbSlide(++currentIdx); });
+    document.getElementById('lbClose').addEventListener('click', closeLb);
+    lightbox.addEventListener('click', function (e) { if (e.target === lightbox) closeLb(); });
+
+    document.addEventListener('keydown', function (e) {
+      if (!lightbox.classList.contains('active')) return;
+      if (e.key === 'Escape')      closeLb();
+      if (e.key === 'ArrowLeft')   lbPrev.click();
+      if (e.key === 'ArrowRight')  lbNext.click();
+    });
+  })();
+  </script>
 </body>
 </html>
