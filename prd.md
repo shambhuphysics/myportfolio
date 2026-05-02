@@ -58,3 +58,51 @@
 - Dark/light mode toggle
 - CMS or backend integration
 - Changes to machine_learning.html, physics.html, quantum.html, wellbeing.html, useful_sites.html, projects.html
+
+## Teaching Section
+
+### Nav change
+Add **Teaching** as top-level item after Research:
+`About | Research | Teaching | Library | Resources | Contact`
+
+### New page: `pages/teaching.html` — 4 sections (awards.html dark style)
+
+#### 1. UCL Demonstrator (2022–Present)
+- GEOL0046 Deep Earth & Planetary Modelling (Term 2)
+- GEOL0012 Global Geophysics (Term 1)
+Logo: UCL vector logo · Tags: Python · DFT · Geophysics · LaTeX
+
+#### 2. National Examination Board — Undergraduate (2019–2021)
+- Taught Fundamental Physics
+Tags: Physics · Teaching · Mentoring
+
+#### 3. National Examination Board — Intermediate (2019–2021)
+- Taught Mathematics and Physics
+Tags: Mathematics · Physics · Teaching
+
+#### 4. AI for Earth Observation (AI4EO) — Resources
+Links: Satellite-image Deep Learning notebooks, Geospatial Python, Copernicus/Wekeo, Earth Data Analysis, Sentinel analysis
+Tags: Python · Deep Learning · Geospatial · Remote Sensing
+
+### Files
+| `pages/teaching.html` | create |
+| `pages/index.html` | add Teaching nav item after Research |
+
+## Real time website visitor counter
+
+- Use a real time website visitor counter
+- Use map for location display
+
+## Change landing page background
+- Use something dynamic for eg. atoms movement, particles movement, etc.
+- Should be light and not distractive
+- Should be responsive and work on mobile devices
+- Should be optimized for performance
+- Should be interactive and engaging
+- Should be visually appealing
+- Should be easy to implement
+- Should fill the entire screen
+- Should not be distractive
+
+## Search bar
+ - search must find any keyword in the website
