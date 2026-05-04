@@ -96,10 +96,35 @@
       <main class="blog-main">
         <h1 class="blog-main-title">MY RESEARCH PORTFOLIO</h1>
 
-        <!-- Intro slides -->
-        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;overflow:hidden;background:#000;">
-          <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQVmuFTsXuXYaD1-uLdPFuaKiFqCRT0z37FhitTBfL5nqs9NNO_OJpFhhxY6jX7mlIiY9JENnUbtOeo/pub?start=true&loop=true&delayms=1000" frameborder="0" allowfullscreen="true" mozallowfullscreen="true" webkitallowfullscreen="true" style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+        <!-- Intro slides carousel -->
+        <script src="../slides/pngs/slides.js"></script>
+        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;overflow:hidden;background:#000;cursor:pointer;" title="Click to advance">
+          <img id="slide-img" src="../slides/pngs/slide-1.png" style="width:100%;height:100%;object-fit:contain;display:block;">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 10px;pointer-events:none;">
+            <button id="slide-prev" style="pointer-events:all;background:rgba(0,0,0,0.45);border:none;color:#fff;font-size:24px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;">&#8249;</button>
+            <button id="slide-next" style="pointer-events:all;background:rgba(0,0,0,0.45);border:none;color:#fff;font-size:24px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;">&#8250;</button>
+          </div>
+          <div id="slide-counter" style="position:absolute;bottom:10px;right:14px;background:rgba(0,0,0,0.5);color:#fff;font-size:12px;padding:3px 8px;border-radius:12px;">1 / 7</div>
         </div>
+        <script>
+          (function () {
+            var n = SLIDE_COUNT, cur = 1, delay = 5000, timer;
+            function show(i) {
+              cur = ((i - 1 + n) % n) + 1;
+              document.getElementById('slide-img').src = '../slides/pngs/slide-' + cur + '.png';
+              document.getElementById('slide-counter').textContent = cur + ' / ' + n;
+            }
+            function next() { show(cur + 1); }
+            function prev() { show(cur - 1); }
+            function restart() { clearInterval(timer); timer = setInterval(next, delay); }
+            timer = setInterval(next, delay);
+            document.getElementById('slide-next').addEventListener('click', function () { next(); restart(); });
+            document.getElementById('slide-prev').addEventListener('click', function () { prev(); restart(); });
+            document.getElementById('slides-wrap').addEventListener('click', function (e) {
+              if (e.target.id !== 'slide-prev' && e.target.id !== 'slide-next') { next(); restart(); }
+            });
+          })();
+        </script>
 
         <div class="blog-news">
           <h3 class="blog-news-title">LATEST NEWS</h3>
