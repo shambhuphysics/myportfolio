@@ -98,8 +98,8 @@
 
         <!-- Intro slides carousel -->
         <script src="../slides/pngs/slides.js"></script>
-        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;overflow:hidden;background:#000;cursor:pointer;" title="Click to advance">
-          <img id="slide-img" src="../slides/pngs/slide-1.png" style="width:100%;height:100%;object-fit:contain;display:block;">
+        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;overflow:hidden;background:#0d0d1a;cursor:pointer;border-radius:18px;-webkit-mask-image:linear-gradient(to right,transparent,black 38px,black calc(100% - 38px),transparent),linear-gradient(to bottom,transparent,black 38px,black calc(100% - 38px),transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,black 38px,black calc(100% - 38px),transparent),linear-gradient(to bottom,transparent,black 38px,black calc(100% - 38px),transparent);mask-composite:intersect;" title="Click to advance">
+          <img id="slide-img" src="../slides/pngs/slide-1.png" style="width:100%;height:100%;object-fit:contain;display:block;transition:opacity 0.3s ease;">
           <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 10px;pointer-events:none;">
             <button id="slide-prev" style="pointer-events:all;background:rgba(0,0,0,0.45);border:none;color:#fff;font-size:24px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;">&#8249;</button>
             <button id="slide-next" style="pointer-events:all;background:rgba(0,0,0,0.45);border:none;color:#fff;font-size:24px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;">&#8250;</button>
@@ -108,10 +108,15 @@
         </div>
         <script>
           (function () {
-            var n = SLIDE_COUNT, cur = 1, delay = 5000, timer;
+            var n = SLIDE_COUNT, cur = 1, delay = 2000, timer;
             function show(i) {
               cur = ((i - 1 + n) % n) + 1;
-              document.getElementById('slide-img').src = '../slides/pngs/slide-' + cur + '.png';
+              var img = document.getElementById('slide-img');
+              img.style.opacity = '0';
+              setTimeout(function () {
+                img.src = '../slides/pngs/slide-' + cur + '.png';
+                img.style.opacity = '1';
+              }, 200);
               document.getElementById('slide-counter').textContent = cur + ' / ' + n;
             }
             function next() { show(cur + 1); }
