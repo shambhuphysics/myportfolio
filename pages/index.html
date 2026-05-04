@@ -98,25 +98,43 @@
 
         <!-- Intro slides carousel -->
         <script src="../slides/pngs/slides.js"></script>
-        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;overflow:hidden;background:#0d0d1a;cursor:pointer;border-radius:18px;-webkit-mask-image:linear-gradient(to right,transparent,black 38px,black calc(100% - 38px),transparent),linear-gradient(to bottom,transparent,black 38px,black calc(100% - 38px),transparent);-webkit-mask-composite:source-in;mask-image:linear-gradient(to right,transparent,black 38px,black calc(100% - 38px),transparent),linear-gradient(to bottom,transparent,black 38px,black calc(100% - 38px),transparent);mask-composite:intersect;" title="Click to advance">
-          <img id="slide-img" src="../slides/pngs/slide-1.png" style="width:100%;height:100%;object-fit:contain;display:block;transition:opacity 0.3s ease;">
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 10px;pointer-events:none;">
-            <button id="slide-prev" style="pointer-events:all;background:rgba(0,0,0,0.45);border:none;color:#fff;font-size:24px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;">&#8249;</button>
-            <button id="slide-next" style="pointer-events:all;background:rgba(0,0,0,0.45);border:none;color:#fff;font-size:24px;width:36px;height:36px;border-radius:50%;cursor:pointer;line-height:1;">&#8250;</button>
+        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;background:#0d0d1a;cursor:pointer;border-radius:18px;overflow:hidden;">
+          <img id="slide-a" src="../slides/pngs/slide-1.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;transition:opacity 0.6s ease;">
+          <img id="slide-b" src="../slides/pngs/slide-2.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 0.6s ease;">
+          <!-- inset shadow fades all edges into the dark background -->
+          <div style="position:absolute;inset:0;box-shadow:inset 0 0 70px 35px #0d0d1a;border-radius:18px;pointer-events:none;"></div>
+          <!-- nav -->
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 14px;pointer-events:none;">
+            <button id="slide-prev" style="pointer-events:all;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:26px;width:38px;height:38px;border-radius:50%;cursor:pointer;line-height:1;">&#8249;</button>
+            <button id="slide-next" style="pointer-events:all;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:26px;width:38px;height:38px;border-radius:50%;cursor:pointer;line-height:1;">&#8250;</button>
           </div>
-          <div id="slide-counter" style="position:absolute;bottom:10px;right:14px;background:rgba(0,0,0,0.5);color:#fff;font-size:12px;padding:3px 8px;border-radius:12px;">1 / 7</div>
+          <!-- title -->
+          <div id="slide-title" style="position:absolute;bottom:28px;left:0;right:0;text-align:center;color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em;text-shadow:0 1px 6px rgba(0,0,0,0.9);pointer-events:none;padding:0 70px;">High-Throughput DFT Screening &amp; ML</div>
+          <!-- counter -->
+          <div id="slide-counter" style="position:absolute;top:12px;right:14px;background:rgba(0,0,0,0.45);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;pointer-events:none;">1 / 7</div>
         </div>
         <script>
           (function () {
-            var n = SLIDE_COUNT, cur = 1, delay = 2000, timer;
+            var titles = [
+              'High-Throughput DFT Screening & ML',
+              'AI for Earth Observation',
+              'Ab Initio Molecular Dynamics: Earth’s Core',
+              'Quantum Transport Simulations',
+              'Electronic Structure & Phonon Properties',
+              'Agentic AI Framework Design',
+              'End-to-End ML Engineering Pipeline'
+            ];
+            var n = SLIDE_COUNT, cur = 1, active = 'a', delay = 2000, timer;
             function show(i) {
               cur = ((i - 1 + n) % n) + 1;
-              var img = document.getElementById('slide-img');
-              img.style.opacity = '0';
-              setTimeout(function () {
-                img.src = '../slides/pngs/slide-' + cur + '.png';
-                img.style.opacity = '1';
-              }, 200);
+              var next_slot = active === 'a' ? 'b' : 'a';
+              var imgIn  = document.getElementById('slide-' + next_slot);
+              var imgOut = document.getElementById('slide-' + active);
+              imgIn.src = '../slides/pngs/slide-' + cur + '.png';
+              imgIn.style.opacity  = '1';
+              imgOut.style.opacity = '0';
+              active = next_slot;
+              document.getElementById('slide-title').textContent   = titles[cur - 1];
               document.getElementById('slide-counter').textContent = cur + ' / ' + n;
             }
             function next() { show(cur + 1); }
