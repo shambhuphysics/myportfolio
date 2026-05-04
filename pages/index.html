@@ -99,13 +99,23 @@
         <!-- Intro slides carousel -->
         <style>
           @keyframes title-in {
-            from { opacity:0; transform:translateY(10px); }
+            from { opacity:0; transform:translateY(8px); }
             to   { opacity:1; transform:translateY(0); }
           }
           #slide-title { animation: title-in 0.5s ease forwards; }
+          @keyframes hl-fade-up {
+            from { opacity:0; transform:translateY(14px); }
+            to   { opacity:1; transform:translateY(0); }
+          }
+          .highlight-list li {
+            opacity: 0;
+            animation: hl-fade-up 0.5s ease forwards;
+          }
+          .highlight-list li:nth-child(1) { animation-delay: 0.1s; }
+          .highlight-list li:nth-child(2) { animation-delay: 0.25s; }
+          .highlight-list li:nth-child(3) { animation-delay: 0.4s; }
         </style>
-        <script src="../slides/pngs/slides.js"></script>
-        <div id="slides-wrap" style="position:relative;left:calc(-15% - 52px);width:calc(130% + 104px);aspect-ratio:16/9;background:#0d0d1a;cursor:pointer;border-radius:18px;overflow:hidden;">
+        <div id="slides-wrap" style="position:relative;left:-60px;width:calc(100% + 120px);aspect-ratio:16/9;background:#0d0d1a;cursor:pointer;border-radius:18px;overflow:hidden;">
           <img id="slide-a" src="../slides/pngs/slide-1.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;transition:opacity 0.6s ease;">
           <img id="slide-b" src="../slides/pngs/slide-2.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 0.6s ease;">
           <div style="position:absolute;inset:0;box-shadow:inset 0 0 80px 40px #0d0d1a;border-radius:18px;pointer-events:none;"></div>
@@ -116,48 +126,13 @@
           <div id="slide-title" style="position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:14px;font-weight:700;letter-spacing:.06em;pointer-events:none;padding:0 80px;color:#fff;text-shadow:0 0 14px rgba(220,20,60,0.9),0 0 4px rgba(220,20,60,0.6),0 2px 8px rgba(0,0,0,1);">High-Throughput DFT Screening &amp; ML</div>
           <div id="slide-counter" style="position:absolute;top:12px;right:16px;background:rgba(0,0,0,0.45);color:#aaa;font-size:11px;padding:2px 8px;border-radius:10px;pointer-events:none;">1 / 7</div>
         </div>
-        <script>
-          (function () {
-            var titles = [
-              "High-Throughput DFT Screening & ML",
-              "AI for Earth Observation",
-              "Ab Initio Molecular Dynamics — Earth’s Core",
-              "Quantum Transport Simulations",
-              "Electronic Structure & Phonon Properties",
-              "Agentic AI Framework Design",
-              "End-to-End ML Engineering Pipeline"
-            ];
-            var n = SLIDE_COUNT, cur = 1, active = ‘a’, delay = 2000, timer;
-            function show(i) {
-              cur = ((i - 1 + n) % n) + 1;
-              var ns = active === ‘a’ ? ‘b’ : ‘a’;
-              document.getElementById(‘slide-’ + ns).src = ‘../slides/pngs/slide-’ + cur + ‘.png’;
-              document.getElementById(‘slide-’ + ns).style.opacity = ‘1’;
-              document.getElementById(‘slide-’ + active).style.opacity = ‘0’;
-              active = ns;
-              var el = document.getElementById(‘slide-title’);
-              el.textContent = titles[cur - 1];
-              el.style.animation = ‘none’;
-              el.offsetHeight;
-              el.style.animation = ‘title-in 0.5s ease forwards’;
-              document.getElementById(‘slide-counter’).textContent = cur + ‘ / ‘ + n;
-            }
-            function next() { show(cur + 1); }
-            function prev() { show(cur - 1); }
-            function restart() { clearInterval(timer); timer = setInterval(next, delay); }
-            timer = setInterval(next, delay);
-            document.getElementById(‘slide-next’).addEventListener(‘click’, function () { next(); restart(); });
-            document.getElementById(‘slide-prev’).addEventListener(‘click’, function () { prev(); restart(); });
-            document.getElementById(‘slides-wrap’).addEventListener(‘click’, function (e) {
-              if (e.target.id !== ‘slide-prev’ && e.target.id !== ‘slide-next’) { next(); restart(); }
-            });
-          })();
-        </script>
+        <script src="../slides/pngs/slides.js"></script>
+        <script src="../slides/carousel.js"></script>
 
         <div class="blog-news">
           <h3 class="blog-news-title">Research Highlights</h3>
           <ul class="highlight-list">
-            <li><span class="hl-tag">Publication</span> High-throughput screening of penta-monolayers — <em>RSC Materials Horizons</em>, Apr 2024</li>
+            <li><span class="hl-tag">Publication</span> High-throughput screening of penta-monolayers &mdash; <em>RSC Materials Horizons</em>, Apr 2024</li>
             <li><span class="hl-tag">Current Work</span> High-pressure phase diagrams of binary alloys at Earth-core conditions using ab initio MD and ML interatomic potentials</li>
             <li><span class="hl-tag">Exploring</span> Agentic AI systems and MLOps pipelines for scientific computing</li>
           </ul>
