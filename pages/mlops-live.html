@@ -1,0 +1,423 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>MLOps Pipeline — Live Interactive</title>
+<style>
+* { box-sizing:border-box; margin:0; padding:0; }
+body {
+  background:#07070f;
+  display:flex; flex-direction:column; align-items:center;
+  min-height:100vh; padding:20px; gap:14px;
+  font-family:'Segoe UI',system-ui,sans-serif;
+}
+canvas { border-radius:10px; border:1px solid #12122a; cursor:crosshair; }
+#controls {
+  display:grid; grid-template-columns:repeat(4,1fr); gap:10px 22px;
+  background:#0c0c1a; border:1px solid #181830; border-radius:10px;
+  padding:14px 20px; width:880px;
+}
+.ctrl { display:flex; flex-direction:column; gap:4px; }
+.ctrl .lbl { font-size:10px; color:#444; text-transform:uppercase; letter-spacing:.6px; }
+.row { display:flex; align-items:center; gap:8px; }
+input[type=range] { flex:1; accent-color:#dc143c; cursor:pointer; }
+.vv { font-size:11px; color:#bbb; font-weight:600; min-width:26px; text-align:right; }
+.btn {
+  background:#101020; border:1px solid #222; color:#777;
+  padding:4px 11px; border-radius:5px; cursor:pointer; font-size:10px;
+  letter-spacing:.3px; transition:all .15s;
+}
+.btn:hover { background:#1a1a2e; color:#ccc; }
+.btn.on { border-color:currentColor; color:var(--c); }
+#hint { font-size:11px; color:#2a2a40; text-align:center; }
+</style>
+</head>
+<body>
+<canvas id="c"></canvas>
+<div id="hint">Hover a node to trace connections · Click stage buttons to filter</div>
+<div id="controls">
+  <div class="ctrl">
+    <span class="lbl">Flow speed</span>
+    <div class="row"><input type="range" id="speed" min="0.2" max="6" step="0.1" value="1.5"><span class="vv" id="speedV">1.5</span></div>
+  </div>
+  <div class="ctrl">
+    <span class="lbl">Particle density</span>
+    <div class="row"><input type="range" id="density" min="1" max="10" step="1" value="4"><span class="vv" id="densityV">4</span></div>
+  </div>
+  <div class="ctrl">
+    <span class="lbl">Particle size</span>
+    <div class="row"><input type="range" id="psize" min="1.5" max="8" step="0.5" value="3"><span class="vv" id="psizeV">3</span></div>
+  </div>
+  <div class="ctrl">
+    <span class="lbl">Glow radius</span>
+    <div class="row"><input type="range" id="glow" min="0" max="30" step="1" value="12"><span class="vv" id="glowV">12</span></div>
+  </div>
+  <div class="ctrl" style="grid-column:span 3">
+    <span class="lbl">Highlight stage</span>
+    <div class="row" id="stageBtns"></div>
+  </div>
+  <div class="ctrl">
+    <span class="lbl">Playback</span>
+    <div class="row">
+      <button class="btn" id="pauseBtn">⏸ Pause</button>
+      <button class="btn" id="resetBtn">↺ Reset</button>
+    </div>
+  </div>
+</div>
+
+<script>
+// ─── Canvas setup ────────────────────────────────────────────────────
+const W = 880, H = 500;
+const canvas = document.getElementById('c');
+const ctx    = canvas.getContext('2d');
+canvas.width = W; canvas.height = H;
+
+// ─── Stage colours ────────────────────────────────────────────────────
+const SC = {
+  data:    '#4FC3F7',  // blue
+  feature: '#CE93D8',  // purple
+  model:   '#FFB74D',  // amber
+  deploy:  '#81C784',  // green
+};
+
+// ─── Nodes ───────────────────────────────────────────────────────────
+// cx,cy = centre; w,h = box size
+const NODES = [
+  { id:'src',    cx:195, cy: 72, w:172, h:48,
+    label:'Data Sources',          sub:'Structured · Semi · Unstructured', stage:'data'    },
+  { id:'ingest', cx: 76, cy:445, w:124, h:44,
+    label:'Batch Ingestion',       sub:'',                                  stage:'data'    },
+  { id:'lake',   cx:222, cy:445, w:110, h:44,
+    label:'Data Lake',             sub:'',                                  stage:'data'    },
+  { id:'pipe',   cx:450, cy:445, w:186, h:46,
+    label:'Data Pipeline',         sub:'Validate · Clean · Curate',         stage:'data'    },
+  { id:'feat',   cx:185, cy:330, w:168, h:52,
+    label:'Feature Engineering',   sub:'Online · Offline',                  stage:'feature' },
+  { id:'dev',    cx:185, cy:195, w:168, h:52,
+    label:'Model Development',     sub:'Train · Validate',                  stage:'feature' },
+  { id:'exp',    cx:450, cy:320, w:162, h:52,
+    label:'Experiment Tracking',   sub:'Metrics · Params',                  stage:'model'   },
+  { id:'reg',    cx:450, cy:165, w:145, h:48,
+    label:'Model Registry',        sub:'Versioned Artifacts',               stage:'model'   },
+  { id:'cont',   cx:635, cy:240, w:138, h:48,
+    label:'Containerization',      sub:'Docker · Kubernetes',               stage:'deploy'  },
+  { id:'dep',    cx:800, cy:240, w:110, h:52,
+    label:'Deployment',            sub:'ML Models',                         stage:'deploy'  },
+  { id:'usr',    cx:800, cy: 78, w:110, h:44,
+    label:'Users',                 sub:'via Application',                   stage:'deploy'  },
+];
+
+// ─── Edges ───────────────────────────────────────────────────────────
+// via: intermediate waypoints (absolute canvas coords) for routing around nodes
+const EDGES = [
+  { from:'ingest', to:'lake',  stage:'data'                          },
+  { from:'lake',   to:'pipe',  stage:'data'                          },
+  { from:'pipe',   to:'feat',  stage:'feature', via:[{x:185,y:445}]  },  // L-route left then up
+  { from:'src',    to:'dev',   stage:'data',    dashed:true          },
+  { from:'feat',   to:'dev',   stage:'feature'                       },
+  { from:'feat',   to:'exp',   stage:'model'                         },
+  { from:'dev',    to:'reg',   stage:'model'                         },
+  { from:'dev',    to:'exp',   stage:'model',   dashed:true          },
+  { from:'exp',    to:'reg',   stage:'model'                         },
+  { from:'reg',    to:'cont',  stage:'deploy'                        },
+  { from:'exp',    to:'cont',  stage:'deploy',  dashed:true          },
+  { from:'cont',   to:'dep',   stage:'deploy'                        },
+  { from:'dep',    to:'usr',   stage:'deploy'                        },
+  { from:'pipe',   to:'dep',   stage:'data',    dashed:true,
+    via:[{x:740,y:445},{x:800,y:445}]                                },  // long bottom route
+];
+
+// ─── Path builder ─────────────────────────────────────────────────────
+function nodeById(id) { return NODES.find(n => n.id === id); }
+
+// Point on node boundary facing toward (tx,ty)
+function bpt(n, tx, ty) {
+  const dx = tx - n.cx, dy = ty - n.cy;
+  if (!dx && !dy) return { x: n.cx, y: n.cy };
+  const kx = dx ? (n.w / 2) / Math.abs(dx) : Infinity;
+  const ky = dy ? (n.h / 2) / Math.abs(dy) : Infinity;
+  const k  = Math.min(kx, ky);
+  return { x: n.cx + dx * k, y: n.cy + dy * k };
+}
+
+// Linearly sample segment A→B into n+1 points
+function seg(a, b, n = 55) {
+  const pts = [];
+  for (let i = 0; i <= n; i++) {
+    const t = i / n;
+    pts.push({ x: a.x + (b.x - a.x) * t, y: a.y + (b.y - a.y) * t });
+  }
+  return pts;
+}
+
+function buildPath(edge) {
+  const nA = nodeById(edge.from), nB = nodeById(edge.to);
+  const via = edge.via || [];
+
+  // Full chain: [startBoundary, ...viaPoints, endBoundary]
+  const chain = [];
+  const firstTarget = via[0] ?? { x: nB.cx, y: nB.cy };
+  chain.push(bpt(nA, firstTarget.x, firstTarget.y));
+  via.forEach(v => chain.push({ x: v.x, y: v.y }));
+  const lastSource = via.at(-1) ?? { x: nA.cx, y: nA.cy };
+  chain.push(bpt(nB, lastSource.x, lastSource.y));
+
+  // Concatenate segments
+  let pts = [];
+  for (let i = 0; i < chain.length - 1; i++) {
+    const s = seg(chain[i], chain[i + 1], 55);
+    if (pts.length) s.shift();
+    pts = pts.concat(s);
+  }
+  return pts;
+}
+
+// Pre-build all paths
+EDGES.forEach(e => { e._path = buildPath(e); });
+
+// ─── Particles ────────────────────────────────────────────────────────
+function initParticles() {
+  const density = +document.getElementById('density').value;
+  EDGES.forEach(e => {
+    e._parts = Array.from({ length: density }, (_, i) => ({
+      t:     i / density,
+      speed: 0.004 + Math.random() * 0.002,
+    }));
+  });
+}
+
+// ─── Draw helpers ─────────────────────────────────────────────────────
+function rrect(x, y, w, h, r) {
+  ctx.beginPath();
+  ctx.moveTo(x + r, y);
+  ctx.arcTo(x + w, y,     x + w, y + h, r);
+  ctx.arcTo(x + w, y + h, x,     y + h, r);
+  ctx.arcTo(x,     y + h, x,     y,     r);
+  ctx.arcTo(x,     y,     x + w, y,     r);
+  ctx.closePath();
+}
+
+function arrowHead(x, y, angle, color, alpha = 1) {
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.translate(x, y); ctx.rotate(angle);
+  ctx.fillStyle = color;
+  ctx.beginPath();
+  ctx.moveTo(2, 0); ctx.lineTo(-8, -4); ctx.lineTo(-8, 4);
+  ctx.closePath(); ctx.fill();
+  ctx.restore();
+}
+
+function drawEdge(e, alpha) {
+  const pts = e._path;
+  if (!pts || pts.length < 2) return;
+  const color = SC[e.stage];
+
+  ctx.save();
+  ctx.globalAlpha = alpha;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = 1.5;
+  if (e.dashed) ctx.setLineDash([5, 5]);
+  ctx.beginPath();
+  ctx.moveTo(pts[0].x, pts[0].y);
+  pts.forEach(p => ctx.lineTo(p.x, p.y));
+  ctx.stroke();
+  ctx.setLineDash([]);
+  ctx.restore();
+
+  // Arrowhead at final point
+  const n = pts.length;
+  const dx = pts[n-1].x - pts[Math.max(0, n-6)].x;
+  const dy = pts[n-1].y - pts[Math.max(0, n-6)].y;
+  arrowHead(pts[n-1].x, pts[n-1].y, Math.atan2(dy, dx), color, alpha);
+}
+
+function drawParticles(e) {
+  const pts = e._path;
+  if (!pts || !e._parts) return;
+  const color  = SC[e.stage];
+  const psize  = +document.getElementById('psize').value;
+  const glowR  = +document.getElementById('glow').value;
+  const n      = pts.length;
+
+  e._parts.forEach(p => {
+    const { x, y } = pts[Math.min(Math.floor(p.t * n), n - 1)];
+
+    // glow halo
+    if (glowR > 0) {
+      const g = ctx.createRadialGradient(x, y, 0, x, y, glowR);
+      g.addColorStop(0, color + 'cc'); g.addColorStop(1, color + '00');
+      ctx.fillStyle = g;
+      ctx.beginPath(); ctx.arc(x, y, glowR, 0, Math.PI * 2); ctx.fill();
+    }
+    // core
+    ctx.fillStyle = '#ffffff';
+    ctx.beginPath(); ctx.arc(x, y, psize, 0, Math.PI * 2); ctx.fill();
+  });
+}
+
+function drawNode(node, highlight, dim) {
+  const { cx, cy, w, h, label, sub, stage } = node;
+  const color = SC[stage];
+  ctx.save();
+  ctx.globalAlpha = dim ? 0.2 : 1;
+
+  // outer glow on highlight
+  if (highlight) {
+    ctx.shadowColor = color; ctx.shadowBlur = 24;
+  } else {
+    ctx.shadowColor = color; ctx.shadowBlur = 8;
+  }
+
+  // box fill
+  ctx.fillStyle = highlight ? '#1b1b32' : '#0e0e1e';
+  rrect(cx - w/2, cy - h/2, w, h, 8);
+  ctx.fill();
+
+  // box border
+  ctx.shadowBlur = 0;
+  ctx.strokeStyle = color;
+  ctx.lineWidth = highlight ? 2 : 1;
+  rrect(cx - w/2, cy - h/2, w, h, 8);
+  ctx.stroke();
+
+  // label
+  ctx.textAlign = 'center'; ctx.textBaseline = 'middle';
+  ctx.fillStyle = '#ffffff';
+  ctx.font = '600 11px "Segoe UI", system-ui, sans-serif';
+  ctx.fillText(label, cx, sub ? cy - 8 : cy);
+
+  // sub-label
+  if (sub) {
+    ctx.fillStyle = color;
+    ctx.font = '9px "Segoe UI", system-ui, sans-serif';
+    ctx.fillText(sub, cx, cy + 8);
+  }
+  ctx.restore();
+}
+
+function drawBg() {
+  ctx.fillStyle = '#07070f';
+  ctx.fillRect(0, 0, W, H);
+  // subtle dot grid
+  ctx.fillStyle = 'rgba(255,255,255,0.022)';
+  for (let x = 28; x < W; x += 28)
+    for (let y = 28; y < H; y += 28) {
+      ctx.beginPath(); ctx.arc(x, y, 1, 0, Math.PI * 2); ctx.fill();
+    }
+}
+
+// ─── State ────────────────────────────────────────────────────────────
+let hoveredNode = null;
+let activeStage = null;
+let paused      = false;
+let lastTime    = 0;
+
+// ─── Mouse ────────────────────────────────────────────────────────────
+canvas.addEventListener('mousemove', e => {
+  const r  = canvas.getBoundingClientRect();
+  const mx = (e.clientX - r.left) * (W / r.width);
+  const my = (e.clientY - r.top)  * (H / r.height);
+  hoveredNode = NODES.find(n =>
+    mx >= n.cx - n.w/2 && mx <= n.cx + n.w/2 &&
+    my >= n.cy - n.h/2 && my <= n.cy + n.h/2
+  ) || null;
+  canvas.style.cursor = hoveredNode ? 'pointer' : 'crosshair';
+  document.getElementById('hint').textContent = hoveredNode
+    ? `${hoveredNode.label} — ${hoveredNode.sub || 'stage: ' + hoveredNode.stage}`
+    : 'Hover a node to trace connections · Click stage buttons to filter';
+});
+canvas.addEventListener('mouseleave', () => { hoveredNode = null; });
+
+// ─── Main loop ────────────────────────────────────────────────────────
+function render(t) {
+  if (!paused) {
+    const dt  = Math.min((t - lastTime) / 1000, 0.05);
+    const spd = +document.getElementById('speed').value;
+    EDGES.forEach(e => {
+      e._parts?.forEach(p => { p.t = (p.t + p.speed * spd * dt * 60) % 1; });
+    });
+  }
+  lastTime = t;
+
+  drawBg();
+
+  // Which nodes/edges are connected to hovered?
+  const hiNodes = new Set(), hiEdges = new Set();
+  if (hoveredNode) {
+    hiNodes.add(hoveredNode.id);
+    EDGES.forEach(e => {
+      if (e.from === hoveredNode.id || e.to === hoveredNode.id) {
+        hiEdges.add(e); hiNodes.add(e.from); hiNodes.add(e.to);
+      }
+    });
+  }
+
+  // Edge alpha
+  const edgeAlpha = e => {
+    if (hoveredNode)   return hiEdges.has(e)        ? 0.9 : 0.08;
+    if (activeStage)   return e.stage === activeStage ? 0.9 : 0.08;
+    return 0.6;
+  };
+
+  EDGES.forEach(e => {
+    const a = edgeAlpha(e);
+    drawEdge(e, a);
+    if (a > 0.2) drawParticles(e);
+  });
+
+  // Node state
+  NODES.forEach(n => {
+    let hi = false, dim = false;
+    if (hoveredNode) {
+      hi  = n.id === hoveredNode.id;
+      dim = !hiNodes.has(n.id);
+    } else if (activeStage) {
+      hi  = n.stage === activeStage;
+      dim = n.stage !== activeStage;
+    }
+    drawNode(n, hi, dim);
+  });
+
+  requestAnimationFrame(render);
+}
+
+// ─── Controls ────────────────────────────────────────────────────────
+['speed','psize','glow'].forEach(id => {
+  const el = document.getElementById(id);
+  const vEl = document.getElementById(id + 'V');
+  el.addEventListener('input', () => { vEl.textContent = el.value; });
+});
+
+document.getElementById('density').addEventListener('input', e => {
+  document.getElementById('densityV').textContent = e.target.value;
+  initParticles();
+});
+
+// Stage filter buttons
+const STAGE_NAMES = { data:'Data Layer', feature:'ML Training', model:'Model Ops', deploy:'Deployment' };
+const btnBox = document.getElementById('stageBtns');
+Object.entries(STAGE_NAMES).forEach(([stage, label]) => {
+  const b = document.createElement('button');
+  b.className = 'btn'; b.textContent = label;
+  b.style.setProperty('--c', SC[stage]); b.style.color = SC[stage];
+  b.addEventListener('click', () => {
+    activeStage = activeStage === stage ? null : stage;
+    btnBox.querySelectorAll('.btn').forEach(x => x.classList.remove('on'));
+    if (activeStage) b.classList.add('on');
+  });
+  btnBox.appendChild(b);
+});
+
+document.getElementById('pauseBtn').addEventListener('click', () => {
+  paused = !paused;
+  document.getElementById('pauseBtn').textContent = paused ? '▶ Play' : '⏸ Pause';
+});
+document.getElementById('resetBtn').addEventListener('click', initParticles);
+
+// ─── Go ───────────────────────────────────────────────────────────────
+initParticles();
+requestAnimationFrame(render);
+</script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Atom Vibration — Solid-Liquid Coexistence</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: #0a0a0a; display: flex; flex-direction: column; align-items: center;
+         justify-content: center; min-height: 100vh; font-family: 'Segoe UI', sans-serif; gap: 20px; }
+
+  #canvas-wrap { position: relative; }
+  canvas { display: block; border: 1px solid #222; }
+
+  /* boundary line overlay */
+  #boundary-line {
+    position: absolute; top: 0; width: 2px; background: rgba(220,20,60,0.5);
+    height: 100%; pointer-events: none; transition: left 0.1s;
+  }
+  #boundary-label {
+    position: absolute; top: 8px; color: rgba(220,20,60,0.8);
+    font-size: 11px; font-weight: 600; pointer-events: none; white-space: nowrap;
+  }
+  #solid-label, #liquid-label {
+    position: absolute; bottom: 10px; font-size: 11px; font-weight: 700;
+    letter-spacing: 1px; pointer-events: none; text-transform: uppercase;
+  }
+  #solid-label  { left: 12px;  color: rgba(100,180,255,0.7); }
+  #liquid-label { right: 12px; color: rgba(255,120,50,0.7); }
+
+  /* controls panel */
+  #controls {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 12px 32px;
+    background: #141414; border: 1px solid #2a2a2a; border-radius: 10px;
+    padding: 18px 24px; width: 700px;
+  }
+  .ctrl { display: flex; flex-direction: column; gap: 4px; }
+  .ctrl label { font-size: 11px; color: #888; letter-spacing: 0.5px; text-transform: uppercase; }
+  .ctrl .row { display: flex; align-items: center; gap: 10px; }
+  input[type=range] { flex: 1; accent-color: #dc143c; cursor: pointer; }
+  .val { font-size: 13px; color: #eee; font-weight: 600; width: 28px; text-align: right; }
+
+  #fps { position: absolute; top: 8px; right: 10px; font-size: 10px; color: rgba(255,255,255,0.3); }
+</style>
+</head>
+<body>
+
+<div id="canvas-wrap">
+  <canvas id="c"></canvas>
+  <div id="boundary-line"></div>
+  <div id="boundary-label">← solid &nbsp;|&nbsp; liquid →</div>
+  <div id="solid-label">Solid</div>
+  <div id="liquid-label">Liquid</div>
+  <div id="fps"></div>
+</div>
+
+<div id="controls">
+  <div class="ctrl">
+    <label>Solid amplitude (px)</label>
+    <div class="row">
+      <input type="range" id="solidAmp" min="0" max="8" value="1.5" step="0.5">
+      <span class="val" id="solidAmpVal">1.5</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <label>Liquid amplitude (px)</label>
+    <div class="row">
+      <input type="range" id="liquidAmp" min="0" max="16" value="5" step="0.5">
+      <span class="val" id="liquidAmpVal">5</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <label>Vibration speed</label>
+    <div class="row">
+      <input type="range" id="speed" min="0.5" max="8" value="2.5" step="0.5">
+      <span class="val" id="speedVal">2.5</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <label>Boundary position (%)</label>
+    <div class="row">
+      <input type="range" id="boundary" min="15" max="85" value="52" step="1">
+      <span class="val" id="boundaryVal">52%</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <label>Tile size (detail)</label>
+    <div class="row">
+      <input type="range" id="tileSize" min="4" max="24" value="10" step="2">
+      <span class="val" id="tileSizeVal">10</span>
+    </div>
+  </div>
+  <div class="ctrl">
+    <label>Phase randomness</label>
+    <div class="row">
+      <input type="range" id="phaseRand" min="0" max="10" value="6" step="1">
+      <span class="val" id="phaseRandVal">6</span>
+    </div>
+  </div>
+</div>
+
+<script>
+const img = new Image();
+img.src = '../images/intro/5_solid_liquid_coexistence.png';
+
+const canvas  = document.getElementById('c');
+const ctx     = canvas.getContext('2d');
+
+// controls
+const get = id => parseFloat(document.getElementById(id).value);
+const wire = (id, suffix='') => {
+  const el  = document.getElementById(id);
+  const val = document.getElementById(id + 'Val');
+  el.addEventListener('input', () => { val.textContent = el.value + suffix; });
+};
+wire('solidAmp'); wire('liquidAmp'); wire('speed'); wire('boundary', '%');
+wire('tileSize'); wire('phaseRand');
+
+let W, H, phases = [], lastTile = 0, lastPhaseRand = 0;
+let lastT = 0, fps = 0, frameCount = 0;
+
+function buildPhases(tile, randScale) {
+  const cols = Math.ceil(W / tile);
+  const rows = Math.ceil(H / tile);
+  phases = Array.from({ length: cols * rows }, () => ({
+    px: (Math.random() - 0.5) * randScale,
+    py: (Math.random() - 0.5) * randScale,
+    freq: 0.8 + Math.random() * 0.8,   // per-atom frequency variation
+  }));
+}
+
+img.onload = () => {
+  // display at 900×506 max, preserving aspect ratio
+  const maxW = Math.min(900, window.innerWidth - 40);
+  const scale = maxW / img.naturalWidth;
+  W = Math.round(img.naturalWidth  * scale);
+  H = Math.round(img.naturalHeight * scale);
+  canvas.width  = W;
+  canvas.height = H;
+
+  buildPhases(10, 6);
+  lastTile = 10; lastPhaseRand = 6;
+
+  // position boundary line
+  updateBoundaryUI();
+  requestAnimationFrame(loop);
+};
+
+function updateBoundaryUI() {
+  const bPct = get('boundary');
+  const line  = document.getElementById('boundary-line');
+  const label = document.getElementById('boundary-label');
+  line.style.left  = (W * bPct / 100) + 'px';
+  label.style.left = (W * bPct / 100 + 6) + 'px';
+}
+
+document.getElementById('boundary').addEventListener('input', updateBoundaryUI);
+
+function loop(t) {
+  // fps counter
+  frameCount++;
+  if (t - lastT >= 1000) {
+    fps = frameCount; frameCount = 0; lastT = t;
+    document.getElementById('fps').textContent = fps + ' fps';
+  }
+
+  const solidAmp  = get('solidAmp');
+  const liquidAmp = get('liquidAmp');
+  const speed     = get('speed');
+  const bPct      = get('boundary');
+  const tile      = get('tileSize');
+  const randScale = get('phaseRand');
+
+  // rebuild phase table if tile size or randomness changed
+  if (tile !== lastTile || randScale !== lastPhaseRand) {
+    buildPhases(tile, randScale);
+    lastTile = tile; lastPhaseRand = randScale;
+  }
+
+  const boundaryX = W * bPct / 100;
+  const ts = t * 0.001 * speed;   // time in seconds × speed
+
+  // offscreen source (full image at display size)
+  ctx.clearRect(0, 0, W, H);
+
+  const cols = Math.ceil(W / tile);
+  const rows = Math.ceil(H / tile);
+
+  for (let r = 0; r < rows; r++) {
+    for (let c = 0; c < cols; c++) {
+      const sx = c * tile;
+      const sy = r * tile;
+      const tw = Math.min(tile, W - sx);
+      const th = Math.min(tile, H - sy);
+      if (tw <= 0 || th <= 0) continue;
+
+      const idx   = r * cols + c;
+      const p     = phases[idx] || { px: 0, py: 0, freq: 1 };
+
+      // blend amplitude smoothly across boundary (±20px blend zone)
+      const blend = Math.max(0, Math.min(1, (sx - boundaryX + 20) / 40));
+      const amp   = solidAmp + (liquidAmp - solidAmp) * blend;
+
+      const dx = amp * Math.sin(ts * p.freq + p.px);
+      const dy = amp * Math.cos(ts * p.freq + p.py);
+
+      ctx.drawImage(img,
+        // source: map display tile back to natural image coords
+        sx / W * img.naturalWidth,
+        sy / H * img.naturalHeight,
+        tw / W * img.naturalWidth,
+        th / H * img.naturalHeight,
+        // destination: shifted tile
+        sx + dx, sy + dy, tw, th
+      );
+    }
+  }
+
+  requestAnimationFrame(loop);
+}
+</script>
+</body>
+</html>
