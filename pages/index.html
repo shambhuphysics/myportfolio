@@ -97,62 +97,68 @@
         <h1 class="blog-main-title">MY RESEARCH PORTFOLIO</h1>
 
         <!-- Intro slides carousel -->
+        <style>
+          @keyframes title-in {
+            from { opacity:0; transform:translateY(10px); }
+            to   { opacity:1; transform:translateY(0); }
+          }
+          #slide-title { animation: title-in 0.5s ease forwards; }
+        </style>
         <script src="../slides/pngs/slides.js"></script>
-        <div id="slides-wrap" style="position:relative;left:-40px;width:calc(100% + 80px);aspect-ratio:16/9;background:#0d0d1a;cursor:pointer;border-radius:18px;overflow:hidden;">
+        <div id="slides-wrap" style="position:relative;left:calc(-15% - 52px);width:calc(130% + 104px);aspect-ratio:16/9;background:#0d0d1a;cursor:pointer;border-radius:18px;overflow:hidden;">
           <img id="slide-a" src="../slides/pngs/slide-1.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:1;transition:opacity 0.6s ease;">
           <img id="slide-b" src="../slides/pngs/slide-2.png" style="position:absolute;inset:0;width:100%;height:100%;object-fit:contain;opacity:0;transition:opacity 0.6s ease;">
-          <!-- inset shadow fades all edges into the dark background -->
-          <div style="position:absolute;inset:0;box-shadow:inset 0 0 70px 35px #0d0d1a;border-radius:18px;pointer-events:none;"></div>
-          <!-- nav -->
-          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 14px;pointer-events:none;">
-            <button id="slide-prev" style="pointer-events:all;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:26px;width:38px;height:38px;border-radius:50%;cursor:pointer;line-height:1;">&#8249;</button>
-            <button id="slide-next" style="pointer-events:all;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:26px;width:38px;height:38px;border-radius:50%;cursor:pointer;line-height:1;">&#8250;</button>
+          <div style="position:absolute;inset:0;box-shadow:inset 0 0 80px 40px #0d0d1a;border-radius:18px;pointer-events:none;"></div>
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:space-between;padding:0 18px;pointer-events:none;">
+            <button id="slide-prev" style="pointer-events:all;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:28px;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:1;">&#8249;</button>
+            <button id="slide-next" style="pointer-events:all;background:rgba(0,0,0,0.5);border:none;color:#fff;font-size:28px;width:40px;height:40px;border-radius:50%;cursor:pointer;line-height:1;">&#8250;</button>
           </div>
-          <!-- title -->
-          <div id="slide-title" style="position:absolute;bottom:28px;left:0;right:0;text-align:center;color:#fff;font-size:13px;font-weight:600;letter-spacing:.04em;text-shadow:0 1px 6px rgba(0,0,0,0.9);pointer-events:none;padding:0 70px;">High-Throughput DFT Screening &amp; ML</div>
-          <!-- counter -->
-          <div id="slide-counter" style="position:absolute;top:12px;right:14px;background:rgba(0,0,0,0.45);color:#fff;font-size:11px;padding:2px 8px;border-radius:10px;pointer-events:none;">1 / 7</div>
+          <div id="slide-title" style="position:absolute;bottom:22px;left:0;right:0;text-align:center;font-size:14px;font-weight:700;letter-spacing:.06em;pointer-events:none;padding:0 80px;color:#fff;text-shadow:0 0 14px rgba(220,20,60,0.9),0 0 4px rgba(220,20,60,0.6),0 2px 8px rgba(0,0,0,1);">High-Throughput DFT Screening &amp; ML</div>
+          <div id="slide-counter" style="position:absolute;top:12px;right:16px;background:rgba(0,0,0,0.45);color:#aaa;font-size:11px;padding:2px 8px;border-radius:10px;pointer-events:none;">1 / 7</div>
         </div>
         <script>
           (function () {
             var titles = [
-              'High-Throughput DFT Screening & ML',
-              'AI for Earth Observation',
-              'Ab Initio Molecular Dynamics: Earth’s Core',
-              'Quantum Transport Simulations',
-              'Electronic Structure & Phonon Properties',
-              'Agentic AI Framework Design',
-              'End-to-End ML Engineering Pipeline'
+              ‘High-Throughput DFT Screening & ML’,
+              ‘AI for Earth Observation’,
+              ‘Ab Initio Molecular Dynamics — Earth’s Core’,
+              ‘Quantum Transport Simulations’,
+              ‘Electronic Structure & Phonon Properties’,
+              ‘Agentic AI Framework Design’,
+              ‘End-to-End ML Engineering Pipeline’
             ];
-            var n = SLIDE_COUNT, cur = 1, active = 'a', delay = 2000, timer;
+            var n = SLIDE_COUNT, cur = 1, active = ‘a’, delay = 2000, timer;
             function show(i) {
               cur = ((i - 1 + n) % n) + 1;
-              var next_slot = active === 'a' ? 'b' : 'a';
-              var imgIn  = document.getElementById('slide-' + next_slot);
-              var imgOut = document.getElementById('slide-' + active);
-              imgIn.src = '../slides/pngs/slide-' + cur + '.png';
-              imgIn.style.opacity  = '1';
-              imgOut.style.opacity = '0';
-              active = next_slot;
-              document.getElementById('slide-title').textContent   = titles[cur - 1];
-              document.getElementById('slide-counter').textContent = cur + ' / ' + n;
+              var ns = active === ‘a’ ? ‘b’ : ‘a’;
+              document.getElementById(‘slide-’ + ns).src = ‘../slides/pngs/slide-’ + cur + ‘.png’;
+              document.getElementById(‘slide-’ + ns).style.opacity = ‘1’;
+              document.getElementById(‘slide-’ + active).style.opacity = ‘0’;
+              active = ns;
+              var el = document.getElementById(‘slide-title’);
+              el.textContent = titles[cur - 1];
+              el.style.animation = ‘none’;
+              el.offsetHeight;
+              el.style.animation = ‘title-in 0.5s ease forwards’;
+              document.getElementById(‘slide-counter’).textContent = cur + ‘ / ‘ + n;
             }
             function next() { show(cur + 1); }
             function prev() { show(cur - 1); }
             function restart() { clearInterval(timer); timer = setInterval(next, delay); }
             timer = setInterval(next, delay);
-            document.getElementById('slide-next').addEventListener('click', function () { next(); restart(); });
-            document.getElementById('slide-prev').addEventListener('click', function () { prev(); restart(); });
-            document.getElementById('slides-wrap').addEventListener('click', function (e) {
-              if (e.target.id !== 'slide-prev' && e.target.id !== 'slide-next') { next(); restart(); }
+            document.getElementById(‘slide-next’).addEventListener(‘click’, function () { next(); restart(); });
+            document.getElementById(‘slide-prev’).addEventListener(‘click’, function () { prev(); restart(); });
+            document.getElementById(‘slides-wrap’).addEventListener(‘click’, function (e) {
+              if (e.target.id !== ‘slide-prev’ && e.target.id !== ‘slide-next’) { next(); restart(); }
             });
           })();
         </script>
 
         <div class="blog-news">
-          <h3 class="blog-news-title">LATEST NEWS</h3>
-          <p>&#128293; <strong>Exciting News!</strong> Our Research Accepted in RSC Materials Horizons Journal
-            2024-Apr-24</p>
+          <h3 class="blog-news-title">RESEARCH HIGHLIGHTS</h3>
+          <p>&#128196; <strong>Published</strong> — High-throughput screening of penta-monolayers accepted in <em>RSC Materials Horizons</em> &nbsp;(Apr 2024)</p>
+          <p>&#128300; <strong>Current focus</strong> — High-pressure phase diagrams of binary alloys at Earth-core conditions via ab initio MD &amp; ML potentials</p>
+          <p>&#129302; <strong>Exploring</strong> — Agentic AI systems &amp; MLOps pipelines for scientific computing workflows</p>
         </div>
       </main>
 
