@@ -1317,6 +1317,11 @@ footer span a:hover {
 .tl-desc  { font-size: 13.5px; color: #555; line-height: 1.65; margin: 0; }
 .tl-tags  { display:flex; flex-wrap:wrap; gap:6px; margin-top:10px; }
 .tl-tag   { background:rgba(220,20,60,0.07); border:1px solid rgba(220,20,60,0.25); color:#c0392b; font-size:11px; font-weight:600; padding:3px 9px; border-radius:20px; display:inline-flex; align-items:center; gap:4px; }
+.tl-thesis, .tl-advisor { font-size: 13px; color: #444; line-height: 1.6; margin: 8px 0 2px; display:flex; align-items:baseline; gap:8px; }
+.tl-thesis-label { font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: #fff; background: #c0392b; border-radius: 3px; padding: 2px 6px; white-space: nowrap; flex-shrink: 0; }
+.tl-thesis em, .tl-advisor a { color: #333; }
+.tl-advisor a { color: #c0392b; text-decoration: none; font-weight: 600; }
+.tl-advisor a:hover { text-decoration: underline; }
 
 @media (max-width: 600px) {
   .about-intro { flex-direction: column; align-items: center; text-align: center; }
