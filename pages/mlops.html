@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MLOps Projects | Shambhu Bhandari Sharma</title>
+    <link rel="stylesheet" href="../styles/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"/>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap" rel="stylesheet">
+    <style>
+        body { background: #111; color: #fff; line-height: 1.7; font-family: 'Poppins', sans-serif; }
+        .header { padding: 30px 10%; background: #000; border-bottom: 2px solid crimson; display: flex; justify-content: space-between; align-items: center; }
+        .header a { color: #fff; font-size: 18px; font-weight: 500; transition: color 0.3s; text-decoration: none; }
+        .header a:hover { color: crimson; }
+        .logo a span { color: crimson; }
+        .content-container { max-width: 1000px; margin: 50px auto; padding: 0 20px 50px; background: #1e1e2d; border-radius: 12px; box-shadow: 0 10px 30px rgba(0,0,0,0.5); overflow: hidden; }
+        .post-header { padding: 40px; background: linear-gradient(135deg, #111, #1a1a2e); border-bottom: 3px solid crimson; margin: 0 -20px 40px; }
+        .post-header h1 { font-family: 'Ubuntu', sans-serif; font-size: 36px; text-align: center; color: #fff; margin: 0; }
+        .post-header p { text-align: center; color: #aaa; margin: 10px 0 0; font-size: 14px; }
+        .projects-list { margin: 0 20px; display: flex; flex-direction: column; gap: 28px; }
+        .project-card { background: #16162a; border: 1px solid #2a2a3d; border-radius: 10px; overflow: hidden; transition: border-color 0.2s; }
+        .project-card:hover { border-color: crimson; }
+        .project-header { padding: 16px 20px 12px; border-bottom: 1px solid #2a2a3d; display: flex; align-items: flex-start; gap: 14px; }
+        .project-num { font-size: 22px; font-weight: 700; color: crimson; font-family: 'Ubuntu', sans-serif; flex-shrink: 0; line-height: 1.3; }
+        .project-title { font-family: 'Ubuntu', sans-serif; font-size: 16px; font-weight: 600; color: #fff; }
+        .project-body { padding: 16px 20px; }
+        .project-body p { color: #bbb; font-size: 13.5px; margin: 0 0 12px; }
+        .tag-list { display: flex; flex-wrap: wrap; gap: 7px; margin-bottom: 14px; }
+        .tag { padding: 3px 10px; border-radius: 20px; font-size: 11.5px; background: #1e1e3a; border: 1px solid #3a3a5a; color: #aac; }
+        .refs { display: flex; flex-wrap: wrap; gap: 7px; }
+        .badge { padding: 3px 10px; border-radius: 20px; font-size: 11.5px; text-decoration: none; transition: background 0.2s, color 0.2s; white-space: nowrap; }
+        .badge-gh  { background: #1a1a2a; color: #9d9dd9; border: 1px solid #3a3a5a; }
+        .badge-gh:hover  { background: #2a2a4a; color: #fff; }
+        .badge-nb  { background: #1a2a3a; color: #7ab8d9; border: 1px solid #2a4a5a; }
+        .badge-nb:hover  { background: #1e3550; color: #fff; }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo"><a href="index.html">Portfo<span>lio.</span></a></div>
+        <a href="index.html"><i class="fas fa-home"></i> Back to Home</a>
+    </div>
+
+    <div class="content-container">
+        <div class="post-header">
+            <h1>MLOps Projects</h1>
+            <p>End-to-end machine learning pipelines — from data ingestion to model deployment.</p>
+        </div>
+
+        <div class="projects-list">
+
+            <!-- PROJECT 1 -->
+            <div class="project-card">
+                <div class="project-header">
+                    <div class="project-num">01</div>
+                    <div class="project-title">House Price Prediction — End-to-End ML Pipeline</div>
+                </div>
+                <div class="project-body">
+                    <p>A complete supervised learning pipeline for predicting residential property prices. Covers data ingestion and cleaning, exploratory data analysis, feature engineering (encoding, scaling, outlier handling), training and comparing multiple regression models (Linear, Ridge, Lasso, Random Forest, XGBoost), hyperparameter tuning with cross-validation, and evaluation using RMSE and R². Structured as a reproducible, modular codebase following MLOps best practices.</p>
+                    <div class="tag-list">
+                        <span class="tag">Python</span>
+                        <span class="tag">Scikit-learn</span>
+                        <span class="tag">XGBoost</span>
+                        <span class="tag">Pandas</span>
+                        <span class="tag">NumPy</span>
+                        <span class="tag">Feature Engineering</span>
+                        <span class="tag">Regression</span>
+                        <span class="tag">Hyperparameter Tuning</span>
+                    </div>
+                    <div class="refs">
+                        <a class="badge badge-gh" href="https://github.com/shambhubhandari/Houseprice_prediction" target="_blank"><i class="fab fa-github"></i> GitHub</a>
+                    </div>
+                </div>
+            </div>
+
+        </div><!-- /projects-list -->
+
+        <div style="margin: 36px 20px 0; padding: 16px 20px; background: #13132a; border-radius: 8px; border: 1px solid #2a2a4a; text-align: center;">
+            <p style="color:#aaa; font-size:13.5px; margin:0 0 10px">Explore physics and materials-science research projects:</p>
+            <a href="projects.html" style="display:inline-block; padding:8px 22px; background:crimson; color:#fff; border-radius:6px; text-decoration:none; font-size:13.5px; font-weight:600;">View STEM Projects</a>
+        </div>
+
+    </div>
+</body>
+</html>

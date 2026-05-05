@@ -264,6 +264,44 @@ section .title::after {
 .navbar.sticky .menu li.has-dropdown > .dropdown > li > a { color: rgba(255,255,255,0.85); }
 .navbar.sticky .menu li.has-dropdown > .dropdown > li > a:hover { background: rgba(0,0,0,0.15); color: #fff; }
 
+/* ── Nested submenu ───────────────────────────────────── */
+.navbar .menu li.has-submenu { position: relative; }
+.navbar .menu li.has-submenu > .submenu {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 100%;
+  background: #111;
+  min-width: 160px;
+  border-top: 2px solid crimson;
+  border-radius: 0 0 6px 6px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.4);
+  z-index: 1001;
+  padding: 4px 0;
+  list-style: none;
+}
+.navbar .menu li.has-submenu:hover > .submenu { display: block; }
+.navbar .menu li.has-submenu > .submenu > li { display: block; }
+.navbar .menu li.has-submenu > .submenu > li > a {
+  display: block;
+  padding: 9px 18px;
+  font-size: 14px;
+  color: #ccc;
+  margin: 0;
+  white-space: nowrap;
+  transition: color 0.2s, background 0.2s;
+}
+.navbar .menu li.has-submenu > .submenu > li > a:hover {
+  color: #fff;
+  background: rgba(220, 20, 60, 0.15);
+}
+.navbar.sticky .menu li.has-submenu > .submenu {
+  background: crimson;
+  border-top-color: rgba(255,255,255,0.3);
+}
+.navbar.sticky .menu li.has-submenu > .submenu > li > a { color: rgba(255,255,255,0.85); }
+.navbar.sticky .menu li.has-submenu > .submenu > li > a:hover { background: rgba(0,0,0,0.15); color: #fff; }
+
 .menu-btn {
   color: #fff;
   font-size: 23px;
