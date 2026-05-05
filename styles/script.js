@@ -96,8 +96,8 @@ $(document).ready(function () {
   // Static index: sections + sub-pages
   var index = [
     { title: 'About Me',             sub: 'Section',                      type: 'Section',     icon: 'fas fa-user',            href: '#about'              },
-    { title: 'Experience',           sub: 'About section',                 type: 'Section',     icon: 'fas fa-briefcase',       href: '#experience'         },
-    { title: 'Education',            sub: 'About section',                 type: 'Section',     icon: 'fas fa-graduation-cap',  href: '#education'          },
+    { title: 'Experience',           sub: 'About section',                type: 'Section',     icon: 'fas fa-briefcase',       href: '#experience'         },
+    { title: 'Education',            sub: 'About section',                type: 'Section',     icon: 'fas fa-graduation-cap',  href: '#education'          },
     { title: 'Skills',               sub: 'Section',                      type: 'Section',     icon: 'fas fa-code',            href: '#skills'             },
     { title: 'Publications',         sub: 'Section',                      type: 'Section',     icon: 'fas fa-book-open',       href: '#publications'       },
     { title: 'Contact',              sub: 'Section',                      type: 'Section',     icon: 'fas fa-envelope',        href: '#contact'            },
@@ -108,7 +108,8 @@ $(document).ready(function () {
     { title: 'Quantum Computing',    sub: 'Library',                      type: 'Page',        icon: 'fas fa-qrcode',          href: 'quantum.html'        },
     { title: 'Useful Sites',         sub: 'Resources',                    type: 'Page',        icon: 'fas fa-globe',           href: 'useful_sites.html'   },
     { title: 'Wellbeing',            sub: 'Resources',                    type: 'Page',        icon: 'fas fa-heart',           href: 'wellbeing.html'      },
-    { title: 'Research Projects',    sub: 'Research',                     type: 'Page',        icon: 'fas fa-flask',           href: 'projects.html'       },
+    { title: 'STEM Research Projects', sub: 'Research',                   type: 'Page',        icon: 'fas fa-flask',           href: 'projects.html'       },
+    { title: 'MLOps Projects',       sub: 'Research',                     type: 'Page',        icon: 'fas fa-cogs',            href: 'mlops.html'          },
   ];
 
   // Publications — built from DOM
@@ -120,9 +121,7 @@ $(document).ready(function () {
     index.push({
       title: cite.textContent.trim().slice(0, 90),
       sub:   [(journal && journal.textContent.trim()), (year && year.textContent.trim())].filter(Boolean).join(' · '),
-      type:  'Publication',
-      icon:  'fas fa-file-alt',
-      href:  '#publications',
+      type:  'Publication', icon: 'fas fa-file-alt', href: '#publications',
     });
   });
 
@@ -146,6 +145,70 @@ $(document).ready(function () {
       href:  '#' + section.toLowerCase(),
     });
   });
+
+  // ── Deep index: fetch all sub-pages in background ──
+  var PAGE_DEFS = [
+    { file: 'machine_learning.html', label: 'Machine Learning',    icon: 'fas fa-robot'  },
+    { file: 'physics.html',          label: 'Physics & Chemistry', icon: 'fas fa-atom'   },
+    { file: 'quantum.html',          label: 'Quantum Computing',   icon: 'fas fa-qrcode' },
+    { file: 'useful_sites.html',     label: 'Useful Sites',        icon: 'fas fa-globe'  },
+    { file: 'projects.html',         label: 'STEM Projects',       icon: 'fas fa-flask'  },
+    { file: 'mlops.html',            label: 'MLOps Projects',      icon: 'fas fa-cogs'   },
+    { file: 'awards.html',           label: 'Awards',              icon: 'fas fa-trophy' },
+    { file: 'wellbeing.html',        label: 'Wellbeing',           icon: 'fas fa-heart'  },
+  ];
+
+  function addUnique(entry) {
+    var key = entry.title + '|' + entry.href;
+    if (!addUnique._seen) addUnique._seen = {};
+    if (addUnique._seen[key]) return;
+    addUnique._seen[key] = true;
+    index.push(entry);
+  }
+
+  function extractPage(html, def) {
+    var doc = new DOMParser().parseFromString(html, 'text/html');
+    var selectors = [
+      // Category / section headings
+      { sel: '.category h2, .category h3', field: 'title' },
+      // Course names (links and plain spans)
+      { sel: '.course-name a, .course-name > span', field: 'title' },
+      // Specialization block titles
+      { sel: '.spec-title', field: 'title' },
+      // Link grid items
+      { sel: '.link-item a', field: 'title' },
+      // Project cards
+      { sel: '.project-title', field: 'title' },
+      // Project descriptions
+      { sel: '.project-body p', field: 'title' },
+      // Tag lists
+      { sel: '.tag-list .tag', field: 'sub' },
+    ];
+    selectors.forEach(function (s) {
+      doc.querySelectorAll(s.sel).forEach(function (el) {
+        var text = el.textContent.replace(/\s+/g, ' ').trim();
+        if (text.length < 4) return;
+        var entry = { title: text.slice(0, 120), sub: def.label, type: def.label, icon: def.icon, href: def.file };
+        if (s.field === 'sub') { entry.title = def.label; entry.sub = text.slice(0, 80); }
+        addUnique(entry);
+      });
+    });
+  }
+
+  PAGE_DEFS.forEach(function (def) {
+    fetch(def.file)
+      .then(function (r) { return r.ok ? r.text() : Promise.reject(); })
+      .then(function (html) { extractPage(html, def); })
+      .catch(function () {});
+  });
+
+  // ── Scoring ──
+  function score(r, lq, words) {
+    var hay = (r.title + ' ' + r.sub).toLowerCase();
+    if (hay.includes(lq)) return 10;                        // exact phrase
+    var matched = words.filter(function (w) { return hay.includes(w); }).length;
+    return matched > 0 ? matched / words.length * 5 : 0;   // partial word match
+  }
 
   // ── Open / close ──
   function openSearch() {
@@ -195,13 +258,27 @@ $(document).ready(function () {
     }
   }
 
+  function highlight(text, lq) {
+    if (!lq) return text;
+    var re = new RegExp('(' + lq.replace(/[.*+?^${}()|[\]\\]/g, '\\$&') + ')', 'gi');
+    return text.replace(re, '<mark style="background:rgba(220,20,60,0.35);color:#fff;border-radius:2px;">$1</mark>');
+  }
+
   function render(q) {
-    var lq   = q.toLowerCase();
-    var hits = lq
-      ? index.filter(function (r) {
-          return r.title.toLowerCase().includes(lq) || r.sub.toLowerCase().includes(lq) || r.type.toLowerCase().includes(lq);
-        }).slice(0, 10)
-      : index.filter(function (r) { return r.type === 'Section' || r.type === 'Page'; });
+    var lq    = q.toLowerCase();
+    var words = lq.split(/\s+/).filter(Boolean);
+    var hits;
+
+    if (!lq) {
+      hits = index.filter(function (r) { return r.type === 'Section' || r.type === 'Page'; });
+    } else {
+      hits = index
+        .map(function (r) { return { r: r, s: score(r, lq, words) }; })
+        .filter(function (x) { return x.s > 0; })
+        .sort(function (a, b) { return b.s - a.s; })
+        .slice(0, 15)
+        .map(function (x) { return x.r; });
+    }
 
     if (!hits.length) {
       resultsEl.innerHTML = '<div class="search-empty">No results for <strong>"' + q + '"</strong></div>';
@@ -210,7 +287,7 @@ $(document).ready(function () {
     resultsEl.innerHTML = hits.map(function (r) {
       return '<div class="search-result" data-href="' + r.href + '" tabindex="-1">'
         + '<div class="sr-icon"><i class="' + r.icon + '"></i></div>'
-        + '<div class="sr-body"><div class="sr-title">' + r.title + '</div>'
+        + '<div class="sr-body"><div class="sr-title">' + highlight(r.title, lq) + '</div>'
         + (r.sub ? '<div class="sr-sub">' + r.sub + '</div>' : '') + '</div>'
         + '<span class="sr-type">' + r.type + '</span>'
         + '</div>';
