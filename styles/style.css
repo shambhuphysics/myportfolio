@@ -904,6 +904,23 @@ footer span a:hover {
     color: rgba(255,255,255,0.75);
     margin: 0;
   }
+  .navbar .menu li.has-submenu > .submenu {
+    position: static;
+    display: none;
+    background: #222;
+    border-top: 1px solid #333;
+    box-shadow: none;
+    min-width: auto;
+    border-radius: 0;
+    padding: 0;
+  }
+  .navbar .menu li.has-submenu.open > .submenu { display: block; }
+  .navbar .menu li.has-submenu > .submenu > li > a {
+    padding: 10px 40px;
+    font-size: 18px;
+    color: rgba(255,255,255,0.65);
+    margin: 0;
+  }
 
   .home .home-content .text-2 {
     font-size: 70px;

@@ -36,10 +36,19 @@ $(document).ready(function () {
     }
   });
 
+  // mobile: tap submenu parent to accordion-open
+  $('.navbar .menu li.has-submenu > a').on('click', function(e) {
+    if ($(window).width() <= 947) {
+      e.preventDefault();
+      $(this).parent().toggleClass('open')
+             .siblings('.has-submenu').removeClass('open');
+    }
+  });
+
   // close dropdowns when clicking outside the navbar
   $(document).on('click', function(e) {
     if (!$(e.target).closest('.navbar').length) {
-      $('.has-dropdown').removeClass('open');
+      $('.has-dropdown, .has-submenu').removeClass('open');
     }
   });
 
